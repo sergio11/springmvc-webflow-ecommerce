@@ -31,9 +31,26 @@
         <th:block layout:fragment="theme-styles"></th:block>
         <!-- Theme styles END -->
     </head>
-    <body>
-        <div>TODO write content</div>
-        
+    <body class="ecommerce">
+        <!-- BEGIN TOP BAR -->
+        <th:block th:include="fragments/topbar::topbar" />
+        <!-- BEGIN NAVIGATION -->
+        <!-- BEGIN HEADER -->
+        <th:block th:include="fragments/header::header" />
+        <!-- HEADER END -->
+        <!-- BEGIN SLIDER -->
+        <th:block layout:fragment="slider"></th:block>
+        <!-- END SLIDER -->
+        <!-- BEGIN MAIN -->
+        <div class="main">
+            <div class="container">
+                <th:block layout:fragment="content"></th:block>
+            </div>
+        </div>
+        <!-- MAIN END -->
+        <!-- BEGIN FOOTER -->
+        <th:block layout:fragment="fragments/footer::footer"></th:block>
+        <!-- END FOOTER -->
         <!-- Load javascripts at bottom, this will reduce page load time -->
         <!-- BEGIN CORE PLUGINS(REQUIRED FOR ALL PAGES) -->
         <!--[if lt IE 9]>
