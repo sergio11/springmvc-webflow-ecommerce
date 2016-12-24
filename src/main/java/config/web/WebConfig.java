@@ -8,6 +8,7 @@ package config.web;
 import net.rossillo.spring.web.mvc.CacheControlHandlerInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.multipart.MultipartResolver;
@@ -24,6 +25,7 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
  * @author sergio
  */
 @Configuration
+@ComponentScan(value = "web")
 @Import(value = { ViewConfig.class, i18nConfig.class })
 @EnableWebMvc
 public class WebConfig extends WebMvcConfigurerAdapter{
