@@ -27,6 +27,11 @@ public class ViewConfig implements ApplicationContextAware {
         this.applicationContext = applicationContext;
     }
 
+    /**
+     * Implementation of ITemplateResolver that extends AbstractConfigurableTemplateResolver and resolves templates 
+     * using Spring's Resource Resolution mechanism (see ResourceLoader.getResource(String)). 
+     * @return ITemplateResolver
+     */
     @Bean(name = "templateResolver")
     public ITemplateResolver provideTemplateResolver() {
         SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
@@ -47,6 +52,14 @@ public class ViewConfig implements ApplicationContextAware {
         return engine;
     }
 
+    /**
+     * Implementation of the Spring MVC ViewResolver interface.
+     * View resolvers execute after the controller ends its execution. 
+     * They receive the name of the view to be processed and are in charge of creating (and configuring) the corresponding View object for it.
+     * The View implementations managed by this class are subclasses of AbstractThymeleafView. By default, ThymeleafView is used. 
+     * @param templateEngine
+     * @return 
+     */
     @Bean(name = "viewResolver")
     public ViewResolver provideViewResolver(TemplateEngine templateEngine) {
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
