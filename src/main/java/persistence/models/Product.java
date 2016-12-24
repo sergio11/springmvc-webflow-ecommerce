@@ -34,7 +34,6 @@ public class Product implements Serializable {
     private Long id;
     
     @ManyToOne(cascade = CascadeType.MERGE)
-    @Column(nullable = false)
     private ConsumerType consumerType;
     
     @OneToMany(cascade = CascadeType.ALL)
