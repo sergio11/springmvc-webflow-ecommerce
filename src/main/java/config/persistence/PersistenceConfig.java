@@ -14,13 +14,12 @@ import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 
-
 @Configuration
 @Import(value = { DataSourceConfig.class, VendorAdapterConfig.class })
-@EnableJpaRepositories(basePackages = "repositories")
+@EnableJpaRepositories(basePackages = "persistence.repositories")
 public class PersistenceConfig {
 
-    private static final String PACKAGE_TO_SCAN_MODELS = "models";
+    private static final String PACKAGE_TO_SCAN_MODELS = "persistence.models";
     
     @Bean(name = "entityManagerFactory")
     public LocalContainerEntityManagerFactoryBean provideEntityManagerFactory(

@@ -13,6 +13,4 @@ import org.springframework.context.annotation.PropertySource;
 @Configuration
 @PropertySource(value = { "classpath:application.properties" })
 @Import(value = { PersistenceConfig.class, SecurityConfig.class })
-public class RootConfig {
-    
-}
+public class RootConfig {}
