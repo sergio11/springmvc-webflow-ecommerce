@@ -6,11 +6,14 @@
 package persistence.models;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,6 +36,12 @@ public class Product implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    @Column(nullable = false, unique = true)
+    private String name;
+    
+    @Column(nullable = false)
+    private Float price;
+    
     @ManyToOne(cascade = CascadeType.MERGE)
     private ConsumerType consumerType;
     
@@ -41,6 +50,12 @@ public class Product implements Serializable {
     
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Review> reviews = new HashSet();
+    
+    @Enumerated(EnumType.STRING)
+    private ProductStatusEnum status;
+    
+    @Column(nullable = false)
+    private Date createAt = new Date();
 
     public Long getId() {
         return id;
@@ -50,6 +65,22 @@ public class Product implements Serializable {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
+    }
+    
     public ConsumerType getConsumerType() {
         return consumerType;
     }
@@ -73,4 +104,22 @@ public class Product implements Serializable {
     public void setReviews(Set<Review> reviews) {
         this.reviews = reviews;
     }
+
+    public ProductStatusEnum getStatus() {
+        return status;
+    }
+
+    public void setStatus(ProductStatusEnum status) {
+        this.status = status;
+    }
+
+    public Date getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(Date createAt) {
+        this.createAt = createAt;
+    }
+    
+    
 }
