@@ -42,6 +42,18 @@ public class Product implements Serializable {
     @Column(nullable = false)
     private Float price;
     
+    @Column(nullable = false, length = 500)
+    private String description;
+    
+    @Column(nullable = false, length = 300)
+    private String shortDescription;
+    
+    @Column(nullable = false)
+    private Date availableFrom;
+    
+    @Column(nullable = false)
+    private Date availableTo;
+    
     @ManyToOne(cascade = CascadeType.MERGE)
     private ConsumerType consumerType;
     
@@ -79,6 +91,38 @@ public class Product implements Serializable {
 
     public void setPrice(Float price) {
         this.price = price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
+    }
+
+    public Date getAvailableFrom() {
+        return availableFrom;
+    }
+
+    public void setAvailableFrom(Date availableFrom) {
+        this.availableFrom = availableFrom;
+    }
+
+    public Date getAvailableTo() {
+        return availableTo;
+    }
+
+    public void setAvailableTo(Date availableTo) {
+        this.availableTo = availableTo;
     }
     
     public ConsumerType getConsumerType() {

@@ -59,7 +59,7 @@
             <!-- BEGIN PAGE CONTENT-->
             <div class="row">
                 <div class="col-md-12">
-                    <form class="form-horizontal form-row-seperated" action="#">
+                    <form class="form-horizontal form-row-seperated" action="#" th:action="${target}" th:object="${product}">
                         <div class="portlet">
                             <div class="portlet-title">
                                 <div class="caption">
@@ -92,6 +92,9 @@
                                         </li>
                                     </ul>
                                     <div class="tab-content no-space">
+                                        <!-- Edit General information about product -->
+                                        <div class="tab-pane active" id="tab_general" 
+                                             th:replace="admin/fragments/product_general_form::form"></div>
                                     </div>
                                 </div>
                             </div>
