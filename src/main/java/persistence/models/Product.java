@@ -42,10 +42,10 @@ public class Product implements Serializable {
     @Column(nullable = false)
     private Float price;
     
-    @Column(nullable = false, length = 500)
+    @Column(nullable = false, length = 300)
     private String description;
     
-    @Column(nullable = false, length = 300)
+    @Column(nullable = false, length = 200)
     private String shortDescription;
     
     @Column(nullable = false)

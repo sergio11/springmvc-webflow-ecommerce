@@ -21,7 +21,8 @@
                         <span th:text="#{admin.product.edit.form.description.label}">Description</span>:<span class="required">*</span>
                     </label>
                     <div class="col-md-10">
-                        <textarea class="form-control" th:field="*{description}"></textarea>
+                        <textarea class="form-control maxlength-handler" rows="5" th:field="*{description}" maxlength="300"></textarea>
+                        <span class="help-block" th:text="#{admin.product.edit.form.description.help}">max 300 chars</span>
                     </div>
                 </div>
                 <div class="form-group">
@@ -29,7 +30,7 @@
                         <span th:text="#{admin.product.edit.form.short.description.label}">Short Description</span>:<span class="required">*</span>
                     </label>
                     <div class="col-md-10">
-                        <textarea class="form-control" th:field="*{shortDescription}"></textarea>
+                        <textarea class="form-control maxlength-handler" rows="5" th:field="*{shortDescription}" maxlength="200"></textarea>
                         <span class="help-block" th:text="#{admin.product.edit.form.short.description.help}">shown in product listing</span>
                     </div>
                 </div>
