@@ -61,11 +61,7 @@
             <!-- BEGIN PAGE CONTENT-->
             <div class="row">
                 <div class="col-md-12">
-                    <div class="note note-danger">
-                        <p>
-                            NOTE: The below datatable is not connected to a real database so the filter and sorting is just simulated for demo purposes only.
-                        </p>
-                    </div>
+                    <th:block th:replace="admin/fragments/alerts::flash-message"></th:block>
                     <!-- Begin: life time stats -->
                     <div class="portlet">
                         <div class="portlet-title">
@@ -192,7 +188,7 @@
                                             <td></td>
                                         </tr>
                                         <tr class="warning" th:if="${#lists.isEmpty(products)}">
-                                            <td colspan="5" class="text-center" th:text="#{admin.products.table.not.found}">No items found</td>
+                                            <td colspan="6" class="text-center" th:text="#{admin.products.table.not.found}">No items found</td>
                                         </tr>
                                     </tbody>
                                 </table>

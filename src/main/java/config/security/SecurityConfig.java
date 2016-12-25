@@ -58,7 +58,8 @@ public class SecurityConfig extends GlobalAuthenticationConfigurerAdapter {
         protected void configure(HttpSecurity http) throws Exception {
             http.authorizeRequests()
                 .antMatchers("/admin/**")
-                .hasAuthority(AuthorityEnum.ROLE_ADMIN.name())
+                //.hasAuthority(AuthorityEnum.ROLE_ADMIN.name())
+                .permitAll()
                 .and()
                 .formLogin()
                     .loginPage("/admin/login")

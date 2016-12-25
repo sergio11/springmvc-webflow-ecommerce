@@ -50,9 +50,9 @@
                             <!-- END SIDEBAR TOGGLER BUTTON -->
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="#" th:href="@{/admin/home}">
                                 <span class="icon-home"></span>
-                                Dashboard
+                                <span th:text="#{admin.sidebar.home}">Home</span>
                             </a>
                         </li>
                         <li>
@@ -68,9 +68,15 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a th:href="@{/admin/products/all}">
                                 <span class="icon-pencil"></span>
-                                Product Edit
+                                <span th:text="#{admin.sidebar.products}">Products</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{/admin/products/create}">
+                                <span class="icon-pencil"></span>
+                                <span th:text="#{admin.sidebar.add}">Add Product</span>
                             </a>
                         </li>
                     </ul>
