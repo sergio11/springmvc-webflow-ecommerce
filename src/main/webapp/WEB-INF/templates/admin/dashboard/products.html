@@ -12,27 +12,14 @@
         </th:block>
     </head>
     <body>
-        <div layout:fragment="content">
+        <th:block layout:fragment="content">
             <!-- BEGIN PAGE HEADER-->
             <h3 class="page-title">
                 <span th:text="#{admin.products.title}">Products</span>
                 <small th:text="#{admin.products.subtitle}">product listing</small>
             </h3>
             <div class="page-bar">
-                <ul class="page-breadcrumb">
-                    <li>
-                        <i class="fa fa-home"></i>
-                        <a href="index.html">Home</a>
-                        <i class="fa fa-angle-right"></i>
-                    </li>
-                    <li>
-                        <a href="#">eCommerce</a>
-                        <i class="fa fa-angle-right"></i>
-                    </li>
-                    <li>
-                        <a href="#">Products</a>
-                    </li>
-                </ul>
+                <!--<th:block th:include="admin/fragments/header::breadcrumb(${ {{url:'admin/home', text:'breadcrumb.home'}} })"/>-->
                 <div class="page-toolbar">
                     <div class="btn-group pull-right">
                         <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
@@ -187,7 +174,7 @@
                 </div>
             </div>
             <!-- END PAGE CONTENT-->
-        </div>
+        </th:block>
         <!-- BEGIN PAGE LEVEL PLUGINS -->
         <th:block layout:fragment="page-plugins">
             <script type="text/javascript" th:src="@{/assets/global/plugins/select2/select2.min.js}"></script>

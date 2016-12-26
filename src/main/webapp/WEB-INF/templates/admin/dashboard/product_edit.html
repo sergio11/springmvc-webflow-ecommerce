@@ -8,10 +8,11 @@
             <link rel="stylesheet" type="text/css" th:href="@{/assets/global/plugins/bootstrap-datepicker/css/datepicker.css}"/>
             <link rel="stylesheet" type="text/css" th:href="@{/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css}"/>
             <link rel="stylesheet" type="text/css" th:href="@{/assets/global/plugins/fancybox/source/jquery.fancybox.css}" />
+            <link rel="stylesheet" type="text/css" th:href="@{/assets/global/plugins/bootstrap3-wysihtml5/bootstrap3-wysihtml5.min.css}" />
         </th:block>
     </head>
     <body>
-        <div layout:fragment="content">
+        <th:block layout:fragment="content">
             <h3 class="page-title">
                 <span th:text="#{admin.product.edit.title}">Product Edit</span>
                 <small th:text="#{admin.product.edit.subtitle}">create & edit product</small>
@@ -94,9 +95,20 @@
                                     <div class="tab-content no-space">
                                         <!-- Edit General information about product -->
                                         <div class="tab-pane active" id="tab_general" 
-                                             th:replace="admin/fragments/product_general_form::form"></div>
+                                             th:include="admin/fragments/product_general_form::form"></div>
                                         <!-- Edit Detail information for Product -->
-                                        <div class="tab-pane" id="tab_meta"></div>
+                                        <div class="tab-pane" id="tab_meta">
+                                            <div class="form-body">
+                                                <div class="form-group">
+                                                    <label class="col-md-10 control-label">
+                                                        <span th:text="#{admin.product.edit.form.preview.label}">Descripción completa</span>
+                                                    </label>
+                                                    <div class="col-md-10">
+                                                        <textarea id="bootstrap-editor" th:field="*{completeDesc}" placeholder="Enter text ..." style="width:98%;height:200px;"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -104,7 +116,7 @@
                     </form>
                 </div>
             </div>
-        </div>
+        </th:block>
         <!-- BEGIN PAGE LEVEL PLUGINS -->
         <th:block layout:fragment="page-plugins">
             <script type="text/javascript" th:src="@{/assets/global/plugins/select2/select2.min.js}"></script>
@@ -117,6 +129,7 @@
             <script type="text/javascript" th:src="@{/assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js}"></script>
             <script type="text/javascript" th:src="@{/assets/global/plugins/fancybox/source/jquery.fancybox.pack.js}"></script>
             <script type="text/javascript" th:src="@{/assets/global/plugins/plupload/js/plupload.full.min.js}"></script>
+            <script type="text/javascript" th:src="@{/assets/global/plugins/bootstrap3-wysihtml5/bootstrap3-wysihtml5.all.min.js}"></script>
         </th:block>
         <!-- END PAGE LEVEL PLUGINS -->
         <!-- BEGIN PAGE LEVEL SCRIPTS -->

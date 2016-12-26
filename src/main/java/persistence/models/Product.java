@@ -20,6 +20,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -76,8 +77,10 @@ public class Product implements Serializable {
     @JsonView(DataTablesOutput.View.class)
     private ProductStatusEnum status;
     
+    @Lob
+    @Column(nullable = true)
+    private String completeDesc;
     
-
     public Long getId() {
         return id;
     }
@@ -173,6 +176,12 @@ public class Product implements Serializable {
     public void setCreateAt(Date createAt) {
         this.createAt = createAt;
     }
+
+    public String getCompleteDesc() {
+        return completeDesc;
+    }
     
-    
+    public void setCompleteDesc(String completeDesc) {
+        this.completeDesc = completeDesc;
+    }
 }

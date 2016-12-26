@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package web.admin.controllers;
 
 import com.fasterxml.jackson.annotation.JsonView;
@@ -27,10 +22,10 @@ public class ProductRestController {
     @Autowired
     private ProductRepository productRepository;
     
+    
     @JsonView(DataTablesOutput.View.class)
     @GetMapping("/data")
-    public DataTablesOutput<Product> getUsers(@Valid DataTablesInput input) {
+    public DataTablesOutput<Product> all(@Valid DataTablesInput input) {
         return productRepository.findAll(input);
     }
-    
 }
