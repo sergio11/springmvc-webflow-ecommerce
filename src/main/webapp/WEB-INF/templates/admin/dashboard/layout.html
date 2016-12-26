@@ -11,6 +11,7 @@
         <meta content="width=device-width, initial-scale=1" name="viewport"/>
         <meta content="A Dashbord admin" name="description"/>
         <meta content="Sergio" name="author"/>
+        <meta name="ctx" th:content="${#httpServletRequest.getContextPath()}" />
         <!-- BEGIN GLOBAL MANDATORY STYLES -->
         <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
         <link th:href="@{/assets/global/plugins/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>
@@ -129,6 +130,14 @@
         <!-- END PAGE LEVEL SCRIPTS -->
         <script type="text/javascript">
             jQuery(document).ready(function() {
+                var _ctx = $("meta[name='ctx']").attr("content");
+                console.log("Este es el contexto", _ctx);
+                // Prepend context path to all jQuery AJAX requests
+                $.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
+                    if (!options.crossDomain) {
+                        options.url = _ctx + options.url;
+                    }
+                });
                 Metronic.init(); // init metronic core componets
                 Layout.init(); // init layout
             });

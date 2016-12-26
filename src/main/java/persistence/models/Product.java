@@ -5,6 +5,7 @@
  */
 package persistence.models;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
@@ -22,6 +23,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 
 /**
  *
@@ -34,12 +36,15 @@ public class Product implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView(DataTablesOutput.View.class)
     private Long id;
     
     @Column(nullable = false, unique = true)
+    @JsonView(DataTablesOutput.View.class)
     private String name;
     
     @Column(nullable = false)
+    @JsonView(DataTablesOutput.View.class)
     private Float price;
     
     @Column(nullable = false, length = 300)
@@ -63,11 +68,15 @@ public class Product implements Serializable {
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Review> reviews = new HashSet();
     
+    @Column(nullable = false)
+    @JsonView(DataTablesOutput.View.class)
+    private Date createAt = new Date();
+    
     @Enumerated(EnumType.STRING)
+    @JsonView(DataTablesOutput.View.class)
     private ProductStatusEnum status;
     
-    @Column(nullable = false)
-    private Date createAt = new Date();
+    
 
     public Long getId() {
         return id;

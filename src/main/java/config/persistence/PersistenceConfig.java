@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.data.jpa.datatables.repository.DataTablesRepositoryFactoryBean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.repository.init.Jackson2RepositoryPopulatorFactoryBean;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -16,7 +17,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
 @Import(value = { DataSourceConfig.class, VendorAdapterConfig.class })
-@EnableJpaRepositories(basePackages = "persistence.repositories")
+@EnableJpaRepositories(repositoryFactoryBeanClass = DataTablesRepositoryFactoryBean.class, basePackages = "persistence.repositories")
 public class PersistenceConfig {
 
     private static final String PACKAGE_TO_SCAN_MODELS = "persistence.models";

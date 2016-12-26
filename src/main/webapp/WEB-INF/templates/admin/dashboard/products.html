@@ -126,7 +126,7 @@
                                             <th width="10%" th:text="#{admin.products.table.head.status}">Status</th>
                                             <th width="10%" th:text="#{admin.products.table.head.actions}">Actions</th>
                                         </tr>
-                                        <tr role="row" class="filter" th:if="${not #lists.isEmpty(products)}">
+                                        <tr role="row" class="filter">
                                             <td>
                                             </td>
                                             <td>
@@ -179,17 +179,6 @@
 
                                     </thead>
                                     <tbody>
-                                        <tr th:if="${not #lists.isEmpty(products)}" th:each="p:${products}">
-                                            <td th:text="${p.id}">Id</td>
-                                            <td th:text="${p.name}">Product&nbsp;Name</td>
-                                            <td th:text="${p.price}">Price</td>
-                                            <td th:text="${p.createAt}">Date&nbsp;Created</td>
-                                            <td th:text="${p.status}">status</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr class="warning" th:if="${#lists.isEmpty(products)}">
-                                            <td colspan="6" class="text-center" th:text="#{admin.products.table.not.found}">No items found</td>
-                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -204,6 +193,7 @@
             <script type="text/javascript" th:src="@{/assets/global/plugins/select2/select2.min.js}"></script>
             <script type="text/javascript" th:src="@{/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js}"></script>
             <script type="text/javascript" th:src="@{/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js}"></script>
+            <script type="text/javascript" th:src="@{/assets/global/plugins/jquery.spring-friendly.min.js}"></script>
             <script type="text/javascript" th:src="@{/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js}"></script>
         </th:block>
         <!-- END PAGE LEVEL PLUGINS -->
