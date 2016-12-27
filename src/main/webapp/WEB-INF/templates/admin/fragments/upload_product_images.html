@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <th:block th:fragment="upload">
+            <div class="alert alert-success margin-bottom-10">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                <i class="fa fa-warning fa-lg"></i> Image type and information need to be specified.
+            </div>
+            <div id="tab_images_uploader_container" class="text-align-reverse margin-bottom-10">
+                <a id="tab_images_uploader_pickfiles" href="javascript:;" class="btn yellow">
+                    <i class="fa fa-plus"></i> Select Files </a>
+                <a id="tab_images_uploader_uploadfiles" href="javascript:;" class="btn green">
+                    <i class="fa fa-share"></i> Upload Files </a>
+            </div>
+            <div class="row">
+                <div id="tab_images_uploader_filelist" class="col-md-6 col-sm-12">
+                </div>
+            </div>
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr role="row" class="heading">
+                        <th width="8%">
+                            Image
+                        </th>
+                        <th width="25%">
+                            Label
+                        </th>
+                        <th width="8%">
+                            Sort Order
+                        </th>
+                        <th width="10%">
+                            Base Image
+                        </th>
+                        <th width="10%">
+                            Small Image
+                        </th>
+                        <th width="10%">
+                            Thumbnail
+                        </th>
+                        <th width="10%">
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
+        </th:block>
+    </body>
+</html>
