@@ -11,7 +11,7 @@ import java.io.IOException;
  *
  * @author sergio
  */
-public interface UploadStrategy<T> {
-    T saveBytes(T object, byte[] bytes) throws IOException;
-    T appendBytes(T object, byte[] bytes) throws IOException;
+public interface UploadStrategy<T, E> {
+    T saveBytes(E object) throws IOException;
+    T appendBytes(E object) throws IOException;
 }

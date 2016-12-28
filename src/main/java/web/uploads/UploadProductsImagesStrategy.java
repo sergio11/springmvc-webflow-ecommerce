@@ -8,10 +8,10 @@ package web.uploads;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,46 +20,61 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
-import web.models.Media;
+import web.admin.exceptions.AppendToNonExistentFileException;
+import web.models.RequestUploadFile;
 
 /**
  * @author sergio
  */
 @Component
 @Scope(value="request", proxyMode= ScopedProxyMode.TARGET_CLASS)
-public class UploadProductsImagesStrategy implements UploadStrategy<Media>{
+public class UploadProductsImagesStrategy implements UploadStrategy<String, RequestUploadFile>{
        
     private static Logger logger = LoggerFactory.getLogger(UploadProductsImagesStrategy.class);
     
     @Autowired
     private HttpServletRequest request;
-    
     @Value("${folder.products.images}")
     private String folderProducts;
-    
     private String realPathtoUploads;
     
-    private Path getFilePath(Media media){
-        if(media.getName() != null){
-            File file = new File(realPathtoUploads, media.getName());
+    private File getFileToSave(String fileName, String ext) throws AppendToNonExistentFileException{
+        if(fileName != null){
+            File file = new File(realPathtoUploads, fileName);
             if(file.exists() && file.canWrite())
-                return file.toPath();
+                return file;
+            else
+                throw new AppendToNonExistentFileException(fileName);
         }
-        String name = String.format("%s.%s", RandomStringUtils.randomAlphanumeric(8), media.getExt());
-        media.setName(name);
-        return new File(realPathtoUploads, name).toPath();
+        String name = String.format("%s.%s", RandomStringUtils.randomAlphanumeric(8), ext);
+        return new File(realPathtoUploads, name);
     }
     
     @Override
-    public Media saveBytes(Media media, byte[] bytes) throws IOException{
-        Files.write(getFilePath(media), bytes, StandardOpenOption.CREATE);
-        return media;
+    public String saveBytes(RequestUploadFile uploadFile) throws IOException{
+        // get new file to save bytes
+        File fileToSave = getFileToSave(null, uploadFile.getExt());
+        Files.write(fileToSave.toPath(), uploadFile.getBytes(), StandardOpenOption.CREATE);
+        // return name
+        return fileToSave.getName();
     }
 
     @Override
-    public Media appendBytes(Media media, byte[] bytes) throws IOException{
-        Files.write(getFilePath(media), bytes, StandardOpenOption.APPEND);
-        return media;
+    public String appendBytes(RequestUploadFile uploadFile) throws IOException{
+        HttpSession session = request.getSession();
+        String fileName = null;
+        if(uploadFile.getId() != null){
+            // get file name from session for append bytes
+            if(session.getAttribute(uploadFile.getId()) != null)
+                fileName = (String)session.getAttribute(uploadFile.getId());
+        }
+        // get file to save bytes
+        File fileToSave = getFileToSave(fileName, uploadFile.getExt());
+        // append bytes to file
+        Files.write(fileToSave.toPath(), uploadFile.getBytes(), StandardOpenOption.APPEND);
+        // save filename on session
+        session.setAttribute(uploadFile.getId(), fileToSave.getName());
+        return fileToSave.getName();
     }
     
     @PostConstruct
