@@ -1,9 +1,4 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <title>TODO supply a title</title>
@@ -49,16 +44,16 @@ and open the template in the editor.
                         </td>
                     </tr>
                     <!-- Template for dynamic adding -->
-                    <tr id="modelRowTemplate" th:data-origin="@{/images/products/}" style="visibility: hidden">
+                    <tr id="modelRowTemplate" th:data-origin="@{/images/products/}" style="display: none">
                         <td>
                             <img src="#" width="100" height="100" />
-                            <input type="hidden" name="models[].image" data-image />
+                            <input type="hidden" data-image />
                         </td>
                         <td>
-                            <input type="text" class="form-control" name="models[].desc" th:placeholder="#{admin.product.edit.models.th.desc.placeholder}">
+                            <input type="text" data-desc class="form-control"  th:placeholder="#{admin.product.edit.models.th.desc.placeholder}">
                         </td>
                         <td>
-                            <input type="number" class="form-control" name="models[].quantity" value="0"/>
+                            <input type="number" data-quantity class="form-control"  value="0"/>
                         </td>
                     </tr>
                 </tbody>

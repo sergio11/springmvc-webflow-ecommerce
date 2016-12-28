@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package persistence.models;
 
 import com.fasterxml.jackson.annotation.JsonView;
@@ -23,10 +18,14 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
+import persistence.constraints.ValidateDateRange;
 
 /**
  *
@@ -35,6 +34,7 @@ import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 @Entity
 @Table(name = "PRODUCTS")
 @Inheritance(strategy = InheritanceType.JOINED)
+@ValidateDateRange(start="availableFrom", end="availableTo", message="{product.daterange.invalid}")
 public class Product implements Serializable {
     
     @Id
@@ -42,28 +42,38 @@ public class Product implements Serializable {
     @JsonView(DataTablesOutput.View.class)
     private Long id;
     
-    @Column(nullable = false, unique = true)
+    @NotBlank(message="{product.name.notnull}")
+    @Size(min=5, max=80, message="{product.name.size}")
+    @Column(nullable = false, unique = true, length = 80)
     @JsonView(DataTablesOutput.View.class)
     private String name;
     
-    @Column(nullable = false)
+    @Column(nullable = false, precision=5, scale=2)
+    @DecimalMax(value="999.99", inclusive=true, message="{product.price.max}")
+    @DecimalMin(value="00.00", message="{product.price.min}")
     @JsonView(DataTablesOutput.View.class)
-    private Float price;
+    private Double price;
     
+    @NotBlank(message="{product.description.notnull}")
+    @Size(min=30, max=300, message="{product.description.size}")
     @Column(nullable = false, length = 300)
     private String description;
     
+    @NotBlank(message="{product.shortDescription.notnull}")
+    @Size(min=30, max=200, message="{product.shortDescription.size}")
     @Column(nullable = false, length = 200)
     private String shortDescription;
     
+    @NotBlank(message="{product.availableFrom.notnull}")
     @Column(nullable = false)
-    private Date availableFrom;
+    private long availableFrom;
     
+    @NotBlank(message="{product.availableTo.notnull}")
     @Column(nullable = false)
-    private Date availableTo;
+    private long availableTo;
     
-    @ManyToOne(cascade = CascadeType.MERGE)
-    private ConsumerType consumerType;
+    @Enumerated(EnumType.STRING)
+    private ConsumerTypeEnum consumerType;
     
     @OneToMany(cascade = CascadeType.ALL)
     private List<Model> models = new ArrayList();
@@ -99,11 +109,11 @@ public class Product implements Serializable {
         this.name = name;
     }
 
-    public Float getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -124,26 +134,26 @@ public class Product implements Serializable {
     }
 
     public Date getAvailableFrom() {
-        return availableFrom;
+        return new Date(availableFrom);
     }
 
     public void setAvailableFrom(Date availableFrom) {
-        this.availableFrom = availableFrom;
+        this.availableFrom = availableFrom.getTime();
     }
 
     public Date getAvailableTo() {
-        return availableTo;
+        return new Date(availableTo);
     }
 
     public void setAvailableTo(Date availableTo) {
-        this.availableTo = availableTo;
+        this.availableTo = availableTo.getTime();
     }
     
-    public ConsumerType getConsumerType() {
+    public ConsumerTypeEnum getConsumerType() {
         return consumerType;
     }
 
-    public void setConsumerType(ConsumerType consumerType) {
+    public void setConsumerType(ConsumerTypeEnum consumerType) {
         this.consumerType = consumerType;
     }
 
@@ -186,4 +196,11 @@ public class Product implements Serializable {
     public void setCompleteDesc(String completeDesc) {
         this.completeDesc = completeDesc;
     }
+
+    @Override
+    public String toString() {
+        return "Product{" + "id=" + id + ", name=" + name + ", price=" + price + ", description=" + description + ", shortDescription=" + shortDescription + ", availableFrom=" + availableFrom + ", availableTo=" + availableTo + ", consumerType=" + consumerType + ", models=" + models + ", reviews=" + reviews + ", createAt=" + createAt + ", status=" + status + ", completeDesc=" + completeDesc + '}';
+    }
+    
+    
 }

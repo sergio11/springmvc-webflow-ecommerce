@@ -1,9 +1,4 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <title>TODO supply a title</title>
@@ -14,6 +9,11 @@ and open the template in the editor.
         <div th:fragment="flash-message" th:if="${not #lists.isEmpty(successFlashMessages)}" class="note note-success">
             <ul>
                 <li th:each="message:${successFlashMessages}" th:text="${message}"></li>
+            </ul>
+        </div>
+        <div th:fragment="form-errors" class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+            <ul>
+                <li class="text-left" th:each="err: ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
             </ul>
         </div>
     </body>
