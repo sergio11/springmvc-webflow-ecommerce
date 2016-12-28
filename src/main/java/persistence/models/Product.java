@@ -7,8 +7,10 @@ package persistence.models;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -64,7 +66,7 @@ public class Product implements Serializable {
     private ConsumerType consumerType;
     
     @OneToMany(cascade = CascadeType.ALL)
-    private Set<ProductColor> productColors = new HashSet();
+    private List<Model> models = new ArrayList();
     
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Review> reviews = new HashSet();
@@ -145,14 +147,14 @@ public class Product implements Serializable {
         this.consumerType = consumerType;
     }
 
-    public Set<ProductColor> getProductColors() {
-        return productColors;
+    public List<Model> getModels() {
+        return models;
     }
 
-    public void setProductColors(Set<ProductColor> productColors) {
-        this.productColors = productColors;
+    public void setModels(List<Model> models) {
+        this.models = models;
     }
-
+    
     public Set<Review> getReviews() {
         return reviews;
     }

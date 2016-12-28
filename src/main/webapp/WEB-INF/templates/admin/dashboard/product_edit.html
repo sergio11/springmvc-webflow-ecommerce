@@ -67,10 +67,22 @@
                                     <i class="fa fa-shopping-cart"></i>Test Product
                                 </div>
                                 <div class="actions btn-set">
-                                    <button type="button" name="back" class="btn default"><i class="fa fa-angle-left"></i> Back</button>
-                                    <button class="btn default" type="reset"><i class="fa fa-reply"></i> Reset</button>
-                                    <button class="btn green" type="submit"><i class="fa fa-check"></i> Save</button>
-                                    <button class="btn green"><i class="fa fa-check-circle"></i> Save & Continue Edit</button>
+                                    <a class="btn default" th:href="@{/admin/products}">
+                                        <i class="fa fa-angle-left"></i>
+                                        <span th:text="#{admin.product.edit.btns.back}">Back</span>
+                                    </a>
+                                    <button class="btn default" type="reset">
+                                        <i class="fa fa-reply"></i>
+                                        <span th:text="#{admin.product.edit.btns.reset}">Reset</span>
+                                    </button>
+                                    <button class="btn green" type="submit">
+                                        <i class="fa fa-check"></i>
+                                        <span th:text="#{admin.product.edit.btns.save}">Save</span>
+                                    </button>
+                                    <button class="btn green">
+                                        <i class="fa fa-check-circle"></i>
+                                        <span th:text="#{admin.product.edit.btns.save.and.continue}">Save & Continue Edit</span>
+                                    </button>
                                 </div>
                             </div>
                             <div class="portlet-body">
