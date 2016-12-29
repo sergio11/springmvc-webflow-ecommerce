@@ -47,7 +47,7 @@ public class UploadController {
         RequestUploadFile uploadFile = new RequestUploadFile();
         uploadFile.setId(fileid);
         uploadFile.setBytes(file.getBytes());
-        uploadFile.setExt("png");
+        uploadFile.setContentType(file.getContentType());
         uploadFile.setOriginalName(file.getOriginalFilename());
         
         String fileName = null;

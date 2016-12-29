@@ -15,7 +15,7 @@ public class RequestUploadFile implements Serializable {
     
     private String id;
     private byte[] bytes;
-    private String ext;
+    private String contentType;
     private String originalName;
 
     public String getId() {
@@ -34,12 +34,12 @@ public class RequestUploadFile implements Serializable {
         this.bytes = bytes;
     }
 
-    public String getExt() {
-        return ext;
+    public String getContentType() {
+        return contentType;
     }
 
-    public void setExt(String ext) {
-        this.ext = ext;
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
     }
 
     public String getOriginalName() {
@@ -52,6 +52,6 @@ public class RequestUploadFile implements Serializable {
 
     @Override
     public String toString() {
-        return "RequestUploadFile{" + "id=" + id + ", bytes=" + bytes + ", ext=" + ext + ", originalName=" + originalName + '}';
+        return "RequestUploadFile{" + "id=" + id + ", bytes=" + bytes + ", ext=" + contentType + ", originalName=" + originalName + '}';
     }
 }

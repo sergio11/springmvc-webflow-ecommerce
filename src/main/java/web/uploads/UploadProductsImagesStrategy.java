@@ -34,7 +34,7 @@ public class UploadProductsImagesStrategy implements UploadStrategy<String, Requ
     private String folderProducts;
     private String realPathtoUploads;
     
-    private File getFileToSave(String fileName, String ext) throws AppendToNonExistentFileException{
+    private File getFileToSave(String fileName, String contentType) throws AppendToNonExistentFileException{
         if(fileName != null){
             File file = new File(realPathtoUploads, fileName);
             if(file.exists() && file.canWrite())
@@ -42,14 +42,14 @@ public class UploadProductsImagesStrategy implements UploadStrategy<String, Requ
             else
                 throw new AppendToNonExistentFileException(fileName);
         }
-        String name = String.format("%s.%s", RandomStringUtils.randomAlphanumeric(8), ext);
+        String name = String.format("%s.%s", RandomStringUtils.randomAlphanumeric(8), contentType.replace("image/", ""));
         return new File(realPathtoUploads, name);
     }
     
     @Override
     public String saveBytes(RequestUploadFile uploadFile) throws IOException{
         // get new file to save bytes
-        File fileToSave = getFileToSave(null, uploadFile.getExt());
+        File fileToSave = getFileToSave(null, uploadFile.getContentType());
         Files.write(fileToSave.toPath(), uploadFile.getBytes(), StandardOpenOption.CREATE);
         // return name
         return fileToSave.getName();
@@ -65,7 +65,7 @@ public class UploadProductsImagesStrategy implements UploadStrategy<String, Requ
                 fileName = (String)session.getAttribute(uploadFile.getId());
         }
         // get file to save bytes
-        File fileToSave = getFileToSave(fileName, uploadFile.getExt());
+        File fileToSave = getFileToSave(fileName, uploadFile.getContentType());
         // append bytes to file
         Files.write(fileToSave.toPath(), uploadFile.getBytes(), StandardOpenOption.APPEND);
         // save filename on session
