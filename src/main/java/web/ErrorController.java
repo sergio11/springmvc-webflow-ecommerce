@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package web;
 
 
@@ -13,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import web.admin.exceptions.NotFoundException;
 
 /**
  *
@@ -22,6 +18,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class ErrorController {
     
     private static Logger logger = LoggerFactory.getLogger(ErrorController.class);
+    
+    @ExceptionHandler(NotFoundException.class)
+    public String notfound(final NotFoundException notFoundException, final Model model) {
+        return "global/errors/404";
+    }
 
     @ExceptionHandler(Throwable.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
