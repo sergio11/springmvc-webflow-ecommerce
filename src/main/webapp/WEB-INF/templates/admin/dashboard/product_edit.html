@@ -67,8 +67,10 @@
                             <div class="portlet-title">
                                 <div class="caption">
                                     <i class="fa fa-shopping-cart"></i>
-                                    <span th:if="${product.name != null and !product.name.isEmpty()}" th:text="${product.name}"></span>
-                                    <span th:if="${product.name == null}" th:text="#{admin.product.new}">New Product</span>
+                                    <th:block th:with="expr_result = ${product.name != null && !product.name.isEmpty()}"> 
+                                        <span th:if="${expr_result}" th:text="${product.name}"></span>
+                                        <span th:unless="${expr_result}" th:text="#{admin.product.new}">New Product</span>
+                                    </th:block>
                                 </div>
                                 <div class="actions btn-set">
                                     <a class="btn default" th:href="@{/admin/products}">
@@ -83,7 +85,7 @@
                                         <i class="fa fa-check"></i>
                                         <span th:text="#{admin.product.edit.btns.save}">Save</span>
                                     </button>
-                                    <button class="btn green">
+                                    <button class="btn green" type="submit" name="continueEditing" value="true">
                                         <i class="fa fa-check-circle"></i>
                                         <span th:text="#{admin.product.edit.btns.save.and.continue}">Save & Continue Edit</span>
                                     </button>

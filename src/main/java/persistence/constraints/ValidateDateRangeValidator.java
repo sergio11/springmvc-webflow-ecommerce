@@ -1,8 +1,9 @@
 package persistence.constraints;
 
+import java.util.Date;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.PropertyUtils;
 
 /**
  *
@@ -23,9 +24,9 @@ public class ValidateDateRangeValidator implements ConstraintValidator<ValidateD
     public boolean isValid(Object value, ConstraintValidatorContext context) {
         try
         {
-            final Long start = Long.valueOf(BeanUtils.getProperty(value, startFieldName));
-            final Long end = Long.valueOf(BeanUtils.getProperty(value, endFieldName));
-            return start == null && end == null || start != null && end > start;
+            final Date start = (Date)PropertyUtils.getProperty(value, startFieldName);
+            final Date end = (Date)PropertyUtils.getProperty(value, endFieldName);
+            return start == null && end == null || start != null && end.after(start);
         }
         catch (final Exception ignore)
         {

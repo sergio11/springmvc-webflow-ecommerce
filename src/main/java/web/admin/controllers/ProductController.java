@@ -28,6 +28,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import persistence.models.Product;
 import persistence.repositories.ProductRepository;
 import web.admin.exceptions.ProductNotFoundException;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -85,11 +86,12 @@ public class ProductController {
     public String process(
             @ModelAttribute(ATTRIBUTE_NAME) @Valid Product product, 
             BindingResult bindingResult,
+            @RequestParam(value = "continueEditing", required = false, defaultValue = "false") boolean continueEditing,
             RedirectAttributes model,
             // SessionStatus lets you clear your SessionAttributes
             SessionStatus sessionStatus,
             HttpServletRequest request){
-       
+        
         logger.info("Product to save: " + product.toString());
         if (bindingResult.hasErrors()) {
             model.addFlashAttribute(BINDING_RESULT_NAME, bindingResult);
@@ -101,6 +103,13 @@ public class ProductController {
         List<String> successMessages = new ArrayList();
         successMessages.add(messageSource.getMessage("message.product.save.success", new Object[]{product.getId()}, Locale.getDefault()));
         model.addFlashAttribute("successFlashMessages", successMessages);
-        return "redirect:/admin/products/all";
+        String redirectTo;
+        if(continueEditing){
+            model.addAttribute("productId", product.getId());
+            redirectTo = "redirect:/admin/products/edit/{productId}";
+        }else{
+            redirectTo = "redirect:/admin/products/all";
+        }
+        return redirectTo; 
     }
 }

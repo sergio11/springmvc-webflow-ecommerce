@@ -22,6 +22,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
@@ -64,11 +66,14 @@ public class Product implements Serializable {
     @Column(nullable = false, length = 200)
     private String shortDescription;
 
+    @NotNull(message="{product.availableFrom.notnull}")
+    @Future(message="{product.availableFrom.future}")
     @Column(nullable = false)
-    private long availableFrom;
+    private Date availableFrom;
     
+    @NotNull(message="{product.availableTo.notnull}")
     @Column(nullable = false)
-    private long availableTo;
+    private Date availableTo;
     
     @Enumerated(EnumType.STRING)
     private ConsumerTypeEnum consumerType;
@@ -132,19 +137,19 @@ public class Product implements Serializable {
     }
 
     public Date getAvailableFrom() {
-        return new Date(availableFrom);
+        return availableFrom;
     }
 
     public void setAvailableFrom(Date availableFrom) {
-        this.availableFrom = availableFrom.getTime();
+        this.availableFrom = availableFrom;
     }
 
     public Date getAvailableTo() {
-        return new Date(availableTo);
+        return availableTo;
     }
 
     public void setAvailableTo(Date availableTo) {
-        this.availableTo = availableTo.getTime();
+        this.availableTo = availableTo;
     }
     
     public ConsumerTypeEnum getConsumerType() {
