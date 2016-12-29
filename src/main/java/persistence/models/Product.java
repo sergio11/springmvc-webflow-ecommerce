@@ -63,12 +63,10 @@ public class Product implements Serializable {
     @Size(min=30, max=200, message="{product.shortDescription.size}")
     @Column(nullable = false, length = 200)
     private String shortDescription;
-    
-    @NotBlank(message="{product.availableFrom.notnull}")
+
     @Column(nullable = false)
     private long availableFrom;
     
-    @NotBlank(message="{product.availableTo.notnull}")
     @Column(nullable = false)
     private long availableTo;
     
