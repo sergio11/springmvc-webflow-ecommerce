@@ -11,6 +11,7 @@
         <meta content="A ecommerce proyect with Spring" name="description">
         <meta content="Spring MVC Spring Web Flow Spring Security" name="keywords">
         <meta content="sergio" name="author">
+        <meta name="ctx" th:content="${#httpServletRequest.getContextPath()}" />
         <!-- Fonts START -->
         <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|PT+Sans+Narrow|Source+Sans+Pro:200,300,400,600,700,900&amp;subset=all" rel="stylesheet" type="text/css">
         <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900&amp;subset=all" rel="stylesheet" type="text/css"><!--- fonts for slider on the index page -->  
@@ -36,10 +37,10 @@
     </head>
     <body class="ecommerce">
         <!-- BEGIN TOP BAR -->
-        <th:block th:include="fragments/topbar::topbar" />
+        <th:block th:replace="frontend/fragments/topbar::topbar" />
         <!-- BEGIN NAVIGATION -->
         <!-- BEGIN HEADER -->
-        <th:block th:include="fragments/header::header" />
+        <th:block th:replace="frontend/fragments/header::header" />
         <!-- HEADER END -->
         <!-- BEGIN SLIDER -->
         <th:block layout:fragment="slider"></th:block>
@@ -52,7 +53,7 @@
         </div>
         <!-- MAIN END -->
         <!-- BEGIN FOOTER -->
-        <th:block layout:fragment="fragments/footer::footer"></th:block>
+        <th:block th:replace="frontend/fragments/footer::footer"></th:block>
         <!-- END FOOTER -->
         <!-- Load javascripts at bottom, this will reduce page load time -->
         <!-- BEGIN CORE PLUGINS(REQUIRED FOR ALL PAGES) -->
@@ -74,6 +75,7 @@
         <!-- END PAGE LEVEL JAVASCRIPTS -->
         <script type="text/javascript">
             jQuery(document).ready(function() {
+                _ctx = $("meta[name='ctx']").attr("content");
                 Layout.init();
             });
         </script>

@@ -1,7 +1,6 @@
 package persistence.models;
 
 /**
- *
  * @author sergio
  */
 public enum AuthorityEnum {

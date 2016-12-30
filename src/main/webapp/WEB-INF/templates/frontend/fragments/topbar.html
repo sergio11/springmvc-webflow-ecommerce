@@ -14,22 +14,22 @@ xmlns:th="http://www.thymeleaf.org">
                     <!-- BEGIN TOP BAR LEFT PART -->
                     <div class="col-md-6 col-sm-6 additional-shop-info">
                         <ul class="list-unstyled list-inline">
-                            <li><i class="fa fa-phone"></i><span>+1 456 6717</span></li>
+                            <li><i class="fa fa-phone"></i><span th:text="#{topbar.phone}">+1 456 6717</span></li>
                             <!-- BEGIN CURRENCIES -->
                             <li class="shop-currencies">
-                                <a href="javascript:void(0);">€</a>
+                                <a href="javascript:void(0);">$</a>
                                 <a href="javascript:void(0);">£</a>
-                                <a href="javascript:void(0);" class="current">$</a>
+                                <a href="javascript:void(0);" class="current">€</a>
                             </li>
                             <!-- END CURRENCIES -->
                             <!-- BEGIN LANGS -->
                             <li class="langs-block">
-                                <a href="javascript:void(0);" class="current">English </a>
-                                <div class="langs-block-others-wrapper"><div class="langs-block-others">
-                                        <a href="javascript:void(0);">French</a>
-                                        <a href="javascript:void(0);">Germany</a>
-                                        <a href="javascript:void(0);">Turkish</a>
-                                    </div></div>
+                                <a href="javascript:void(0);" class="current" th:text="#{topbar.langs.spanish}">Spanish</a>
+                                <div class="langs-block-others-wrapper">
+                                    <div class="langs-block-others">
+                                        <a href="#" th:text="#{topbar.langs.english}">English</a>
+                                    </div>
+                                </div>
                             </li>
                             <!-- END LANGS -->
                         </ul>
@@ -38,10 +38,9 @@ xmlns:th="http://www.thymeleaf.org">
                     <!-- BEGIN TOP BAR MENU -->
                     <div class="col-md-6 col-sm-6 additional-nav">
                         <ul class="list-unstyled list-inline pull-right">
-                            <li><a href="shop-account.html">My Account</a></li>
-                            <li><a href="shop-wishlist.html">My Wishlist</a></li>
-                            <li><a href="shop-checkout.html">Checkout</a></li>
-                            <li><a href="page-login.html">Log In</a></li>
+                            <li><a href="#" sec:authorize="isAuthenticated()" th:text="#{topbar.myaccount}">My Account</a></li>
+                            <li><a href="#" th:text="#{topbar.checkout}">Checkout</a></li>
+                            <li><a href="#" sec:authorize="!isAuthenticated()" th:text="#{topbar.login}">Log In</a></li>
                         </ul>
                     </div>
                     <!-- END TOP BAR MENU -->
