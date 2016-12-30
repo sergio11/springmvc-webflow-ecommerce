@@ -15,60 +15,57 @@
                         <div class="col-md-4 steps-block-col">
                             <i class="fa fa-truck"></i>
                             <div>
-                                <h2>Free shipping</h2>
-                                <em>Express delivery withing 3 days</em>
+                                <h2 th:text="#{footer.steps.shipping.title}">Free shipping</h2>
+                                <em th:text="#{footer.steps.shipping.desc}">Express delivery withing 3 days</em>
                             </div>
                             <span>&nbsp;</span>
                         </div>
                         <div class="col-md-4 steps-block-col">
                             <i class="fa fa-gift"></i>
                             <div>
-                                <h2>Daily Gifts</h2>
-                                <em>3 Gifts daily for lucky customers</em>
+                                <h2 th:text="#{footer.steps.gifts.title}">Daily Gifts</h2>
+                                <em th:text="#{footer.steps.gifts.desc}">3 Gifts daily for lucky customers</em>
                             </div>
                             <span>&nbsp;</span>
                         </div>
                         <div class="col-md-4 steps-block-col">
                             <i class="fa fa-phone"></i>
                             <div>
-                                <h2>477 505 8877</h2>
-                                <em>24/7 customer care available</em>
+                                <h2 th:text="#{footer.steps.customer.title}">477 505 8877</h2>
+                                <em th:text="#{footer.steps.customer.desc}">24/7 customer care available</em>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- END STEPS -->
-
             <!-- BEGIN PRE-FOOTER -->
             <div class="pre-footer">
                 <div class="container">
                     <div class="row">
                         <!-- BEGIN BOTTOM ABOUT BLOCK -->
                         <div class="col-md-3 col-sm-6 pre-footer-col">
-                            <h2>About us</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam sit nonummy nibh euismod tincidunt ut laoreet dolore magna aliquarm erat sit volutpat. Nostrud exerci tation ullamcorper suscipit lobortis nisl aliquip  commodo consequat. </p>
-                            <p>Duis autem vel eum iriure dolor vulputate velit esse molestie at dolore.</p>
+                            <h2 th:text="#{footer.about.title}">About us</h2>
+                            <p th:text="#{footer.about.desc}">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam sit nonummy nibh euismod tincidunt ut laoreet dolore magna aliquarm erat sit volutpat. Nostrud exerci tation ullamcorper suscipit lobortis nisl aliquip  commodo consequat. </p>
                         </div>
                         <!-- END BOTTOM ABOUT BLOCK -->
                         <!-- BEGIN BOTTOM INFO BLOCK -->
                         <div class="col-md-3 col-sm-6 pre-footer-col">
-                            <h2>Information</h2>
+                            <h2 th:text="#{footer.information.title}">Information</h2>
                             <ul class="list-unstyled">
-                                <li><i class="fa fa-angle-right"></i> <a href="javascript:;">Delivery Information</a></li>
-                                <li><i class="fa fa-angle-right"></i> <a href="javascript:;">Customer Service</a></li>
-                                <li><i class="fa fa-angle-right"></i> <a href="javascript:;">Order Tracking</a></li>
-                                <li><i class="fa fa-angle-right"></i> <a href="javascript:;">Shipping &amp; Returns</a></li>
-                                <li><i class="fa fa-angle-right"></i> <a href="contacts.html">Contact Us</a></li>
-                                <li><i class="fa fa-angle-right"></i> <a href="javascript:;">Careers</a></li>
-                                <li><i class="fa fa-angle-right"></i> <a href="javascript:;">Payment Methods</a></li>
+                                <li><i class="fa fa-angle-right"></i><a href="javascript:;" th:text="#{footer.information.delivery}">Delivery Information</a></li>
+                                <li><i class="fa fa-angle-right"></i><a href="javascript:;" th:text="#{footer.information.customer.service}">Customer Service</a></li>
+                                <li><i class="fa fa-angle-right"></i><a href="javascript:;" th:text="#{footer.information.order.tracking}">Order Tracking</a></li>
+                                <li><i class="fa fa-angle-right"></i><a href="javascript:;" th:text="#{footer.information.shipping.and.returns}">Shipping &amp; Returns</a></li>
+                                <li><i class="fa fa-angle-right"></i><a href="contacts.html" th:text="#{footer.information.contact}">Contact Us</a></li>
+                                <li><i class="fa fa-angle-right"></i><a href="javascript:;" th:text="#{footer.information.careers}">Careers</a></li>
+                                <li><i class="fa fa-angle-right"></i><a href="javascript:;" th:text="#{footer.information.payment.methods}">Payment Methods</a></li>
                             </ul>
                         </div>
                         <!-- END INFO BLOCK -->
-
                         <!-- BEGIN TWITTER BLOCK --> 
                         <div class="col-md-3 col-sm-6 pre-footer-col">
-                            <h2 class="margin-bottom-0">Latest Tweets</h2>
+                            <h2 class="margin-bottom-0" th:text="#{footer.tweets.title}">Latest Tweets</h2>
                             <a class="twitter-timeline" href="https://twitter.com/twitterapi" data-tweet-limit="2" data-theme="dark" data-link-color="#57C8EB" data-widget-id="455411516829736961" data-chrome="noheader nofooter noscrollbar noborders transparent">Loading tweets by @keenthemes...</a>      
                         </div>
                         <!-- END TWITTER BLOCK -->
@@ -77,12 +74,12 @@
                         <div class="col-md-3 col-sm-6 pre-footer-col">
                             <h2>Our Contacts</h2>
                             <address class="margin-bottom-40">
-                                35, Lorem Lis Street, Park Ave<br>
-                                California, US<br>
+                                Calle de Serrano<br>
+                                Madrid, ES<br>
                                 Phone: 300 323 3456<br>
                                 Fax: 300 323 1456<br>
-                                Email: <a href="mailto:info@metronic.com">info@metronic.com</a><br>
-                                Skype: <a href="skype:metronic">metronic</a>
+                                Email: <a href="shop@gmail.com">shop@gmail.com</a><br>
+                                Skype: <a href="skype:shop">shop</a>
                             </address>
                         </div>
                         <!-- END BOTTOM CONTACTS -->
@@ -106,12 +103,12 @@
                         <!-- BEGIN NEWLETTER -->
                         <div class="col-md-6 col-sm-6">
                             <div class="pre-footer-subscribe-box pull-right">
-                                <h2>Newsletter</h2>
+                                <h2 th:text="#{footer.newsletter.title}">Newsletter</h2>
                                 <form action="#">
                                     <div class="input-group">
                                         <input type="text" placeholder="youremail@mail.com" class="form-control">
                                         <span class="input-group-btn">
-                                            <button class="btn btn-primary" type="submit">Subscribe</button>
+                                            <button class="btn btn-primary" type="submit" th:text="#{footer.newsletter.subscribe}">Subscribe</button>
                                         </span>
                                     </div>
                                 </form>
@@ -129,17 +126,17 @@
                     <div class="row">
                         <!-- BEGIN COPYRIGHT -->
                         <div class="col-md-6 col-sm-6 padding-top-10">
-                            2014 © Metronic Shop UI. ALL Rights Reserved. 
+                            2016 © Sergio Sánchez
                         </div>
                         <!-- END COPYRIGHT -->
                         <!-- BEGIN PAYMENTS -->
                         <div class="col-md-6 col-sm-6">
                             <ul class="list-unstyled list-inline pull-right">
-                                <li><img src="@{/assets/frontend/layout/img/payments/western-union.jpg}" alt="We accept Western Union" title="We accept Western Union"></li>
-                                <li><img src="@{/assets/frontend/layout/img/payments/american-express.jpg}" alt="We accept American Express" title="We accept American Express"></li>
-                                <li><img src="@{/assets/frontend/layout/img/payments/MasterCard.jpg}" alt="We accept MasterCard" title="We accept MasterCard"></li>
-                                <li><img src="@{/assets/frontend/layout/img/payments/PayPal.jpg}" alt="We accept PayPal" title="We accept PayPal"></li>
-                                <li><img src="@{/assets/frontend/layout/img/payments/visa.jpg}" alt="We accept Visa" title="We accept Visa"></li>
+                                <li><img th:src="@{/assets/frontend/layout/img/payments/western-union.jpg}" th:alt="#{footer.payments.western.union}" th:title="#{footer.payments.western.union}"></li>
+                                <li><img th:src="@{/assets/frontend/layout/img/payments/american-express.jpg}" th:alt="#{footer.payments.american.express}" th:title="#{footer.payments.american.express}"></li>
+                                <li><img th:src="@{/assets/frontend/layout/img/payments/MasterCard.jpg}" th:alt="#{footer.payments.mastercard}" th:title="#{footer.payments.mastercard}"></li>
+                                <li><img th:src="@{/assets/frontend/layout/img/payments/PayPal.jpg}" th:alt="#{footer.payments.paypal}" title="#{footer.payments.paypal}"></li>
+                                <li><img th:src="@{/assets/frontend/layout/img/payments/visa.jpg}" th:alt="#{footer.payments.visa}" th:title="#{footer.payments.visa}"></li>
                             </ul>
                         </div>
                         <!-- END PAYMENTS -->

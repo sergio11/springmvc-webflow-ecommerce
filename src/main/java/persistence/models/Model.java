@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- *
  * @author sergio
  */
 @Entity
