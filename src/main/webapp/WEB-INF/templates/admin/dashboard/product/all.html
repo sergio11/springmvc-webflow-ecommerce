@@ -22,23 +22,16 @@
                 <!--<th:block th:include="admin/fragments/header::breadcrumb(${ {{url:'admin/home', text:'breadcrumb.home'}} })"/>-->
                 <div class="page-toolbar">
                     <div class="btn-group pull-right">
-                        <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
-                            Actions <i class="fa fa-angle-down"></i>
+                        <button type="button" class="btn btn-fit-height btn-success dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
+                            <span th:text="#{admin.products.actions.btn}">Actions</span>
+                            <i class="fa fa-angle-down"></i>
                         </button>
                         <ul class="dropdown-menu pull-right" role="menu">
                             <li>
-                                <a href="#">Action</a>
-                            </li>
-                            <li>
-                                <a href="#">Another action</a>
-                            </li>
-                            <li>
-                                <a href="#">Something else here</a>
-                            </li>
-                            <li class="divider">
-                            </li>
-                            <li>
-                                <a href="#">Separated link</a>
+                                <a th:href="@{/admin/products/create}">
+                                    <span class="icon-present"></span>
+                                    <span th:text="#{admin.products.actions.add}">Add Product</span>
+                                </a>
                             </li>
                         </ul>
                     </div>
