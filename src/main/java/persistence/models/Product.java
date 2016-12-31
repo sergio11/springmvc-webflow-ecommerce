@@ -20,6 +20,8 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Future;
@@ -79,11 +81,9 @@ public class Product implements Serializable {
     private ConsumerTypeEnum consumerType;
     
     @OneToMany(cascade = CascadeType.ALL)
-    private List<Model> models = new ArrayList();
-    
-    @OneToMany(cascade = CascadeType.ALL)
     private Set<Review> reviews = new HashSet();
     
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     @JsonView(DataTablesOutput.View.class)
     private Date createAt = new Date();
@@ -95,6 +95,9 @@ public class Product implements Serializable {
     @Lob
     @Column(nullable = true)
     private String completeDesc;
+    
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<ProductLine> productLines;
     
     public Long getId() {
         return id;
@@ -159,14 +162,6 @@ public class Product implements Serializable {
     public void setConsumerType(ConsumerTypeEnum consumerType) {
         this.consumerType = consumerType;
     }
-
-    public List<Model> getModels() {
-        return models;
-    }
-
-    public void setModels(List<Model> models) {
-        this.models = models;
-    }
     
     public Set<Review> getReviews() {
         return reviews;
@@ -200,10 +195,16 @@ public class Product implements Serializable {
         this.completeDesc = completeDesc;
     }
 
+    public List<ProductLine> getProductLines() {
+        return productLines;
+    }
+
+    public void setProductLines(List<ProductLine> productLines) {
+        this.productLines = productLines;
+    }
+
     @Override
     public String toString() {
-        return "Product{" + "id=" + id + ", name=" + name + ", price=" + price + ", description=" + description + ", shortDescription=" + shortDescription + ", availableFrom=" + availableFrom + ", availableTo=" + availableTo + ", consumerType=" + consumerType + ", models=" + models + ", reviews=" + reviews + ", createAt=" + createAt + ", status=" + status + ", completeDesc=" + completeDesc + '}';
+        return "Product{" + "id=" + id + ", name=" + name + ", price=" + price + ", description=" + description + ", shortDescription=" + shortDescription + ", availableFrom=" + availableFrom + ", availableTo=" + availableTo + ", consumerType=" + consumerType + ", reviews=" + reviews + ", createAt=" + createAt + ", status=" + status + ", completeDesc=" + completeDesc + ", productLines=" + productLines + '}';
     }
-    
-    
 }
