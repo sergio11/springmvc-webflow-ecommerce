@@ -101,7 +101,7 @@
                                             <a href="#tab_meta" data-toggle="tab" th:text="#{admin.product.edit.tabs.title.meta}">Meta</a>
                                         </li>
                                         <li>
-                                            <a href="#tab_images" data-toggle="tab" th:text="#{admin.product.edit.tabs.title.images}">Images</a>
+                                            <a href="#tab_product_lines" data-toggle="tab" th:text="#{admin.product.edit.tabs.title.lines}">Product Lines</a>
                                         </li>
                                         <li>
                                             <a href="#tab_reviews" data-toggle="tab">
@@ -113,7 +113,7 @@
                                     <div class="tab-content no-space">
                                         <!-- Edit General information about product -->
                                         <div class="tab-pane active" id="tab_general" 
-                                             th:include="admin/fragments/product_general_form::form"></div>
+                                             th:include="admin/fragments/product/general::form"></div>
                                         <!-- Edit Detail information for Product -->
                                         <div class="tab-pane" id="tab_meta">
                                             <div class="form-body">
@@ -128,8 +128,8 @@
                                             </div>
                                         </div>
                                         <!-- Edit Product Images -->
-                                        <div class="tab-pane" id="tab_images" 
-                                             th:include="admin/fragments/upload_product_images::upload"></div>
+                                        <div class="tab-pane" id="tab_product_lines" 
+                                             th:include="admin/fragments/product/lines::form"></div>
                                     </div>
                                 </div>
                             </div>

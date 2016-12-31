@@ -58,7 +58,7 @@ public class ProductController {
     @GetMapping("/all")
     public String all(Model model){
         model.addAttribute("products",  new ArrayList<Product>());
-        return "admin/dashboard/products";
+        return "admin/dashboard/product/all";
     }
     
     @GetMapping("/create")
@@ -66,7 +66,7 @@ public class ProductController {
         if(!model.containsAttribute(BINDING_RESULT_NAME)) {
             model.addAttribute(ATTRIBUTE_NAME,  new Product());
         }
-        return "admin/dashboard/product_edit";
+        return "admin/dashboard/product/edit";
     }
     
     @GetMapping("/edit/{productId}")
@@ -79,7 +79,7 @@ public class ProductController {
             }
             model.addAttribute(ATTRIBUTE_NAME, product);
         }
-        return "admin/dashboard/product_edit";
+        return "admin/dashboard/product/edit";
     }
     
     @PostMapping("/save")
