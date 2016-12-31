@@ -11,21 +11,21 @@ import java.io.Serializable;
  *
  * @author sergio
  */
-public class UploadFileResponse implements Serializable {
+public class ProductMediaUploadResponse implements Serializable {
     
     private String fileId;
     private String filename;
     private String contentType;
     private Long size;
 
-    public UploadFileResponse(String fileId, String filename, String contentType, Long size) {
+    public ProductMediaUploadResponse(String fileId, String filename, String contentType, Long size) {
         this.fileId = fileId;
         this.filename = filename;
         this.contentType = contentType;
         this.size = size;
     }
     
-    public UploadFileResponse(){}
+    public ProductMediaUploadResponse(){}
 
     public String getFileId() {
         return fileId;

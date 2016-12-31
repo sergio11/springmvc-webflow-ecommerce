@@ -14,4 +14,5 @@ import java.io.IOException;
 public interface UploadStrategy<T, E> {
     T saveBytes(E object) throws IOException;
     T appendBytes(E object) throws IOException;
+    Boolean delete(String name) throws IOException;
 }

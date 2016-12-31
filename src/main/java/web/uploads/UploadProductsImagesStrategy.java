@@ -34,6 +34,16 @@ public class UploadProductsImagesStrategy implements UploadStrategy<String, Requ
     private String folderProducts;
     private String realPathtoUploads;
     
+    @PostConstruct
+    public void init() {
+        logger.info("init UploadProductsImagesStrategy bean");
+        realPathtoUploads = request.getServletContext().getRealPath(folderProducts);
+        if (!new File(realPathtoUploads).exists()) {
+            logger.info("create path to products images");
+            new File(realPathtoUploads).mkdirs();
+        }
+    }
+    
     private File getFileToSave(String fileName, String contentType) throws AppendToNonExistentFileException{
         if(fileName != null){
             File file = new File(realPathtoUploads, fileName);
@@ -73,13 +83,14 @@ public class UploadProductsImagesStrategy implements UploadStrategy<String, Requ
         return fileToSave.getName();
     }
     
-    @PostConstruct
-    public void init() {
-        logger.info("init UploadProductsImagesStrategy bean");
-        realPathtoUploads = request.getServletContext().getRealPath(folderProducts);
-        if (!new File(realPathtoUploads).exists()) {
-            logger.info("create path to products images");
-            new File(realPathtoUploads).mkdirs();
+    @Override
+    public Boolean delete(String name) throws IOException {
+        Boolean result = Boolean.FALSE;
+        if(name != null){
+            File file = new File(realPathtoUploads, name);
+            if(file.exists() && file.canWrite())
+                result = file.delete();
         }
+        return result;
     }
 }

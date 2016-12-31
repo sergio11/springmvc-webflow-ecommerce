@@ -34,8 +34,8 @@ public class ProductLine implements Serializable {
     private Integer stock = 0;
     @NotBlank(message="{product.line.desc.notnull}")
     @Size(min=5, max=80, message="{product.line.desc.size}")
-    private String desc;
-    @ManyToOne
+    private String description;
+    @ManyToOne(optional=false)
     private Product product;
     @OneToMany(mappedBy = "productLine")
     private List<OrderLine> orderLines = new ArrayList();
@@ -64,12 +64,12 @@ public class ProductLine implements Serializable {
         this.stock = stock;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Product getProduct() {
@@ -90,6 +90,6 @@ public class ProductLine implements Serializable {
 
     @Override
     public String toString() {
-        return "ProductLine{" + "id=" + id + ", image=" + image + ", quantity=" + stock + ", desc=" + desc + ", product=" + product + ", orderLines=" + orderLines + '}';
+        return "ProductLine{" + "id=" + id + ", image=" + image + ", stock=" + stock + ", description=" + description + ", orderLines=" + orderLines + '}';
     }
 }

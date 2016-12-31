@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,8 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import web.admin.exceptions.AppendToNonExistentFileException;
 import web.models.ErrorResponse;
+import web.models.ProductMediaDeleteResponse;
 import web.models.RequestUploadFile;
-import web.models.UploadFileResponse;
+import web.models.ProductMediaUploadResponse;
 import web.uploads.UploadProductsImagesStrategy;
 
 /**
@@ -27,18 +30,18 @@ import web.uploads.UploadProductsImagesStrategy;
  * @author sergio
  */
 @RestController
-@RequestMapping("/admin/products/uploads")
-public class UploadController {
+@RequestMapping(value = "/admin/products/media", produces = MediaType.APPLICATION_JSON_VALUE)
+public class ProductMediaController {
     
-    private static Logger logger = LoggerFactory.getLogger(UploadController.class);
+    private static Logger logger = LoggerFactory.getLogger(ProductMediaController.class);
  
     @Autowired
     private UploadProductsImagesStrategy uploadStrategy;
     @Autowired
     private ReloadableResourceBundleMessageSource messageSource;
     
-    @PostMapping(value = "/media", produces = MediaType.APPLICATION_JSON_VALUE)
-    public UploadFileResponse uploadMedia(
+    @PostMapping("/upload")
+    public ProductMediaUploadResponse upload(
             @RequestBody MultipartFile file,
             @RequestParam String fileid,
             @RequestParam(required = false, defaultValue = "-1") int chunks,
@@ -58,7 +61,13 @@ public class UploadController {
             fileName = uploadStrategy.saveBytes(uploadFile);
         }
        
-        return new UploadFileResponse(fileid, fileName, file.getContentType(), file.getSize());
+        return new ProductMediaUploadResponse(fileid, fileName, file.getContentType(), file.getSize());
+    }
+    
+    @DeleteMapping("/delete/{name}")
+    public ProductMediaDeleteResponse delete(@PathVariable String name) throws IOException{
+        Boolean result = uploadStrategy.delete(name);
+        return new ProductMediaDeleteResponse(name, result);
     }
     
     @ExceptionHandler(AppendToNonExistentFileException.class)

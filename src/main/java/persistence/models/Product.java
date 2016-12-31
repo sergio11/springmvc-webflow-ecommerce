@@ -12,6 +12,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -96,8 +97,8 @@ public class Product implements Serializable {
     @Column(nullable = true)
     private String completeDesc;
     
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<ProductLine> productLines;
+    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<ProductLine> productLines = new ArrayList();
     
     public Long getId() {
         return id;

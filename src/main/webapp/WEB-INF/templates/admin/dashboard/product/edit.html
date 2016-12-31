@@ -116,11 +116,9 @@
                                              th:include="admin/fragments/product/general::form"></div>
                                         <!-- Edit Detail information for Product -->
                                         <div class="tab-pane" id="tab_meta">
+                                            <div class="alert alert-info margin-bottom-10 text-center" th:text="#{admin.product.edit.form.preview.label}"></div>
                                             <div class="form-body">
                                                 <div class="form-group">
-                                                    <label class="col-md-10 control-label">
-                                                        <span th:text="#{admin.product.edit.form.preview.label}">Descripción completa</span>
-                                                    </label>
                                                     <div class="col-md-10">
                                                         <textarea id="bootstrap-editor" th:field="*{completeDesc}" placeholder="Enter text ..." style="width:98%;height:200px;"></textarea>
                                                     </div>

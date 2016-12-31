@@ -29,6 +29,7 @@ import persistence.models.Product;
 import persistence.repositories.ProductRepository;
 import web.admin.exceptions.ProductNotFoundException;
 import org.springframework.web.bind.annotation.RequestParam;
+import persistence.models.ProductLine;
 
 /**
  *
@@ -77,6 +78,7 @@ public class ProductController {
             if (product == null) {
                 throw new ProductNotFoundException();
             }
+            logger.info("Product Lines count: " + product.getProductLines().size());
             model.addAttribute(ATTRIBUTE_NAME, product);
         }
         return "admin/dashboard/product/edit";
@@ -92,12 +94,16 @@ public class ProductController {
             SessionStatus sessionStatus,
             HttpServletRequest request){
         
+        for(ProductLine line : product.getProductLines())
+            line.setProduct(product);
+        
         logger.info("Product to save: " + product.toString());
         if (bindingResult.hasErrors()) {
             model.addFlashAttribute(BINDING_RESULT_NAME, bindingResult);
             String referer = request.getHeader("Referer");
             return "redirect:"+referer;
         }
+        
         productsRepository.save(product);
         sessionStatus.setComplete(); //remove product from session
         List<String> successMessages = new ArrayList();
