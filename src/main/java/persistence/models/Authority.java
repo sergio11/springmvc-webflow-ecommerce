@@ -18,7 +18,6 @@ import javax.persistence.Table;
 import org.springframework.security.core.GrantedAuthority;
 
 /**
- *
  * @author sergio
  */
 @Entity

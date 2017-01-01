@@ -11,6 +11,7 @@
         <meta content="width=device-width, initial-scale=1" name="viewport"/>
         <meta content="A Dashbord admin" name="description"/>
         <meta content="Sergio" name="author"/>
+        <meta name="ctx" th:content="${#httpServletRequest.getContextPath()}" />
         <!-- BEGIN GLOBAL MANDATORY STYLES -->
         <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
         <link th:href="@{/assets/global/plugins/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>
@@ -31,7 +32,12 @@
         <!-- Favicon -->
         <link rel="shortcut icon" th:href="@{/img/favicon.ico}" />
     </head>
-    <body>
+    <body class="login">
+        <div class="logo">
+            <a href="@{/home}">
+                <img th:src="@{/assets/admin/layout/img/logo-big.png}" alt=""/>
+            </a>
+        </div>
         <th:block layout:fragment="content" />
         
         <!-- END COPYRIGHT -->
@@ -57,14 +63,15 @@
         <th:block layout:fragment="page-scripts" />
         <!-- END PAGE LEVEL SCRIPTS -->
         <script type="text/javascript">
-            jQuery(document).ready(function(){ 
+            jQuery(document).ready(function(){
+                _ctx = $("meta[name='ctx']").attr("content");
                 Metronic.init(); // init metronic core components
                 Layout.init(); // init current layout
                 $.backstretch([
-                    "../../assets/admin/pages/media/bg/1.jpg",
-                    "../../assets/admin/pages/media/bg/2.jpg",
-                    "../../assets/admin/pages/media/bg/3.jpg",
-                    "../../assets/admin/pages/media/bg/4.jpg"
+                    _ctx + "/assets/admin/pages/media/bg/1.jpg",
+                    _ctx + "/assets/admin/pages/media/bg/2.jpg",
+                    _ctx + "/assets/admin/pages/media/bg/3.jpg",
+                    _ctx + "/assets/admin/pages/media/bg/4.jpg"
                     ], {
                       fade: 1000,
                       duration: 8000

@@ -82,8 +82,10 @@
                                             <i class="icon-lock"></i> Lock Screen </a>
                                     </li>
                                     <li>
-                                        <a href="login.html">
-                                            <i class="icon-key"></i> Log Out </a>
+                                        <a th:href="@{/admin/logout}">
+                                            <i class="icon-key"></i> 
+                                            <span th:text="#{admin.header.user.dropdown.logout}">Log Out</span> 
+                                        </a>
                                     </li>
                                 </ul>
                             </li>
