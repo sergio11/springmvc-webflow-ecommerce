@@ -1,5 +1,6 @@
 package persistence.models;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -18,6 +19,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -31,8 +33,10 @@ public class User implements Serializable, UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView(DataTablesOutput.View.class)
     private Long id;
     @Column(nullable = false, length = 30, unique = true)
+    @JsonView(DataTablesOutput.View.class)
     private String username;
     @Transient
     private String passwordClear;
@@ -41,11 +45,15 @@ public class User implements Serializable, UserDetails {
     @Column(length = 60)
     private String password;
     @Column(nullable = false, length = 90, unique = true)
+    @JsonView(DataTablesOutput.View.class)
     private String email;
     @Column(length = 100)
+    @JsonView(DataTablesOutput.View.class)
     private String fullName;
     @Column(nullable = true)
+    @JsonView(DataTablesOutput.View.class)
     private Date lastLoginAccess;
+    @JsonView(DataTablesOutput.View.class)
     private Boolean enabled = true;
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinTable(

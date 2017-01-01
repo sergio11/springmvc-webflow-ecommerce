@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    layout:decorator="admin/dashboard/layout">
+    <head>
+        <title th:text="#{admin.users.title}">Users</title>
+        <th:block layout:fragment="page-styles">
+            <link rel="stylesheet" type="text/css" th:href="@{/assets/global/plugins/select2/select2.css}"/>
+            <link rel="stylesheet" type="text/css" th:href="@{/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css}"/>
+            <link rel="stylesheet" type="text/css" th:href="@{/assets/global/plugins/bootstrap-datepicker/css/datepicker.css}"/>
+        </th:block>
+    </head>
+    <body>
+        <th:block layout:fragment="content">
+            <!-- BEGIN PAGE HEADER-->
+            <h3 class="page-title">
+                <span th:text="#{admin.users.title}">Users</span>
+                <small th:text="#{admin.users.subtitle}">users listing</small>
+            </h3>
+            <div class="page-bar">
+                <!--<th:block th:include="admin/fragments/header::breadcrumb(${ {{url:'admin/home', text:'breadcrumb.home'}} })"/>-->
+                
+            </div>
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+            <div class="row">
+                <div class="col-md-12">
+                    <th:block th:replace="admin/fragments/alerts::flash-message"></th:block>
+                    <!-- Begin: life time stats -->
+                    <div class="portlet">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-gift"></i>
+                                <span th:text="#{admin.users.title}">Users</span>
+                            </div>
+                            <div class="actions">
+                                <div class="btn-group">
+                                    <a class="btn default yellow-stripe dropdown-toggle" href="javascript:;" data-toggle="dropdown">
+                                        <i class="fa fa-share"></i> Tools <i class="fa fa-angle-down"></i>
+                                    </a>
+                                    <ul class="dropdown-menu pull-right">
+                                        <li>
+                                            <a href="javascript:;">
+                                                Export to Excel </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                Export to CSV </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                Export to XML </a>
+                                        </li>
+                                        <li class="divider">
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                Print Invoices </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="table-container">
+                                <div class="table-actions-wrapper">
+                                    <a class="btn btn-sm btn-success" th:href="@{/admin/users/create}">
+                                        <span class="icon-user"></span>
+                                        <span th:text="#{admin.users.add.users}">Add User</span>
+                                    </a>
+                                </div>
+                                <table class="table table-striped table-bordered table-hover" id="datatable_users">
+                                    <thead>
+                                        <tr role="row" class="heading">
+                                            <th width="10%" th:text="#{admin.users.table.head.id}">ID</th>
+                                            <th width="15%" th:text="#{admin.users.table.head.username}">Username</th>
+                                            <th width="10%" th:text="#{admin.users.table.head.email}">email</th>
+                                            <th width="15%" th:text="#{admin.users.table.head.fullName}">Fullname</th>
+                                            <th width="10%" th:text="#{admin.users.table.head.lastLoginAccess}">Last Access</th>
+                                            <th width="10%" th:text="#{admin.users.table.head.enabled}">Enabled</th>
+                                            <th width="10%" th:text="#{admin.users.table.head.actions}">Actions</th>
+                                        </tr>
+                                        <tr role="row" class="filter">
+                                            <td>
+                                                <input type="text" class="form-control form-filter input-sm" name="filterUser.id" >
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control form-filter input-sm" name="filterUser.name">
+                                            </td>
+                                            <td>
+                                                <input type="email" class="form-control form-filter input-sm" name="filterUser.email">
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control form-filter input-sm" name="filterUser.fullname">
+                                            </td>
+                                            <td>
+                                                <div class="input-group date date-picker margin-bottom-5" data-date-format="dd/mm/yyyy">
+                                                    <input type="text" class="form-control form-filter input-sm" readonly name="filterUser.lastLoginAccessFrom" placeholder="From">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-sm default" type="button"><i class="fa fa-calendar"></i></button>
+                                                    </span>
+                                                </div>
+                                                <div class="input-group date date-picker" data-date-format="dd/mm/yyyy">
+                                                    <input type="text" class="form-control form-filter input-sm" readonly name="filterUser.lastLoginAccessTo" placeholder="To">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-sm default" type="button"><i class="fa fa-calendar"></i></button>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                                <div class="margin-bottom-5">
+                                                    <button class="btn btn-sm yellow filter-submit margin-bottom">
+                                                        <i class="fa fa-search"></i>
+                                                        <span th:text="#{admin.users.table.actions.search}">Search</span>
+                                                    </button>
+                                                </div>
+                                                <button class="btn btn-sm red filter-cancel">
+                                                    <i class="fa fa-times"></i> 
+                                                    <span th:text="#{admin.users.table.actions.reset}">Reset</span>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END PAGE CONTENT-->
+        </th:block>
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <th:block layout:fragment="page-plugins">
+            <script type="text/javascript" th:src="@{/assets/global/plugins/select2/select2.min.js}"></script>
+            <script type="text/javascript" th:src="@{/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js}"></script>
+            <script type="text/javascript" th:src="@{/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js}"></script>
+            <script type="text/javascript" th:src="@{/assets/global/plugins/jquery.spring-friendly.min.js}"></script>
+            <script type="text/javascript" th:src="@{/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js}"></script>
+        </th:block>
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN PAGE LEVEL SCRIPTS -->
+        <th:block layout:fragment="page-scripts">
+            <script th:src="@{/assets/global/scripts/datatable.js}"></script>
+            <script th:src="@{/assets/admin/pages/scripts/ecommerce-users.js}"></script>
+        </th:block>
+        <!-- END PAGE LEVEL SCRIPTS -->
+        <th:block layout:fragment="init-script">
+            <script type="text/javascript">
+                jQuery(document).ready(function () {
+                    EcommerceUsers.init();
+                });
+            </script>
+        </th:block>
+    </body>
+</html>

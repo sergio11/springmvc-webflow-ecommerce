@@ -6,7 +6,7 @@
 package persistence.repositories;
 
 import java.util.Date;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.datatables.repository.DataTablesRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,7 +17,7 @@ import persistence.models.User;
  * @author sergio
  */
 @Transactional
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends DataTablesRepository<User, Long> {
     User findByUsername(String username);
     @Query("SELECT COUNT(u.id) FROM User u WHERE u.email=:email OR u.username=:username")
     Long existsUserWithEmailOrUsername(@Param("email") String email, @Param("username") String username);
