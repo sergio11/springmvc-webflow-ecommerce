@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    layout:decorator="admin/dashboard/layout">
+    <head>
+        <title th:text="#{admin.order.title}">Orders</title>
+        <th:block layout:fragment="page-styles">
+            <link rel="stylesheet" type="text/css" th:href="@{/assets/global/plugins/select2/select2.css}"/>
+            <link rel="stylesheet" type="text/css" th:href="@{/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css}"/>
+            <link rel="stylesheet" type="text/css" th:href="@{/assets/global/plugins/bootstrap-datepicker/css/datepicker.css}"/>
+        </th:block>
+    </head>
+    <body>
+        <th:block layout:fragment="content">
+            <!-- BEGIN PAGE HEADER-->
+            <h3 class="page-title">
+                <span th:text="#{admin.order.title}">Orders</span>
+                <small th:text="#{admin.order.subtitle}">orders listing</small>
+            </h3>
+            <div class="page-bar">
+                <!--<th:block th:include="admin/fragments/header::breadcrumb(${ {{url:'admin/home', text:'breadcrumb.home'}} })"/>-->
+            </div>
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+            <div class="row">
+                <div class="col-md-12">
+                    <th:block th:replace="admin/fragments/alerts::flash-message"></th:block>
+                    <!-- Begin: life time stats -->
+                    <div class="portlet">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span th:text="#{admin.order.subtitle}">Order Listing</span>
+                            </div>
+                            <div class="actions">
+                                <div class="btn-group">
+                                    <a class="btn default yellow-stripe dropdown-toggle" href="javascript:;" data-toggle="dropdown">
+                                        <i class="fa fa-share"></i> Tools <i class="fa fa-angle-down"></i>
+                                    </a>
+                                    <ul class="dropdown-menu pull-right">
+                                        <li>
+                                            <a href="javascript:;">
+                                                Export to Excel </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                Export to CSV </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                Export to XML </a>
+                                        </li>
+                                        <li class="divider">
+                                        </li>
+                                        <li>
+                                            <a href="javascript:;">
+                                                Print Invoices </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="table-container">
+                                <div class="table-actions-wrapper">
+                                    <span>
+                                    </span>
+                                    <select class="table-group-action-input form-control input-inline input-small input-sm">
+                                        <option th:each="state : ${T(persistence.models.OrderStatusEnum).values()}"
+                                                th:value="${state}" 
+                                                th:text="${state}">
+                                         </option>
+                                    </select>
+                                    <button class="btn btn-sm yellow table-group-action-submit">
+                                        <i class="fa fa-check"></i>
+                                        <span th:text="#{admin.order.table.filter.status}">Update</span>
+                                    </button>
+                                </div>
+                                <table class="table table-striped table-bordered table-hover" id="datatable_orders">
+                                    <thead>
+                                        <tr role="row" class="heading">
+                                            <th width="10%" th:text="#{admin.order.table.head.id}">ID</th>
+                                            <th width="10%" th:text="#{admin.order.table.head.purchasedon}">Purchased On</th>
+                                            <th width="15%" th:text="#{admin.order.table.head.customer}">Customer</th>
+                                            <th width="15%" th:text="#{admin.order.table.head.baseprice}">Base&nbsp;Price</th>
+                                            <th width="10%" th:text="#{admin.order.table.head.purchasedprice}">Pruchased&nbsp;Price</th>
+                                            <th width="10%" th:text="#{admin.order.table.head.status}">Status</th>
+                                            <th width="10%" th:text="#{admin.order.table.head.actions}">Acciones</th>
+                                        </tr>
+                                        <tr role="row" class="filter">
+                                            <td>
+                                                <input type="text" class="form-control form-filter input-sm" name="filterOrder.id">
+                                            </td>
+                                            <td>
+                                                <div class="input-group date date-picker margin-bottom-5" th:data-date-format="#{admin.order.date.format}">
+                                                    <input type="text" class="form-control form-filter input-sm" readonly name="filterOrder.dateFrom" placeholder="From">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-sm default" type="button"><i class="fa fa-calendar"></i></button>
+                                                    </span>
+                                                </div>
+                                                <div class="input-group date date-picker" th:data-date-format="#{admin.order.date.format}">
+                                                    <input type="text" class="form-control form-filter input-sm" readonly name="filterOrder.dateTo" placeholder="To">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-sm default" type="button"><i class="fa fa-calendar"></i></button>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control form-filter input-sm" name="filterOrder.customer">
+                                            </td>
+                                            <td>
+                                                <div class="margin-bottom-5">
+                                                    <input type="text" class="form-control form-filter input-sm" name="filterOrder.basePriceFrom" placeholder="From"/>
+                                                </div>
+                                                <input type="text" class="form-control form-filter input-sm" name="filterOrder.basePriceTo" placeholder="To"/>
+                                            </td>
+                                            <td>
+                                                <div class="margin-bottom-5">
+                                                    <input type="text" class="form-control form-filter input-sm margin-bottom-5 clearfix" name="filterOrder.purchasedPriceFrom" placeholder="From"/>
+                                                </div>
+                                                <input type="text" class="form-control form-filter input-sm" name="filterOrder.purchasedPriceTo" placeholder="To"/>
+                                            </td>
+                                            <td>
+                                                <select name="filterOrder.status" class="form-control form-filter input-sm">
+                                                    <option th:each="state : ${T(persistence.models.OrderStatusEnum).values()}"
+                                                            th:value="${state}" 
+                                                            th:text="${state}">
+                                                    </option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <div class="margin-bottom-5">
+                                                    <button class="btn btn-sm yellow filter-submit margin-bottom">
+                                                        <i class="fa fa-search"></i>
+                                                        <span th:text="#{admin.order.table.actions.search}">Search</span>
+                                                    </button>
+                                                </div>
+                                                <button class="btn btn-sm red filter-cancel">
+                                                    <i class="fa fa-times"></i>
+                                                    <span th:text="#{admin.order.table.actions.reset}">Reset</span>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END PAGE CONTENT-->
+        </th:block>
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <th:block layout:fragment="page-plugins">
+            <script type="text/javascript" th:src="@{/assets/global/plugins/select2/select2.min.js}"></script>
+            <script type="text/javascript" th:src="@{/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js}"></script>
+            <script type="text/javascript" th:src="@{/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js}"></script>
+            <script type="text/javascript" th:src="@{/assets/global/plugins/jquery.spring-friendly.min.js}"></script>
+            <script type="text/javascript" th:src="@{/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js}"></script>
+        </th:block>
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN PAGE LEVEL SCRIPTS -->
+        <th:block layout:fragment="page-scripts">
+            <script th:src="@{/assets/global/scripts/datatable.js}"></script>
+            <script th:src="@{/assets/admin/pages/scripts/ecommerce-orders.js}"></script>
+        </th:block>
+        <!-- END PAGE LEVEL SCRIPTS -->
+        <th:block layout:fragment="init-script">
+            <script type="text/javascript">
+                jQuery(document).ready(function () {
+                    EcommerceOrders.init();
+                });
+            </script>
+        </th:block>
+    </body>
+</html>

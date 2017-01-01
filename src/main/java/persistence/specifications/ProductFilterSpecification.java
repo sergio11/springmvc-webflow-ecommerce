@@ -15,41 +15,41 @@ import web.models.FilterProduct;
  *
  * @author sergio
  */
-public class ProductFilterSpecification implements Specification<Product>{
-   
+public class ProductFilterSpecification implements Specification<Product> {
+
     private FilterProduct filterProduct;
 
     public ProductFilterSpecification(FilterProduct filterProduct) {
         this.filterProduct = filterProduct;
     }
-   
+
     @Override
     public Predicate toPredicate(Root<Product> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
         List<Predicate> predicates = new ArrayList<>();
         // filter by product id
-        if(filterProduct.getId() != null){
+        if (filterProduct.getId() != null) {
             predicates.add(cb.equal(root.get(Product_.id), filterProduct.getId()));
         }
         // filter by product price from
-        if(filterProduct.getPriceFrom() != null){
+        if (filterProduct.getPriceFrom() != null) {
             predicates.add(cb.greaterThanOrEqualTo(root.get(Product_.price), filterProduct.getPriceFrom()));
         }
         // filter by product price to
-        if(filterProduct.getPriceTo() != null){
+        if (filterProduct.getPriceTo() != null) {
             predicates.add(cb.lessThanOrEqualTo(root.get(Product_.price), filterProduct.getPriceTo()));
         }
         // filter by name
-        if(filterProduct.getName() != null && !filterProduct.getName().isEmpty()){
-            predicates.add(cb.like(root.get(Product_.name), "%"+filterProduct.getName()+"%"));
+        if (filterProduct.getName() != null && !filterProduct.getName().isEmpty()) {
+            predicates.add(cb.like(root.get(Product_.name), "%" + filterProduct.getName() + "%"));
         }
         // filter by status
-        if(filterProduct.getStatus() != null){
+        if (filterProduct.getStatus() != null) {
             predicates.add(cb.equal(root.get(Product_.status), filterProduct.getStatus()));
         }
         return andTogether(predicates, cb);
     }
-    
+
     private Predicate andTogether(List<Predicate> predicates, CriteriaBuilder cb) {
         return cb.and(predicates.toArray(new Predicate[0]));
-      }
+    }
 }
