@@ -10,7 +10,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.transaction.annotation.Transactional;
 import persistence.models.User;
 
 /**
@@ -25,6 +24,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Long existsUserWithEmailOrUsernameAndNotId(@Param("email") String email, @Param("username") String username, @Param("id") Long id);
     @Modifying(clearAutomatically = true)
     @Query("update User user set user.lastLoginAccess =:lastLoginAccess where user.username =:username")
-    @Transactional
     void updateLastLoginAccess(@Param("username") String username, @Param("lastLoginAccess") Date lastLoginAccess);
 }

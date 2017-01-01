@@ -1,13 +1,15 @@
 package persistence.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators.IntSequenceGenerator;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,6 +23,7 @@ import org.springframework.security.core.GrantedAuthority;
  */
 @Entity
 @Table(name="AUTHORITIES")
+@JsonIdentityInfo(generator=IntSequenceGenerator.class, property="@id")
 public class Authority implements Serializable, GrantedAuthority{
     
     @Id
@@ -30,7 +33,7 @@ public class Authority implements Serializable, GrantedAuthority{
     @Column(name="type", nullable = false, unique = true)
     private AuthorityEnum type;
     private String description;
-    @ManyToMany(mappedBy = "authorities", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "authorities", cascade = CascadeType.ALL)
     private Set<User> users = new HashSet();
 
     public Authority(AuthorityEnum type, String description) {
@@ -70,6 +73,13 @@ public class Authority implements Serializable, GrantedAuthority{
 
     public void setUsers(Set<User> users) {
         this.users = users;
+    }
+    
+    public void addUser(User user){
+        if(!this.users.contains(user)){
+            this.users.add(user);
+            user.addAuthority(this);
+        }
     }
     
     @Override

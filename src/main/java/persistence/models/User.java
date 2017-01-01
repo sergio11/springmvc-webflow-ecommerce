@@ -47,7 +47,7 @@ public class User implements Serializable, UserDetails {
     @Column(nullable = true)
     private Date lastLoginAccess;
     private Boolean enabled = true;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REMOVE})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinTable(
             name = "USER_ROLES",
             joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"),
@@ -123,6 +123,14 @@ public class User implements Serializable, UserDetails {
 
     public void setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;
+    }
+    
+    public void addAuthority(Authority authority){
+        if(!this.authorities.contains(authority)){
+            this.authorities.add(authority);
+            authority.addUser(this);
+        }
+        
     }
 
     public Boolean getEnabled() {
