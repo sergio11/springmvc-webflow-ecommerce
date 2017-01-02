@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    layout:decorator="admin/account/layout">
+    <head>
+        <title th:text="#{admin.lock.title}">Lock Screen</title>
+        <!-- BEGIN PAGE LEVEL STYLES -->
+        <th:block layout:fragment="page-styles">
+            <link th:href="@{/assets/admin/pages/css/lock2.css}" rel="stylesheet" type="text/css"/>
+        </th:block>
+        <!-- END PAGE LEVEL STYLES -->
+    </head>
+    <body>
+        <th:block layout:fragment="content">
+            <div class="page-lock">
+                <div class="page-body">
+                    <img alt="" class="page-lock-img" th:if="${#authentication.principal.avatar == null}" th:src="@{/assets/global/img/user_default.png}"/>
+                    <img th:alt="${#authentication.principal.fullName}" class="page-lock-img" th:if="${#authentication.principal.avatar != null}" th:src="@{/admin/users/avatar/{id}(id=${#authentication.principal.avatar.id})}"/>
+                        <div class="page-lock-info">
+                            <h1 sec:authentication="principal.fullName"></h1>
+                            <span class="email" sec:authentication="principal.email"></span>
+                            <span class="locked" th:text="#{admin.lock.locked}">Locked</span>
+                            <form class="form-inline" action="index.html">
+                                <div class="input-group input-medium">
+                                    <input type="text" class="form-control" placeholder="Password">
+                                        <span class="input-group-btn">
+                                            <button type="submit" class="btn blue icn-only"><i class="m-icon-swapright m-icon-white"></i></button>
+                                        </span>
+                                </div>
+                                <!-- /input-group -->
+                                <div class="relogin">
+                                    <a th:href="@{/admin/login}" th:text="#{admin.lock.back.login(#authentication.principal.fullName)}"></a>
+                                </div>
+                            </form>
+                        </div>
+                </div>
+                <div class="page-footer-custom">
+                    2017 &copy; Sergio Sánchez Sánchez.
+                </div>
+            </div>   
+        </th:block>
+    </body>
+</html>
