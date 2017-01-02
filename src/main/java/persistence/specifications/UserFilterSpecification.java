@@ -32,11 +32,11 @@ public class UserFilterSpecification implements Specification<User> {
         }
         // filter by username
         if(filterUser.getUsername() != null && !filterUser.getUsername().isEmpty()){
-            predicates.add(cb.like(root.get(User_.username), "%" + filterUser.getUsername() + "%"));
+            predicates.add(cb.like(cb.lower(root.get(User_.username)), "%" + filterUser.getUsername().toLowerCase() + "%"));
         }
         // filter by fullname
         if(filterUser.getFullname()!= null && !filterUser.getFullname().isEmpty()){
-            predicates.add(cb.like(root.get(User_.fullName), "%" + filterUser.getFullname() + "%"));
+            predicates.add(cb.like(cb.lower(root.get(User_.fullName)), "%" + filterUser.getFullname().toLowerCase() + "%"));
         }
         // filter by last access from
         if(filterUser.getLastLoginAccessFrom() != null){

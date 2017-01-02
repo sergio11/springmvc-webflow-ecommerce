@@ -40,7 +40,7 @@ public class ProductFilterSpecification implements Specification<Product> {
         }
         // filter by name
         if (filterProduct.getName() != null && !filterProduct.getName().isEmpty()) {
-            predicates.add(cb.like(root.get(Product_.name), "%" + filterProduct.getName() + "%"));
+            predicates.add(cb.like(cb.lower(root.get(Product_.name)), "%" + filterProduct.getName().toLowerCase() + "%"));
         }
         // filter by status
         if (filterProduct.getStatus() != null) {

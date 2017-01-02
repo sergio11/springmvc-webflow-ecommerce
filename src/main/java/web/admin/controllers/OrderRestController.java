@@ -40,7 +40,8 @@ public class OrderRestController {
     protected void initBinder(WebDataBinder binder) {
         String format = messageSource.getMessage("admin.order.date.format", new Object[]{}, Locale.getDefault());
         SimpleDateFormat dateFormat = new SimpleDateFormat(format);
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat,false));
+        dateFormat.setLenient(false);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
     
     @JsonView(DataTablesOutput.View.class)

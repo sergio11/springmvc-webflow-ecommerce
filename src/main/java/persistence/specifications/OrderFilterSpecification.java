@@ -40,7 +40,7 @@ public class OrderFilterSpecification implements Specification<Order> {
         }
         // filter by customer name
         if(filterOrder.getCustomer() != null && !filterOrder.getCustomer().isEmpty()){
-            predicates.add(cb.like(root.get(Order_.customer).<String>get(Order_.customer.getName()), "%" + filterOrder.getCustomer() + "%"));
+            predicates.add(cb.like(cb.lower(root.get(Order_.customer).<String>get(Order_.customer.getName())), "%" + filterOrder.getCustomer().toLowerCase() + "%"));
         }
         // filter by basePriceFrom 
         if (filterOrder.getBasePriceFrom() != null) {

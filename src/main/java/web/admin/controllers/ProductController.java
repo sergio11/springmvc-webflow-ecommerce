@@ -52,7 +52,8 @@ public class ProductController {
     
     @InitBinder
     public void initBinder(final WebDataBinder binder){
-      final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy"); 
+      final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
+      dateFormat.setLenient(false);
       binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
     
