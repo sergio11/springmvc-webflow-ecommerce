@@ -61,15 +61,17 @@
                             <!-- BEGIN USER LOGIN DROPDOWN -->
                             <li class="dropdown dropdown-user">
                                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                    <img alt="" class="img-circle" src="../../assets/admin/layout/img/avatar3_small.jpg"/>
-                                    <span class="username username-hide-on-mobile">
-                                        Nick </span>
+                                    <img alt="" class="img-circle" th:if="${#authentication.principal.avatar == null}" th:src="@{/assets/global/img/user_default.png}"/>
+                                    <img th:alt="${#authentication.principal.fullName}" class="img-circle" th:if="${#authentication.principal.avatar != null}" th:src="@{/admin/users/avatar/{id}(id=${#authentication.principal.avatar.id})}"/>
+                                    <span class="username username-hide-on-mobile" sec:authentication="principal.fullName"></span>
                                     <i class="fa fa-angle-down"></i>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-default">
                                     <li>
-                                        <a href="extra_profile.html">
-                                            <i class="icon-user"></i> My Profile </a>
+                                        <a th:href="@{/admin/users/self}">
+                                            <i class="icon-user"></i>
+                                            <span th:text="#{admin.header.user.dropdown.profile}">My Profile</span>
+                                        </a>
                                     </li>
                                     <li>
                                         <a href="page_calendar.html">

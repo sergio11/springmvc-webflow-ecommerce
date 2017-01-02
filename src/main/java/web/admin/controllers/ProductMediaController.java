@@ -21,8 +21,8 @@ import org.springframework.web.multipart.MultipartFile;
 import web.admin.exceptions.AppendToNonExistentFileException;
 import web.models.ErrorResponse;
 import web.models.ProductMediaDeleteResponse;
-import web.models.RequestUploadFile;
 import web.models.ProductMediaUploadResponse;
+import web.models.upload.RequestUploadFile;
 import web.uploads.UploadProductsImagesStrategy;
 
 /**
@@ -47,27 +47,21 @@ public class ProductMediaController {
             @RequestParam(required = false, defaultValue = "-1") int chunks,
             @RequestParam(required = false, defaultValue = "-1") int chunk) throws IOException {
         
-        RequestUploadFile uploadFile = new RequestUploadFile();
-        uploadFile.setId(fileid);
-        uploadFile.setBytes(file.getBytes());
-        uploadFile.setContentType(file.getContentType());
-        uploadFile.setOriginalName(file.getOriginalFilename());
-        
+        RequestUploadFile uploadFile = new RequestUploadFile(file.getBytes(), file.getContentType(), file.getOriginalFilename());        
         String fileName = null;
         if (chunks > 0 && chunk > 0) {
             //Need to append the bytes in this chunk
-            fileName = uploadStrategy.appendBytes(uploadFile);
+            fileName = uploadStrategy.appendIfExists(uploadFile, fileName);
         } else {
-            fileName = uploadStrategy.saveBytes(uploadFile);
+            fileName = uploadStrategy.save(uploadFile);
         }
-       
         return new ProductMediaUploadResponse(fileid, fileName, file.getContentType(), file.getSize());
     }
     
     @DeleteMapping("/delete/{name}")
     public ProductMediaDeleteResponse delete(@PathVariable String name) throws IOException{
-        Boolean result = uploadStrategy.delete(name);
-        return new ProductMediaDeleteResponse(name, result);
+        uploadStrategy.delete(name);
+        return new ProductMediaDeleteResponse(name, true);
     }
     
     @ExceptionHandler(AppendToNonExistentFileException.class)

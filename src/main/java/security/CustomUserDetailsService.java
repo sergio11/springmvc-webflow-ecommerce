@@ -12,7 +12,6 @@ import persistence.models.User;
 import persistence.repositories.UserRepository;
 
 /**
- *
  * @author sergio
  */
 @Service("customUserDetailsService")

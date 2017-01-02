@@ -1,18 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package web.uploads;
 
-import java.io.IOException;
+import web.models.upload.RequestUploadFile;
+import web.models.upload.UploadFileInfo;
+import web.uploads.exceptions.FileNotFoundException;
+import web.uploads.exceptions.UploadFailException;
 
 /**
  *
  * @author sergio
  */
-public interface UploadStrategy<T, E> {
-    T saveBytes(E object) throws IOException;
-    T appendBytes(E object) throws IOException;
-    Boolean delete(String name) throws IOException;
+public interface UploadStrategy<T, E extends RequestUploadFile> {
+    T save(E fileinfo) throws UploadFailException;
+    T append(E fileinfo, T id) throws FileNotFoundException, UploadFailException;
+    T appendIfExists(E fileinfo, T id) throws UploadFailException;
+    void delete(T id);
+    UploadFileInfo get(T id) throws FileNotFoundException, UploadFailException;
 }

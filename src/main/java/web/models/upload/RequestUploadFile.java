@@ -1,4 +1,4 @@
-package web.models;
+package web.models.upload;
 
 import java.io.Serializable;
 
@@ -8,17 +8,14 @@ import java.io.Serializable;
  */
 public class RequestUploadFile implements Serializable {
     
-    private String id;
     private byte[] bytes;
     private String contentType;
     private String originalName;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public RequestUploadFile(byte[] bytes, String contentType, String originalName) {
+        this.bytes = bytes;
+        this.contentType = contentType;
+        this.originalName = originalName;
     }
 
     public byte[] getBytes() {
@@ -47,6 +44,6 @@ public class RequestUploadFile implements Serializable {
 
     @Override
     public String toString() {
-        return "RequestUploadFile{" + "id=" + id + ", bytes=" + bytes + ", ext=" + contentType + ", originalName=" + originalName + '}';
+        return "RequestUploadFile{" + "bytes=" + bytes + ", contentType=" + contentType + ", originalName=" + originalName + '}';
     }
 }
