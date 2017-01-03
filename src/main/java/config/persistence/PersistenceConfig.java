@@ -14,7 +14,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
-@Import(value = { DataSourceConfig.class, VendorAdapterConfig.class })
+@Import(value = { DataSourceConfig.class, VendorAdapterConfig.class, BeanValidationConfiguration.class })
 @EnableJpaRepositories(repositoryFactoryBeanClass = DataTablesRepositoryFactoryBean.class, basePackages = "persistence.repositories")
 @ComponentScan(value = "persistence.populator" )
 public class PersistenceConfig {

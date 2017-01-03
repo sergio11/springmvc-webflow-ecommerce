@@ -28,6 +28,7 @@ import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import persistence.constraints.FieldMatch;
+import persistence.constraints.UserCurrentPassword;
 
 /**
  * @author sergio
@@ -56,6 +57,11 @@ public class User implements Serializable, UserDetails {
     @Column(nullable = false, length = 30, unique = true)
     @JsonView(DataTablesOutput.View.class)
     private String username;
+    
+    @NotBlank(message="{user.current.pass.notnull}", groups={ UserChangePassword.class })
+    @UserCurrentPassword(message="{user.current.pass.not.match}", groups={ UserChangePassword.class })
+    @Transient
+    private String currentClearPassword;
     
     @NotBlank(message="{user.pass.notnull}", groups={ UserCreation.class, UserChangePassword.class })
     @Size(min=8, max=25, message="{user.pass.size}", groups={ UserCreation.class, UserChangePassword.class })
@@ -117,6 +123,14 @@ public class User implements Serializable, UserDetails {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getCurrentClearPassword() {
+        return currentClearPassword;
+    }
+
+    public void setCurrentClearPassword(String currentClearPassword) {
+        this.currentClearPassword = currentClearPassword;
     }
 
     public String getPasswordClear() {
@@ -230,6 +244,8 @@ public class User implements Serializable, UserDetails {
 
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", username=" + username + ", passwordClear=" + passwordClear + ", confirmPassword=" + confirmPassword + ", password=" + password + ", email=" + email + ", fullName=" + fullName + ", lastLoginAccess=" + lastLoginAccess + ", enabled=" + enabled + ", authorities=" + authorities + '}';
+        return "User{" + "id=" + id + ", username=" + username + ", currentClearPassword=" + currentClearPassword + ", passwordClear=" + passwordClear + ", confirmPassword=" + confirmPassword + ", password=" + password + ", email=" + email + ", fullName=" + fullName + ", lastLoginAccess=" + lastLoginAccess + ", enabled=" + enabled + ", authorities=" + authorities + ", reviews=" + reviews + ", avatar=" + avatar + '}';
     }
+
+    
 }
