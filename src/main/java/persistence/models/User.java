@@ -244,8 +244,6 @@ public class User implements Serializable, UserDetails {
 
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", username=" + username + ", currentClearPassword=" + currentClearPassword + ", passwordClear=" + passwordClear + ", confirmPassword=" + confirmPassword + ", password=" + password + ", email=" + email + ", fullName=" + fullName + ", lastLoginAccess=" + lastLoginAccess + ", enabled=" + enabled + ", authorities=" + authorities + ", reviews=" + reviews + ", avatar=" + avatar + '}';
+        return "User{" + "id=" + id + ", username=" + username + ", email=" + email + ", fullName=" + fullName + ", lastLoginAccess=" + lastLoginAccess + ", enabled=" + enabled + ", authorities=" + authorities + ", avatar=" + avatar + '}';
     }
-
-    
 }

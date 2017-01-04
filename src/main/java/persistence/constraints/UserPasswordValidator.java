@@ -12,9 +12,9 @@ import persistence.models.User;
 /**
  * @author sergio
  */
-public class CurrentUserPasswordValidator implements ConstraintValidator<UserCurrentPassword, String> {
+public class UserPasswordValidator implements ConstraintValidator<UserCurrentPassword, String> {
     
-    private static Logger logger = LoggerFactory.getLogger(CurrentUserPasswordValidator.class);
+    private static Logger logger = LoggerFactory.getLogger(UserPasswordValidator.class);
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -23,10 +23,10 @@ public class CurrentUserPasswordValidator implements ConstraintValidator<UserCur
 
     @Override
     public boolean isValid(String password, ConstraintValidatorContext context) {
+        if(password == null) return false;
         User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(user != null){
-            logger.info(user.toString());
-            return passwordEncoder.encode(password) == user.getPassword();
+            return passwordEncoder.matches(password, user.getPassword());
         }
         return false;
     }
