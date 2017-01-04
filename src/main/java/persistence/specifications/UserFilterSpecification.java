@@ -9,7 +9,7 @@ import javax.persistence.criteria.Root;
 import org.springframework.data.jpa.domain.Specification;
 import persistence.models.User;
 import persistence.models.User_;
-import web.models.FilterUser;
+import web.models.datatables.FilterUser;
 
 /**
  *

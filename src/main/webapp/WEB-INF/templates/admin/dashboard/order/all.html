@@ -90,39 +90,39 @@
                                         </tr>
                                         <tr role="row" class="filter">
                                             <td>
-                                                <input type="text" class="form-control form-filter input-sm" name="filterOrder.id">
+                                                <input type="text" class="form-control form-filter input-sm" name="filter.id">
                                             </td>
                                             <td>
                                                 <div class="input-group date date-picker margin-bottom-5" th:data-date-format="#{admin.order.date.format}">
-                                                    <input type="text" class="form-control form-filter input-sm" readonly name="filterOrder.dateFrom" placeholder="From">
+                                                    <input type="text" class="form-control form-filter input-sm" readonly name="filter.dateFrom" placeholder="From">
                                                     <span class="input-group-btn">
                                                         <button class="btn btn-sm default" type="button"><i class="fa fa-calendar"></i></button>
                                                     </span>
                                                 </div>
                                                 <div class="input-group date date-picker" th:data-date-format="#{admin.order.date.format}">
-                                                    <input type="text" class="form-control form-filter input-sm" readonly name="filterOrder.dateTo" placeholder="To">
+                                                    <input type="text" class="form-control form-filter input-sm" readonly name="filter.dateTo" placeholder="To">
                                                     <span class="input-group-btn">
                                                         <button class="btn btn-sm default" type="button"><i class="fa fa-calendar"></i></button>
                                                     </span>
                                                 </div>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control form-filter input-sm" name="filterOrder.customer">
+                                                <input type="text" class="form-control form-filter input-sm" name="filter.customer">
                                             </td>
                                             <td>
                                                 <div class="margin-bottom-5">
-                                                    <input type="text" class="form-control form-filter input-sm" name="filterOrder.basePriceFrom" placeholder="From"/>
+                                                    <input type="text" class="form-control form-filter input-sm" name="filter.basePriceFrom" placeholder="From"/>
                                                 </div>
-                                                <input type="text" class="form-control form-filter input-sm" name="filterOrder.basePriceTo" placeholder="To"/>
+                                                <input type="text" class="form-control form-filter input-sm" name="filter.basePriceTo" placeholder="To"/>
                                             </td>
                                             <td>
                                                 <div class="margin-bottom-5">
-                                                    <input type="text" class="form-control form-filter input-sm margin-bottom-5 clearfix" name="filterOrder.purchasedPriceFrom" placeholder="From"/>
+                                                    <input type="text" class="form-control form-filter input-sm margin-bottom-5 clearfix" name="filter.purchasedPriceFrom" placeholder="From"/>
                                                 </div>
-                                                <input type="text" class="form-control form-filter input-sm" name="filterOrder.purchasedPriceTo" placeholder="To"/>
+                                                <input type="text" class="form-control form-filter input-sm" name="filter.purchasedPriceTo" placeholder="To"/>
                                             </td>
                                             <td>
-                                                <select name="filterOrder.status" class="form-control form-filter input-sm">
+                                                <select name="filter.status" class="form-control form-filter input-sm">
                                                     <option th:each="state : ${T(persistence.models.OrderStatusEnum).values()}"
                                                             th:value="${state}" 
                                                             th:text="${state}">

@@ -1,21 +1,20 @@
-package web.models;
+package web.models.datatables;
 
 import java.io.Serializable;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 
 /**
- *
  * @author sergio
  */
 public class DataTableOrderInput extends DataTablesInput implements Serializable {
     
-    private FilterOrder filterOrder;
+    private FilterOrder filter = new FilterOrder();
 
-    public FilterOrder getFilterOrder() {
-        return filterOrder;
+    public FilterOrder getFilter() {
+        return filter;
     }
 
-    public void setFilterOrder(FilterOrder filterOrder) {
-        this.filterOrder = filterOrder;
+    public void setFilter(FilterOrder filter) {
+        this.filter = filter;
     }
 }

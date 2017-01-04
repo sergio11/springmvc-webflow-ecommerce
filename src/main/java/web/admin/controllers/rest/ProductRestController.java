@@ -1,4 +1,4 @@
-package web.admin.controllers;
+package web.admin.controllers.rest;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import javax.validation.Valid;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import persistence.models.Product;
 import persistence.repositories.ProductRepository;
 import persistence.specifications.ProductFilterSpecification;
-import web.models.DataTableProductInput;
+import web.models.datatables.DataTableProductInput;
 
 /**
  *
@@ -30,6 +30,6 @@ public class ProductRestController {
     @JsonView(DataTablesOutput.View.class)
     @GetMapping("/data")
     public DataTablesOutput<Product> all(final @Valid DataTableProductInput input) {
-        return productRepository.findAll(input, new ProductFilterSpecification(input.getFilterProduct()));
+        return productRepository.findAll(input, new ProductFilterSpecification(input.getFilter()));
     }
 }

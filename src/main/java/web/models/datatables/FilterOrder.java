@@ -1,4 +1,4 @@
-package web.models;
+package web.models.datatables;
 
 import java.io.Serializable;
 import java.util.Date;

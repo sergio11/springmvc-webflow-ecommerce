@@ -1,20 +1,21 @@
-package web.models;
+package web.models.datatables;
 
 import java.io.Serializable;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 
 /**
+ *
  * @author sergio
  */
 public class DataTableUserInput extends DataTablesInput implements Serializable {
     
-    private FilterUser filterUser = new FilterUser();
+    private FilterUser filter = new FilterUser();
 
-    public FilterUser getFilterUser() {
-        return filterUser;
+    public FilterUser getFilter() {
+        return filter;
     }
 
-    public void setFilterUser(FilterUser filterUser) {
-        this.filterUser = filterUser;
+    public void setFilter(FilterUser filter) {
+        this.filter = filter;
     }
 }

@@ -105,33 +105,33 @@
                                         </tr>
                                         <tr role="row" class="filter">
                                             <td>
-                                                <input type="text" class="form-control form-filter input-sm" name="filterProduct.id">
+                                                <input type="text" class="form-control form-filter input-sm" name="filter.id">
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control form-filter input-sm" name="filterProduct.name">
+                                                <input type="text" class="form-control form-filter input-sm" name="filter.name">
                                             </td>
                                             <td>
                                                 <div class="margin-bottom-5">
-                                                    <input type="text" class="form-control form-filter input-sm" name="filterProduct.priceFrom" placeholder="From"/>
+                                                    <input type="text" class="form-control form-filter input-sm" name="filter.priceFrom" placeholder="From"/>
                                                 </div>
-                                                <input type="text" class="form-control form-filter input-sm" name="filterProduct.priceTo" placeholder="To"/>
+                                                <input type="text" class="form-control form-filter input-sm" name="filter.priceTo" placeholder="To"/>
                                             </td>
                                             <td>
                                                 <div class="input-group date date-picker margin-bottom-5" data-date-format="dd/mm/yyyy">
-                                                    <input type="text" class="form-control form-filter input-sm" readonly name="filterProduct.createdFrom" placeholder="From">
+                                                    <input type="text" class="form-control form-filter input-sm" readonly name="filter.createdFrom" placeholder="From">
                                                     <span class="input-group-btn">
                                                         <button class="btn btn-sm default" type="button"><i class="fa fa-calendar"></i></button>
                                                     </span>
                                                 </div>
                                                 <div class="input-group date date-picker" data-date-format="dd/mm/yyyy">
-                                                    <input type="text" class="form-control form-filter input-sm" readonly name="filterProduct.createTo" placeholder="To">
+                                                    <input type="text" class="form-control form-filter input-sm" readonly name="filter.createTo" placeholder="To">
                                                     <span class="input-group-btn">
                                                         <button class="btn btn-sm default" type="button"><i class="fa fa-calendar"></i></button>
                                                     </span>
                                                 </div>
                                             </td>
                                             <td>
-                                                <select name="filterProduct.status" class="form-control form-filter input-sm">
+                                                <select name="filter.status" class="form-control form-filter input-sm">
                                                     <option th:each="state : ${T(persistence.models.ProductStatusEnum).values()}"
                                                             th:value="${state}" 
                                                             th:text="${state}">

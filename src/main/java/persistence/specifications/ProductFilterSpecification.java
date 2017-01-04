@@ -9,7 +9,7 @@ import javax.persistence.criteria.Root;
 import org.springframework.data.jpa.domain.Specification;
 import persistence.models.Product;
 import persistence.models.Product_;
-import web.models.FilterProduct;
+import web.models.datatables.FilterProduct;
 
 /**
  *

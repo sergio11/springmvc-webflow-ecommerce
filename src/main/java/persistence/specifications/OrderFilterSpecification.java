@@ -9,7 +9,7 @@ import javax.persistence.criteria.Root;
 import org.springframework.data.jpa.domain.Specification;
 import persistence.models.Order;
 import persistence.models.Order_;
-import web.models.FilterOrder;
+import web.models.datatables.FilterOrder;
 
 /**
  *
