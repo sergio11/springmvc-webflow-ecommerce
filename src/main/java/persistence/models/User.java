@@ -27,15 +27,21 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import persistence.constraints.EmailUnique;
 import persistence.constraints.FieldMatch;
+import persistence.constraints.FieldNotMatch;
 import persistence.constraints.UserCurrentPassword;
+import persistence.constraints.UsernameUnique;
+import persistence.models.User.UserChangePassword;
+import persistence.models.User.UserCreation;
 
 /**
  * @author sergio
  */
 @Entity
 @Table(name = "USERS")
-@FieldMatch(first = "passwordClear", second = "confirmPassword", message = "{user.pass.not.match}")
+@FieldMatch(first = "passwordClear", second = "confirmPassword", message = "{user.pass.not.match}", groups={ UserCreation.class, UserChangePassword.class })
+@FieldNotMatch(first = "currentClearPassword", second = "passwordClear", message = "{user.current.pass.not.match}", groups={ UserChangePassword.class } )
 public class User implements Serializable, UserDetails {
     
     /* Marker interface for grouping validations to be applied at the time of creating a (new) user. */
@@ -54,6 +60,7 @@ public class User implements Serializable, UserDetails {
     
     @NotBlank(message="{user.username.notnull}", groups={ UserCreation.class, UserUpdate.class })
     @Size(min=5, max=15, message="{user.username.size}", groups={ UserCreation.class, UserUpdate.class })
+    @UsernameUnique( message="{user.username.unique}", groups={ UserCreation.class, UserUpdate.class })
     @Column(nullable = false, length = 30, unique = true)
     @JsonView(DataTablesOutput.View.class)
     private String username;
@@ -77,6 +84,7 @@ public class User implements Serializable, UserDetails {
     
     @NotBlank(message="{user.email.notnull}", groups={ UserCreation.class, UserUpdate.class })
     @Email(message="{user.email.invalid}", groups={ UserCreation.class, UserUpdate.class })
+    @EmailUnique(message="{user.email.unique}", groups={ UserCreation.class, UserUpdate.class })
     @Column(nullable = false, length = 90, unique = true)
     @JsonView(DataTablesOutput.View.class)
     private String email;

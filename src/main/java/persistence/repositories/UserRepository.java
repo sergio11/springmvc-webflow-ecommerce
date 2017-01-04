@@ -19,10 +19,10 @@ import persistence.models.User;
 @Transactional
 public interface UserRepository extends DataTablesRepository<User, Long> {
     User findByUsername(String username);
-    @Query("SELECT COUNT(u.id) FROM User u WHERE u.email=:email OR u.username=:username")
-    Long existsUserWithEmailOrUsername(@Param("email") String email, @Param("username") String username);
-    @Query("SELECT COUNT(u.id) FROM User u WHERE u.id!=:id AND (u.email=:email OR u.username=:username)")
-    Long existsUserWithEmailOrUsernameAndNotId(@Param("email") String email, @Param("username") String username, @Param("id") Long id);
+    @Query("SELECT COUNT(u.id) FROM User u WHERE u.username=:username")
+    Long existsUserWithUsername(@Param("username") String username);
+    @Query("SELECT COUNT(u.id) FROM User u WHERE u.email = :email")
+    Long existsUserWithEmail(@Param("email") String email);
     @Modifying(clearAutomatically = true)
     @Query("update User user set user.lastLoginAccess =:lastLoginAccess where user.username =:username")
     void updateLastLoginAccess(@Param("username") String username, @Param("lastLoginAccess") Date lastLoginAccess);
