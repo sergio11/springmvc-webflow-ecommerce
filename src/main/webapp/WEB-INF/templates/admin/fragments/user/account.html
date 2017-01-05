@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div class="form-body" th:fragment="no-form">
+            <div class="form-group">
+                <label class="col-md-2 control-label" th:text="#{admin.user.form.authorities}">User Authorities</label>
+                <div class="col-md-10">
+                    <div class="checkbox" th:each="a:${T(persistence.models.AuthorityEnum).values()}">
+                        <label>
+                            <input type="checkbox" th:field="*{authorities}" th:value="${a}">
+                                <span th:text="${a}"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label" th:text="#{admin.user.form.status}">User Status</label>
+                <div class="col-md-10">
+                    <div class="radio">
+                        <label>
+                            <input th:field="*{enabled}" type="radio" id="radio_enabled" name="user_enabled" value="true" />
+                            <span th:text="#{admin.user.form.status.enabled}">Enabled</span>
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input th:field="*{enabled}" type="radio" id="radio_not_enabled" name="user_not_enabled" value="false" />
+                            <span th:text="#{admin.user.form.status.disabled}">Not Enabled</span>
+                        </label>
+                    </div>
+                </div>
+        </div>
+    </body>
+</html>

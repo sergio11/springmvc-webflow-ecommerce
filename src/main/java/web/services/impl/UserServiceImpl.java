@@ -31,8 +31,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private AuthorityRepository auhtorityRepository;
-    @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
     private UploadAvatarStrategy uploadAvatarStrategy;
@@ -45,12 +43,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void create(User user) {
-        Authority authority = auhtorityRepository.findByType(AuthorityEnum.ROLE_CONSUMER);
-        if(authority != null){
-            logger.info(authority.toString());
-            user.addAuthority(authority);
-            user.setPassword(passwordEncoder.encode(user.getPasswordClear()));
-        }
+        user.setPassword(passwordEncoder.encode(user.getPasswordClear()));
         userRepository.save(user);
     }
 

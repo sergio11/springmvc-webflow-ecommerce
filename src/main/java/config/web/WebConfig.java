@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -15,9 +16,10 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+import persistence.models.Authority;
+import web.admin.converters.StringAuthorityConverter;
 
 /**
- *
  * @author sergio
  */
 @Configuration
@@ -28,6 +30,8 @@ public class WebConfig extends WebMvcConfigurerAdapter{
     
     @Autowired
     private LocaleChangeInterceptor localeChangeInterceptor;
+    @Autowired
+    private StringAuthorityConverter stringAuthorityConverter;
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
@@ -60,5 +64,10 @@ public class WebConfig extends WebMvcConfigurerAdapter{
     @Bean(name="multipartResolver")
     public MultipartResolver provideMultipartResolver(){
         return new StandardServletMultipartResolver();
+    }
+    
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(String.class, Authority.class, stringAuthorityConverter);
     }
 }

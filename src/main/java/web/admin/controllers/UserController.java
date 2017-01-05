@@ -67,6 +67,8 @@ public class UserController {
             SessionStatus sessionStatus,
             HttpServletRequest request){
         
+        logger.info(user.toString());
+        
         if (bindingResult.hasErrors()) {
             model.addFlashAttribute(BINDING_RESULT_NAME, bindingResult);
             String referer = request.getHeader("Referer");

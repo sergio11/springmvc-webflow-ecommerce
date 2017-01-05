@@ -51,10 +51,11 @@ public class SecurityPopulator implements Serializable {
         authorityAdmin.setDescription("Rol de los administradores de la tienda");
         authorityAdmin.addUser(user1);
         authorities.add(authorityAdmin);
+        
         Authority authorityCustomer = new Authority();
         authorityCustomer.setType(AuthorityEnum.ROLE_CONSUMER);
         authorityCustomer.setDescription("Rol de los consumidores de la tienda");
-        authorityAdmin.addUser(user1);
+        authorityCustomer.addUser(user1);
         authorities.add(authorityCustomer);
         
         userRepository.save(users);
