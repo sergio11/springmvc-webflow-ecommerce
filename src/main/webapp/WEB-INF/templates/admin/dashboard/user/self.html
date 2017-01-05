@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html layout:decorator="admin/dashboard/layout">
     <head>
-        <title th:text="#{admin.user.account.title(${user.fullName})}">User Account</title>
+        <title th:text="#{admin.user.account.title(${#authentication.principal.fullName})}">User Account</title>
         <th:block layout:fragment="page-styles">
             <link th:href="@{/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css}" rel="stylesheet" type="text/css"/>
             <link th:href="@{/assets/admin/pages/css/profile.css}" rel="stylesheet" type="text/css"/>
@@ -11,7 +11,7 @@
         <th:block layout:fragment="content">
             <h3 class="page-title">
                 <span th:text="#{admin.user.account.title2}">User Account</span> 
-                <small th:text="${user.fullName}">Sergio Sánchez</small>
+                <small sec:authentication="principal.fullName">Sergio Sánchez</small>
             </h3>
             <div class="page-bar">
                 <ul class="page-breadcrumb">
@@ -44,7 +44,7 @@
                             <!-- END SIDEBAR USERPIC -->
                             <!-- SIDEBAR USER TITLE -->
                             <div class="profile-usertitle">
-                                <div class="profile-usertitle-name" th:text="${user.fullName}"></div>
+                                <div class="profile-usertitle-name" sec:authentication="principal.fullName"></div>
                                 <div class="profile-usertitle-job">
                                     Developer
                                 </div>
@@ -96,32 +96,21 @@
                                             <i class="icon-globe theme-font hide"></i>
                                             <span class="caption-subject font-blue-madison bold uppercase" th:text="#{admin.user.account.title2}">Profile Account</span>
                                         </div>
-                                        <ul class="nav nav-tabs">
+                                        <ul class="nav nav-tabs" id="tabs_nav">
                                             <li class="active">
-                                                <a href="#tab_1_1" data-toggle="tab" th:text="#{admin.user.account.tabs.personal}">Personal Info</a>
+                                                <a data-tab="personal" th:text="#{admin.user.account.tabs.personal}">Personal Info</a>
                                             </li>
                                             <li>
-                                                <a href="#tab_1_2" data-toggle="tab" th:text="#{admin.user.account.tabs.avatar}">Change Avatar</a>
+                                                <a data-tab="avatar" th:text="#{admin.user.account.tabs.avatar}">Change Avatar</a>
                                             </li>
                                             <li>
-                                                <a href="#tab_1_3" data-toggle="tab" th:text="#{admin.user.account.tabs.password}">Change Password</a>
+                                                <a data-tab="password" th:text="#{admin.user.account.tabs.password}">Change Password</a>
                                             </li>
                                         </ul>
                                     </div>
                                     <div class="portlet-body">
                                         <div class="tab-content">
-                                            <!-- PERSONAL INFO TAB -->
-                                            <div class="tab-pane active" id="tab_1_1"
-                                                 th:include="admin/fragments/user/personal::form-basic(@{/admin/users/self})"></div>
-                                            <!-- END PERSONAL INFO TAB -->
-                                            <!-- CHANGE AVATAR TAB -->
-                                            <div class="tab-pane" id="tab_1_2"
-                                                 th:include="admin/fragments/user/avatar::form(@{/admin/users/avatar/upload})"></div>
-                                            <!-- END CHANGE AVATAR TAB -->
-                                            <!-- CHANGE PASSWORD TAB -->
-                                            <div class="tab-pane" id="tab_1_3"
-                                                 th:include="admin/fragments/user/password::form"></div>
-                                            <!-- END CHANGE PASSWORD TAB -->
+                                            <div class="tab-pane active" id="tabs_content"></div>
                                         </div>
                                     </div>
                                 </div>

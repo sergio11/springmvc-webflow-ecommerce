@@ -12,7 +12,6 @@ import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.stereotype.Component;
-import static persistence.models.Avatar_.user;
 
 /**
  * @author sergio
@@ -30,7 +29,7 @@ public class CustomLogoutHandler implements LogoutHandler {
         logger.info("User Logout");
         httpServletRequest.getSession().invalidate();
         httpServletResponse.setStatus(HttpServletResponse.SC_OK);
-        List<SessionInformation> userSessions = sessionRegistry.getAllSessions(user, true);
+        List<SessionInformation> userSessions = sessionRegistry.getAllSessions(authentication, true);
 
         for (SessionInformation session: userSessions) {
             sessionRegistry.removeSessionInformation(session.getSessionId());

@@ -32,7 +32,7 @@ public class SelfUserAvatarController {
     
     @Autowired
     private UploadAvatarStrategy uploadAvatarStrategy;
-    
+     
     @PostMapping("/upload")
     public String upload(
             @RequestPart("avatarfile") MultipartFile avatarFile,
