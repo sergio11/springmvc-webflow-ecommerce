@@ -24,18 +24,18 @@ import web.uploads.UploadAvatarStrategy;
 /**
  * @author sergio
  */
-@Controller("UserAvatarController")
-@RequestMapping("/admin/users/avatar")
-public class UserAvatarController {
+@Controller("SelfUserAvatarController")
+@RequestMapping("/admin/users/self/avatar")
+public class SelfUserAvatarController {
     
-    private static Logger logger = LoggerFactory.getLogger(UserAvatarController.class);
+    private static Logger logger = LoggerFactory.getLogger(SelfUserAvatarController.class);
     
     @Autowired
     private UploadAvatarStrategy uploadAvatarStrategy;
     
     @PostMapping("/upload")
     public String upload(
-            @RequestPart("avatar") MultipartFile avatarFile,
+            @RequestPart("avatarfile") MultipartFile avatarFile,
             @CurrentUserAttached User activeUser,
             HttpServletRequest request) throws IOException{
         

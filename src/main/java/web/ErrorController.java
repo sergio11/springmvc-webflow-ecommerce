@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import web.admin.exceptions.NotFoundException;
 
 /**
- *
  * @author sergio
  */
 @ControllerAdvice

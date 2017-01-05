@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import persistence.models.Avatar;
+import persistence.models.User;
 import persistence.repositories.AvatarRepository;
 import web.models.upload.RequestUploadAvatarFile;
 import web.models.upload.UploadFileInfo;
@@ -24,10 +25,12 @@ public class UploadAvatarStrategy implements UploadStrategy<Long, RequestUploadA
     @Override
     public Long save(RequestUploadAvatarFile fileinfo) throws UploadFailException {
         Avatar avatar = new Avatar();
+        User user = fileinfo.getUser();
         avatar.setName(fileinfo.getOriginalName());
         avatar.setContentType(fileinfo.getContentType());
         avatar.setUser(fileinfo.getUser());
         avatar.setContent(fileinfo.getBytes());
+        user.setAvatar(avatar);
         avatarRepository.save(avatar);
         return avatar.getId();
     }

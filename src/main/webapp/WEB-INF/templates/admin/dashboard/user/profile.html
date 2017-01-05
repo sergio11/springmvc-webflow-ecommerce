@@ -66,7 +66,7 @@
                                 </div>
                                 <div class="col-md-4 col-sm-4 col-xs-6">
                                     <div class="uppercase profile-stat-title">
-                                        51 €
+                                        51
                                     </div>
                                     <div class="uppercase profile-stat-text" th:text="#{admin.user.account.stat.total.spent.this.month}">
                                         Total Spent this Month
@@ -74,7 +74,7 @@
                                 </div>
                                 <div class="col-md-4 col-sm-4 col-xs-6">
                                     <div class="uppercase profile-stat-title">
-                                        61 €
+                                        61
                                     </div>
                                     <div class="uppercase profile-stat-text" th:text="#{admin.user.account.stat.total.spent}">
                                         Total Spent
@@ -112,11 +112,11 @@
                                         <div class="tab-content">
                                             <!-- PERSONAL INFO TAB -->
                                             <div class="tab-pane active" id="tab_1_1"
-                                                 th:include="admin/fragments/user/personal::form"></div>
+                                                 th:include="admin/fragments/user/personal::form-basic(@{/admin/users/self})"></div>
                                             <!-- END PERSONAL INFO TAB -->
                                             <!-- CHANGE AVATAR TAB -->
                                             <div class="tab-pane" id="tab_1_2"
-                                                 th:include="admin/fragments/user/avatar::form"></div>
+                                                 th:include="admin/fragments/user/avatar::form(@{/admin/users/avatar/upload})"></div>
                                             <!-- END CHANGE AVATAR TAB -->
                                             <!-- CHANGE PASSWORD TAB -->
                                             <div class="tab-pane" id="tab_1_3"

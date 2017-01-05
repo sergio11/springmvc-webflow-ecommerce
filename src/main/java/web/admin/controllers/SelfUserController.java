@@ -50,7 +50,7 @@ public class SelfUserController {
         if(!model.containsAttribute(BINDING_RESULT_NAME)) {
             model.addAttribute(ATTRIBUTE_NAME, user);
         }
-        return "admin/dashboard/user/account";
+        return "admin/dashboard/user/profile";
     }
     
     @RequestMapping(method = RequestMethod.POST)

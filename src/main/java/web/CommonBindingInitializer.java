@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.context.request.WebRequest;
 
 /**
- *
  * @author sergio
  */
 @ControllerAdvice

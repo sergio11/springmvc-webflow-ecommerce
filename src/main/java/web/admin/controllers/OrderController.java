@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import persistence.repositories.OrderRepository;
 
 /**
- *
  * @author sergio
  */
 @Controller("AdminOrderController")
@@ -28,6 +27,4 @@ public class OrderController {
         model.addAttribute("ordersCount",  ordersCount);
         return "admin/dashboard/order/all";
     }
-            
-    
 }
