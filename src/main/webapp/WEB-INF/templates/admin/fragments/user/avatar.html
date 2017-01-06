@@ -36,7 +36,7 @@
         <!-- A fragment with form wrapper for avatar fragment -->
         <th:block th:fragment="form(url)">
             <p th:text="#{admin.user.avatar.info}"></p>
-            <form th:action="${url}" method="post" accept-charset="UTF-8" 
+            <form th:action="@{${url}}" method="post" accept-charset="UTF-8" 
                 enctype="multipart/form-data" role="form">
                 <th:block th:include="this::no-form"/>
                 <div class="margin-top-10">

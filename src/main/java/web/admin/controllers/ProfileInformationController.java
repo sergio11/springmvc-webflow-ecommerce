@@ -57,8 +57,8 @@ public class ProfileInformationController {
         if(!model.containsAttribute(BINDING_RESULT_NAME)) {
             model.addAttribute(ATTRIBUTE_NAME, user);
         }
-        model.addAttribute("url", "/admin/users/self/profile");
-        return "admin/fragments/user/personal::form-basic({url})";
+        String url = "/admin/users/self/profile";
+        return String.format("admin/fragments/user/personal::form-basic(url='%s')",url);
     }
     
     @RequestMapping(method = RequestMethod.POST)
