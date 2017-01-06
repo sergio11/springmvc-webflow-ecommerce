@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <th:block th:fragment="table(url)">
+            <div class="table-container">
+                <table class="table table-striped table-bordered table-hover" id="datatable_reviews" th:data-source="${url}">
+                    <thead>
+                        <tr role="row" class="heading">
+                            <th width="5%" th:text="#{admin.product.edit.reviews.th.id}">Review&nbsp;#</th>
+                            <th width="10%" th:text="#{admin.product.edit.reviews.th.date}">Review&nbsp;Date</th>
+                            <th width="10%" th:text="#{admin.product.edit.reviews.th.customer}">Customer</th>
+                            <th width="20%" th:text="#{admin.product.edit.reviews.th.content}">Review&nbsp;Content</th>
+                            <th width="10%" th:text="#{admin.product.edit.reviews.th.status}">Status</th>
+                            <th width="10%" th:text="#{admin.product.edit.reviews.th.actions}">Actions</th>
+                        </tr>
+                        <tr role="row" class="filter">
+                            <td>
+                                <input type="text" class="form-control form-filter input-sm" name="filter.id">
+                            </td>
+                            <td>
+                                <div class="input-group date date-picker margin-bottom-5" data-date-format="dd/mm/yyyy">
+                                    <input type="text" class="form-control form-filter input-sm"  name="filter.dateFrom" placeholder="From">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-sm default" type="button"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                </div>
+                                <div class="input-group date date-picker" data-date-format="dd/mm/yyyy">
+                                    <input type="text" class="form-control form-filter input-sm"  name="filter.dateTo" placeholder="To">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-sm default" type="button"><i class="fa fa-calendar"></i></button>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control form-filter input-sm" name="filter.costumer">
+                            </td>
+                            <td>
+                                <input type="text" class="form-control form-filter input-sm" name="filter.content">
+                            </td>
+                            <td>
+                                <select name="filter.status" class="form-control form-filter input-sm">
+                                    <option th:each="state : ${T(persistence.models.ReviewStatusEnum).values()}"
+                                            th:value="${state}" 
+                                            th:text="${state}">
+                                    </option>
+                                </select>
+                            </td>
+                            <td>
+                                <div class="margin-bottom-5">
+                                    <button class="btn btn-sm yellow filter-submit margin-bottom">
+                                        <i class="fa fa-search"></i> 
+                                        <span th:text="#{common.btns.search}">Search</span>
+                                    </button>
+                                </div>
+                                <button class="btn btn-sm red filter-cancel">
+                                    <i class="fa fa-times"></i> 
+                                    <span th:text="#{common.btns.reset}">Reset</span>
+                                </button>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </th:block>
+    </body>
+</html>
