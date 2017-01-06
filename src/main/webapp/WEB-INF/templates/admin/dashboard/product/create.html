@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    layout:decorator="admin/dashboard/layout">
+    <head>
+        <title th:text="#{admin.product.create.title}">Create Product</title>
+        <link rel="stylesheet" type="text/css" th:href="@{/assets/global/plugins/select2/select2.css}"/>
+        <link rel="stylesheet" type="text/css" th:href="@{/assets/global/plugins/bootstrap-datepicker/css/datepicker.css}"/>
+        <link rel="stylesheet" type="text/css" th:href="@{/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css}"/>
+        <link rel="stylesheet" type="text/css" th:href="@{/assets/global/plugins/fancybox/source/jquery.fancybox.css}" />
+        <link rel="stylesheet" type="text/css" th:href="@{/assets/global/plugins/bootstrap3-wysihtml5/bootstrap3-wysihtml5.min.css}" />
+    </head>
+    <body>
+        <th:block layout:fragment="content">
+            
+            <!-- BEGIN PAGE HEADER -->
+            <div layout:fragment="page-header">
+                <h3 class="page-title">
+                    <span th:text="#{admin.product.create.title}">Create Product</span>
+                    <small th:text="#{admin.product.create.subtitle}">Product creation</small>
+                </h3>
+                <div class="page-bar">
+                    <ul class="page-breadcrumb">
+                        <li>
+                            <i class="fa fa-home"></i>
+                            <a href="index.html">Home</a>
+                            <i class="fa fa-angle-right"></i>
+                        </li>
+                        <li>
+                            <a href="#">eCommerce</a>
+                            <i class="fa fa-angle-right"></i>
+                        </li>
+                        <li>
+                            <a href="#">Product Edit</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+            <div class="row">
+                <div class="col-md-12">
+                    <th:block th:replace="admin/fragments/alerts::flash-message"></th:block>
+                    <form id="productForm" name="productForm" class="form-horizontal form-row-seperated" action="#" method="post" th:action="@{/admin/products/save}" th:object="${product}">
+                        <th:block th:replace="admin/fragments/alerts::form-errors"></th:block>
+                        <div class="portlet">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    <th:block th:with="expr_result = ${product.name != null && !product.name.isEmpty()}"> 
+                                        <span th:if="${expr_result}" th:text="${product.name}"></span>
+                                        <span th:unless="${expr_result}" th:text="#{admin.product.new}">New Product</span>
+                                    </th:block>
+                                </div>
+                                <div class="actions btn-set">
+                                    <a class="btn default" th:href="@{/admin/products}">
+                                        <i class="fa fa-angle-left"></i>
+                                        <span th:text="#{common.btns.back}">Back</span>
+                                    </a>
+                                    <button class="btn default" type="reset">
+                                        <i class="fa fa-reply"></i>
+                                        <span th:text="#{common.btns.reset}">Reset</span>
+                                    </button>
+                                    <button class="btn green" type="submit">
+                                        <i class="fa fa-check"></i>
+                                        <span th:text="#{common.btns.save}">Save</span>
+                                    </button>
+                                    <button class="btn green" type="submit" name="continueEditing" value="true">
+                                        <i class="fa fa-check-circle"></i>
+                                        <span th:text="#{common.btns.save.and.continue}">Save & Continue Edit</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                <div class="tabbable">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active">
+                                            <a href="#tab_general" data-toggle="tab" th:text="#{admin.product.tabs.title.general}">General</a>
+                                        </li>
+                                        <li>
+                                            <a href="#tab_meta" data-toggle="tab" th:text="#{admin.product.tabs.title.meta}">Meta</a>
+                                        </li>
+                                        <li>
+                                            <a href="#tab_product_lines" data-toggle="tab" th:text="#{admin.product.tabs.title.lines}">Product Lines</a>
+                                        </li>
+                                        <!-- BEGIN ADDITIONAL TABS -->
+                                        <th:block layout:fragment="additional-tabs" />
+                                        <!-- END ADDITIONAL TABS -->
+                                    </ul>
+                                    <div class="tab-content no-space">
+                                        <!-- Edit General information about product -->
+                                        <div class="tab-pane active" id="tab_general" 
+                                             th:include="admin/fragments/product/general::form"></div>
+                                        <!-- Edit Detail information for Product -->
+                                        <div class="tab-pane" id="tab_meta">
+                                            <div class="alert alert-info margin-bottom-10 text-center" th:text="#{admin.product.form.preview.label}"></div>
+                                            <div class="form-body">
+                                                <div class="form-group">
+                                                    <div class="col-md-10">
+                                                        <textarea id="bootstrap-editor" th:field="*{completeDesc}" placeholder="Enter text ..." style="width:98%;height:200px;"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Edit Product Images -->
+                                        <div class="tab-pane" id="tab_product_lines" 
+                                             th:include="admin/fragments/product/lines::form"></div>
+                                        <!-- BEGIN ADDITIONAL TAB PANELS -->
+                                        <th:block layout:fragment="additional-tab-panels" />
+                                        <!-- END ADDITIONAL TAB PANELS -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </th:block>
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <th:block layout:fragment="page-plugins">
+            <script type="text/javascript" th:src="@{/assets/global/plugins/select2/select2.min.js}"></script>
+            <script type="text/javascript" th:src="@{/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js}"></script>
+            <script type="text/javascript" th:src="@{/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js}"></script>
+            <script type="text/javascript" th:src="@{/assets/global/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js}"></script>
+            <script type="text/javascript" th:src="@{/assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js}"></script>
+            <script type="text/javascript" th:src="@{/assets/global/plugins/fancybox/source/jquery.fancybox.pack.js}"></script>
+            <script type="text/javascript" th:src="@{/assets/global/plugins/plupload/js/plupload.full.min.js}"></script>
+            <script type="text/javascript" th:src="@{/assets/global/plugins/bootstrap3-wysihtml5/bootstrap3-wysihtml5.all.min.js}"></script>
+            <th:block layout:fragment="additional-page-plugins"></th:block>
+        </th:block>
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN PAGE LEVEL SCRIPTS -->
+        <th:block layout:fragment="page-scripts">
+            <script type="text/javascript" th:src="@{/assets/admin/pages/scripts/ecommerce-products-create.js}"></script>
+            <th:block layout:fragment="additional-page-scripts"></th:block>
+        </th:block>
+        <!-- END PAGE LEVEL SCRIPTS -->
+        <th:block layout:fragment="init-script">
+            <script type="text/javascript">
+                jQuery(document).ready(function () {
+                    EcommerceProductsCreate.init();
+                });
+            </script>
+            <th:block layout:fragment="additional-init-script"></th:block>
+        </th:block>
+        
+    </body>
+</html>

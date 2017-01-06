@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
@@ -8,14 +9,14 @@
     <body>
     <th:block th:fragment="form">
         <div id="tab_images_uploader_container" class="text-align-reverse margin-bottom-10">
-            <div class="alert alert-info margin-bottom-10 text-center" th:text="#{admin.product.edit.lines.info}"></div>
+            <div class="alert alert-info margin-bottom-10 text-center" th:text="#{admin.product.lines.info}"></div>
             <a id="tab_images_uploader_pickfiles" href="javascript:;" class="btn yellow">
                 <i class="fa fa-plus"></i>
-                <span th:text="#{admin.product.edit.lines.btn.select}">Select Files</span>
+                <span th:text="#{admin.product.lines.btn.select}">Select Files</span>
             </a>
             <a id="tab_images_uploader_uploadfiles" href="javascript:;" class="btn green">
                 <i class="fa fa-share"></i>
-                <span th:text="#{admin.product.edit.lines.btn.upload}">Upload Files</span>
+                <span th:text="#{admin.product.lines.btn.upload}">Upload Files</span>
             </a>
         </div>
         <div class="row">
@@ -25,10 +26,10 @@
         <table class="table table-bordered table-hover">
             <thead>
                 <tr role="row" class="heading">
-                    <th width="8%" th:text="#{admin.product.edit.lines.th.image}">Image</th>
-                    <th width="25%" th:text="#{admin.product.edit.lines.th.desc}">Description</th>
-                    <th width="10%" th:text="#{admin.product.edit.lines.th.stock}">Stock</th>
-                    <th width="8%" th:text="#{admin.product.edit.lines.th.actions}">Actions</th>
+                    <th width="8%" th:text="#{admin.product.lines.th.image}">Image</th>
+                    <th width="25%" th:text="#{admin.product.lines.th.desc}">Description</th>
+                    <th width="10%" th:text="#{admin.product.lines.th.stock}">Stock</th>
+                    <th width="8%" th:text="#{admin.product.lines.th.actions}">Actions</th>
                 </tr>
             </thead>
             <tbody id="modelRows">
@@ -39,7 +40,7 @@
                         <input type="hidden" th:field="*{productLines[__${stat.index}__].image}" />
                     </td>
                     <td class="text-center" style="vertical-align: middle;">
-                        <input type="text" maxlength="80" class="form-control" th:field="*{productLines[__${stat.index}__].description}" th:placeholder="#{admin.product.edit.lines.th.desc.placeholder}" />
+                        <input type="text" maxlength="80" class="form-control" th:field="*{productLines[__${stat.index}__].description}" th:placeholder="#{admin.product.lines.th.desc.placeholder}" />
                     </td>
                     <td class="text-center" style="vertical-align: middle;">
                         <input type="number" class="form-control" min="0" max="200" th:field="*{productLines[__${stat.index}__].stock}" />
@@ -47,7 +48,7 @@
                     <td class="text-center" style="vertical-align: middle;">
                         <button class='btn btn-sm btn-danger btn-circle btn-editable'>
                             <i class='fa fa-remove'></i>
-                            <span th:text="#{admin.product.edit.lines.btn.remove}">Remove</span>
+                            <span th:text="#{admin.product.lines.btn.remove}">Remove</span>
                         </button>
                     </td>
                 </tr>
@@ -58,7 +59,7 @@
                         <input type="hidden" data-image />
                     </td>
                     <td class="text-center" style="vertical-align: middle;">
-                        <input type="text" maxlength="80" data-desc class="form-control"  th:placeholder="#{admin.product.edit.lines.th.desc.placeholder}">
+                        <input type="text" maxlength="80" data-desc class="form-control"  th:placeholder="#{admin.product.lines.th.desc.placeholder}">
                     </td>
                     <td class="text-center" style="vertical-align: middle;">
                         <input type="number" data-stock min="0" max="200" class="form-control"  value="0"/>
@@ -66,7 +67,7 @@
                     <td class="text-center" style="vertical-align: middle;">
                         <button class='btn btn-sm btn-danger btn-circle btn-editable'>
                             <i class='fa fa-remove'></i>
-                            <span th:text="#{admin.product.edit.lines.btn.remove}">Remove</span>
+                            <span th:text="#{admin.product.lines.btn.remove}">Remove</span>
                         </button>
                     </td>
                 </tr>

@@ -1,21 +1,17 @@
 <!DOCTYPE html>
-<html layout:decorator="admin/dashboard/layout">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    layout:decorator="admin/dashboard/product/create">
     <head>
-        <title th:text="#{admin.product.edit.title}">Product Edit</title>
-        <th:block layout:fragment="page-styles">
-            <link rel="stylesheet" type="text/css" th:href="@{/assets/global/plugins/select2/select2.css}"/>
-            <link rel="stylesheet" type="text/css" th:href="@{/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css}"/>
-            <link rel="stylesheet" type="text/css" th:href="@{/assets/global/plugins/bootstrap-datepicker/css/datepicker.css}"/>
-            <link rel="stylesheet" type="text/css" th:href="@{/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css}"/>
-            <link rel="stylesheet" type="text/css" th:href="@{/assets/global/plugins/fancybox/source/jquery.fancybox.css}" />
-            <link rel="stylesheet" type="text/css" th:href="@{/assets/global/plugins/bootstrap3-wysihtml5/bootstrap3-wysihtml5.min.css}" />
-        </th:block>
+        <title th:text="#{admin.product.edit.title}">Edit Product</title>
+        <link rel="stylesheet" type="text/css" th:href="@{/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css}"/>
     </head>
     <body>
-        <th:block layout:fragment="content">
+        <!-- BEGIN PAGE HEADER -->
+        <div layout:fragment="page-header">
             <h3 class="page-title">
-                <span th:text="#{admin.product.edit.title}">Product Edit</span>
-                <small th:text="#{admin.product.edit.subtitle}">create & edit product</small>
+                <span th:text="#{admin.product.edit.title}">Edit Product</span>
+                <small th:text="#{admin.product.edit.subtitle}">Product edition</small>
             </h3>
             <div class="page-bar">
                 <ul class="page-breadcrumb">
@@ -32,135 +28,37 @@
                         <a href="#">Product Edit</a>
                     </li>
                 </ul>
-                <div class="page-toolbar">
-                    <div class="btn-group pull-right">
-                        <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
-                            Actions <i class="fa fa-angle-down"></i>
-                        </button>
-                        <ul class="dropdown-menu pull-right" role="menu">
-                            <li>
-                                <a href="#">Action</a>
-                            </li>
-                            <li>
-                                <a href="#">Another action</a>
-                            </li>
-                            <li>
-                                <a href="#">Something else here</a>
-                            </li>
-                            <li class="divider">
-                            </li>
-                            <li>
-                                <a href="#">Separated link</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
             </div>
-            <!-- END PAGE HEADER-->
-            <!-- BEGIN PAGE CONTENT-->
-            <div class="row">
-                <div class="col-md-12">
-                    <th:block th:replace="admin/fragments/alerts::flash-message"></th:block>
-                    <form id="productForm" name="productForm" class="form-horizontal form-row-seperated" action="#" method="post" th:action="@{/admin/products/save}" th:object="${product}">
-                        <th:block th:replace="admin/fragments/alerts::form-errors"></th:block>
-                        <div class="portlet">
-                            <div class="portlet-title">
-                                <div class="caption">
-                                    <i class="fa fa-shopping-cart"></i>
-                                    <th:block th:with="expr_result = ${product.name != null && !product.name.isEmpty()}"> 
-                                        <span th:if="${expr_result}" th:text="${product.name}"></span>
-                                        <span th:unless="${expr_result}" th:text="#{admin.product.new}">New Product</span>
-                                    </th:block>
-                                </div>
-                                <div class="actions btn-set">
-                                    <a class="btn default" th:href="@{/admin/products}">
-                                        <i class="fa fa-angle-left"></i>
-                                        <span th:text="#{admin.product.edit.btns.back}">Back</span>
-                                    </a>
-                                    <button class="btn default" type="reset">
-                                        <i class="fa fa-reply"></i>
-                                        <span th:text="#{admin.product.edit.btns.reset}">Reset</span>
-                                    </button>
-                                    <button class="btn green" type="submit">
-                                        <i class="fa fa-check"></i>
-                                        <span th:text="#{admin.product.edit.btns.save}">Save</span>
-                                    </button>
-                                    <button class="btn green" type="submit" name="continueEditing" value="true">
-                                        <i class="fa fa-check-circle"></i>
-                                        <span th:text="#{admin.product.edit.btns.save.and.continue}">Save & Continue Edit</span>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="portlet-body">
-                                <div class="tabbable">
-                                    <ul class="nav nav-tabs">
-                                        <li class="active">
-                                            <a href="#tab_general" data-toggle="tab" th:text="#{admin.product.edit.tabs.title.general}">General</a>
-                                        </li>
-                                        <li>
-                                            <a href="#tab_meta" data-toggle="tab" th:text="#{admin.product.edit.tabs.title.meta}">Meta</a>
-                                        </li>
-                                        <li>
-                                            <a href="#tab_product_lines" data-toggle="tab" th:text="#{admin.product.edit.tabs.title.lines}">Product Lines</a>
-                                        </li>
-                                        <li>
-                                            <a href="#tab_reviews" data-toggle="tab">
-                                                <span th:text="#{admin.product.edit.tabs.title.reviews}">Reviews</span>
-                                                <span class="badge badge-success">3</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    <div class="tab-content no-space">
-                                        <!-- Edit General information about product -->
-                                        <div class="tab-pane active" id="tab_general" 
-                                             th:include="admin/fragments/product/general::form"></div>
-                                        <!-- Edit Detail information for Product -->
-                                        <div class="tab-pane" id="tab_meta">
-                                            <div class="alert alert-info margin-bottom-10 text-center" th:text="#{admin.product.edit.form.preview.label}"></div>
-                                            <div class="form-body">
-                                                <div class="form-group">
-                                                    <div class="col-md-10">
-                                                        <textarea id="bootstrap-editor" th:field="*{completeDesc}" placeholder="Enter text ..." style="width:98%;height:200px;"></textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Edit Product Images -->
-                                        <div class="tab-pane" id="tab_product_lines" 
-                                             th:include="admin/fragments/product/lines::form"></div>
-                                        <!-- Edit Product Reviews -->
-                                        <div class="tab-pane" id="tab_reviews" 
-                                             th:include="admin/fragments/product/reviews::table(@{/admin/products/{id}/reviews(id=${product.id})})"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+        </div>
+        <!-- BEGIN ADDITIONAL TABS -->
+        <th:block layout:fragment="additional-tabs">
+            <li>
+                <a href="#tab_reviews" data-toggle="tab">
+                    <span th:text="#{admin.product.edit.tabs.title.reviews}">Reviews</span>
+                    <span class="badge badge-success" th:if="${newReviews}" th:text="${newReviews}">0</span>
+                </a>
+            </li>
         </th:block>
+        <!-- END ADDITIONAL TABS -->
+        <!-- BEGIN ADDITIONAL TAB PANELS -->
+        <th:block layout:fragment="additional-tab-panels">
+            <div class="tab-pane" id="tab_reviews"
+                 th:include="admin/fragments/product/reviews::table(@{/admin/products/{id}/reviews(id=${product.id})})"></div>
+        </th:block>
+        <!-- END ADDITIONAL TAB PANELS -->
         <!-- BEGIN PAGE LEVEL PLUGINS -->
-        <th:block layout:fragment="page-plugins">
-            <script type="text/javascript" th:src="@{/assets/global/plugins/select2/select2.min.js}"></script>
+        <th:block layout:fragment="additional-page-plugins">
             <script type="text/javascript" th:src="@{/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js}"></script>
             <script type="text/javascript" th:src="@{/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js}"></script>
             <script type="text/javascript" th:src="@{/assets/global/plugins/jquery.spring-friendly.min.js}"></script>
-            <script type="text/javascript" th:src="@{/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js}"></script>
-            <script type="text/javascript" th:src="@{/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js}"></script>
-            <script type="text/javascript" th:src="@{/assets/global/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js}"></script>
-            <script type="text/javascript" th:src="@{/assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js}"></script>
-            <script type="text/javascript" th:src="@{/assets/global/plugins/fancybox/source/jquery.fancybox.pack.js}"></script>
-            <script type="text/javascript" th:src="@{/assets/global/plugins/plupload/js/plupload.full.min.js}"></script>
-            <script type="text/javascript" th:src="@{/assets/global/plugins/bootstrap3-wysihtml5/bootstrap3-wysihtml5.all.min.js}"></script>
         </th:block>
-        <!-- END PAGE LEVEL PLUGINS -->
         <!-- BEGIN PAGE LEVEL SCRIPTS -->
-        <th:block layout:fragment="page-scripts">
+        <th:block layout:fragment="additional-page-scripts">
             <script type="text/javascript" th:src="@{/assets/global/scripts/datatable.js}"></script>
             <script type="text/javascript" th:src="@{/assets/admin/pages/scripts/ecommerce-products-edit.js}"></script>
         </th:block>
         <!-- END PAGE LEVEL SCRIPTS -->
-        <th:block layout:fragment="init-script">
+        <th:block layout:fragment="additional-init-script">
             <script type="text/javascript">
                 jQuery(document).ready(function () {
                     EcommerceProductsEdit.init();

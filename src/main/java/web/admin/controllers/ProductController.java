@@ -25,6 +25,8 @@ import persistence.repositories.ProductRepository;
 import web.admin.exceptions.ProductNotFoundException;
 import org.springframework.web.bind.annotation.RequestParam;
 import persistence.models.ProductLine;
+import persistence.models.ReviewStatusEnum;
+import persistence.repositories.ReviewRepository;
 
 /**
  *
@@ -43,6 +45,8 @@ public class ProductController {
     @Autowired
     private ProductRepository productsRepository;
     @Autowired
+    private ReviewRepository reviewRepository;
+    @Autowired
     private ReloadableResourceBundleMessageSource messageSource;
     
     @GetMapping("/all")
@@ -56,7 +60,7 @@ public class ProductController {
         if(!model.containsAttribute(BINDING_RESULT_NAME)) {
             model.addAttribute(ATTRIBUTE_NAME,  new Product());
         }
-        return "admin/dashboard/product/edit";
+        return "admin/dashboard/product/create";
     }
     
     @GetMapping("/edit/{productId}")
@@ -69,6 +73,10 @@ public class ProductController {
             }
             logger.info("Product Lines count: " + product.getProductLines().size());
             model.addAttribute(ATTRIBUTE_NAME, product);
+        }
+        int newReviews = reviewRepository.countByProductIdAndStatus(productId, ReviewStatusEnum.PENDING);
+        if(newReviews > 0){
+            model.addAttribute("newReviews", newReviews);
         }
         return "admin/dashboard/product/edit";
     }

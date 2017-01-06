@@ -81,7 +81,7 @@ public class Product implements Serializable {
     @Enumerated(EnumType.STRING)
     private ConsumerTypeEnum consumerType;
     
-    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Review> reviews = new HashSet();
     
     @Temporal(TemporalType.TIMESTAMP)
