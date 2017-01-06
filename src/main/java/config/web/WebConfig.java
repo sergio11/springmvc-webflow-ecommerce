@@ -37,6 +37,8 @@ public class WebConfig extends WebMvcConfigurerAdapter{
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/403").setViewName("403");
         registry.addViewController("/admin/users/self").setViewName("admin/dashboard/user/self");
+        registry.addViewController("/admin/404").setViewName("admin/errors/404");
+        registry.addViewController("/500").setViewName("global/errors/500");
     }
     
     @Override

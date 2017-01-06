@@ -33,7 +33,7 @@ public class ErrorController {
     
     @ExceptionHandler(NotFoundException.class)
     public String notfound(final NotFoundException notFoundException, final Model model) {
-        return "redirect:global/errors/404";
+        return "redirect:/admin/404";
     }
 
     @ExceptionHandler(Throwable.class)
@@ -43,6 +43,6 @@ public class ErrorController {
         throwable.printStackTrace();
         String errorMessage = (throwable != null ? throwable.getMessage() : "Unknown error");
         model.addAttribute("errorMessage", errorMessage);
-        return "redirect:global/errors/500";
+        return "redirect:/500";
     }
 }
