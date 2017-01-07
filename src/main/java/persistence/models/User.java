@@ -103,7 +103,7 @@ public class User implements Serializable, UserDetails {
     @JsonView(DataTablesOutput.View.class)
     private Boolean enabled = true;
     
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE })
     @JoinTable(
             name = "USER_ROLES",
             joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"),

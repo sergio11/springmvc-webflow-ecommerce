@@ -24,7 +24,6 @@ public class DataSourceConfig {
                 .build();
     }
 
-
     @Profile("production") // Datasource for production environment
     @Bean(name = "dataSource")
     public DataSource provideDataSourceProduction() {

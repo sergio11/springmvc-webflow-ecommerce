@@ -31,7 +31,7 @@ public class Avatar implements Serializable {
     @Column(nullable = false)
     @Lob
     private byte[] content;
-    @OneToOne(mappedBy = "avatar", cascade = CascadeType.MERGE)
+    @OneToOne(mappedBy = "avatar")
     private User user;
 
     public Long getId() {

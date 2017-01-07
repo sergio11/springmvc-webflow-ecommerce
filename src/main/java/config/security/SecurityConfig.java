@@ -45,7 +45,6 @@ public class SecurityConfig extends GlobalAuthenticationConfigurerAdapter {
     
     @Autowired
     private CustomLogoutHandler logoutHandler;
-    
    
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -66,82 +65,6 @@ public class SecurityConfig extends GlobalAuthenticationConfigurerAdapter {
         return new DefaultAuthenticationEventPublisher();
     }
     
-    
-    @Configuration
-    public class GlobalWebConfiguration extends WebSecurityConfigurerAdapter {
-
-        private SessionRegistry sessionRegistry;
-
-        @Autowired
-        private MessageSource messageSource;
-
-        @Override
-        public void configure(HttpSecurity http) throws Exception {
-            http.sessionManagement()
-                    .sessionAuthenticationStrategy(compositeSessionAuthenticationStrategy())
-                    .sessionFixation()
-                    .changeSessionId()
-                    .maximumSessions(1)
-                    .maxSessionsPreventsLogin(true)
-                    .expiredUrl("/login?expired")
-                    .sessionRegistry(sessionRegistry)
-                    .and()
-                    .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-                    .invalidSessionUrl("/");
-
-            // Here we protect site from:
-            // 1. X-Content-Type-Options
-            http.headers().contentTypeOptions();
-            // 2. Web Browser XSS Protection
-            http.headers().xssProtection();
-            http.headers().cacheControl();
-            http.headers().httpStrictTransportSecurity();
-            // 3. X-Frame-Options
-            http.headers().frameOptions();
-
-        }
-
-        @Bean
-        public SessionRegistry sessionRegistry() {
-            if (sessionRegistry == null) {
-                sessionRegistry = new SessionRegistryImpl();
-            }
-            return sessionRegistry;
-        }
-
-        @Bean
-        @Order(1)
-        public ConcurrentSessionControlAuthenticationStrategy concurrentSessionControlAuthenticationStrategy() {
-            ConcurrentSessionControlAuthenticationStrategy strategy = new ConcurrentSessionControlAuthenticationStrategy(sessionRegistry());
-            strategy.setExceptionIfMaximumExceeded(true);
-            strategy.setMessageSource(messageSource);
-            return strategy;
-        }
-        
-        @Bean
-        @Order(2)
-        public SessionFixationProtectionStrategy sessionFixationProtectionStrategy(){
-            return new SessionFixationProtectionStrategy();
-        }
-
-        @Bean
-        @Order(3)
-        public RegisterSessionAuthenticationStrategy registerSessionAuthenticationStrategy(){
-            RegisterSessionAuthenticationStrategy registerSessionAuthenticationStrategy = new RegisterSessionAuthenticationStrategy(sessionRegistry());
-            return registerSessionAuthenticationStrategy;
-        }
-        
-        @Bean
-        public CompositeSessionAuthenticationStrategy compositeSessionAuthenticationStrategy(){
-            List<SessionAuthenticationStrategy> sessionAuthenticationStrategies = new ArrayList<>();
-            sessionAuthenticationStrategies.add(concurrentSessionControlAuthenticationStrategy());
-            sessionAuthenticationStrategies.add(sessionFixationProtectionStrategy());
-            sessionAuthenticationStrategies.add(registerSessionAuthenticationStrategy());
-            CompositeSessionAuthenticationStrategy compositeSessionAuthenticationStrategy = new CompositeSessionAuthenticationStrategy(sessionAuthenticationStrategies);
-            return compositeSessionAuthenticationStrategy;
-        }
-
-    }
     
     /**
      * Security Configuration for Admin zone
@@ -211,5 +134,82 @@ public class SecurityConfig extends GlobalAuthenticationConfigurerAdapter {
                 .and()
                 .csrf();
         }
+    }
+    
+    @Configuration
+    @Order(3)
+    public class GlobalWebConfiguration extends WebSecurityConfigurerAdapter {
+
+        private SessionRegistry sessionRegistry;
+
+        @Autowired
+        private MessageSource messageSource;
+
+        @Override
+        public void configure(HttpSecurity http) throws Exception {
+            http.sessionManagement()
+                    .sessionAuthenticationStrategy(compositeSessionAuthenticationStrategy())
+                    .sessionFixation()
+                    .changeSessionId()
+                    .maximumSessions(1)
+                    .maxSessionsPreventsLogin(true)
+                    .expiredUrl("/login?expired")
+                    .sessionRegistry(sessionRegistry())
+                    .and()
+                    .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                    .invalidSessionUrl("/");
+
+            // Here we protect site from:
+            // 1. X-Content-Type-Options
+            http.headers().contentTypeOptions();
+            // 2. Web Browser XSS Protection
+            http.headers().xssProtection();
+            http.headers().cacheControl();
+            http.headers().httpStrictTransportSecurity();
+            // 3. X-Frame-Options
+            http.headers().frameOptions();
+
+        }
+
+        @Bean
+        public SessionRegistry sessionRegistry() {
+            if (sessionRegistry == null) {
+                sessionRegistry = new SessionRegistryImpl();
+            }
+            return sessionRegistry;
+        }
+
+        @Bean
+        @Order(1)
+        public ConcurrentSessionControlAuthenticationStrategy concurrentSessionControlAuthenticationStrategy() {
+            ConcurrentSessionControlAuthenticationStrategy strategy = new ConcurrentSessionControlAuthenticationStrategy(sessionRegistry());
+            strategy.setExceptionIfMaximumExceeded(true);
+            strategy.setMessageSource(messageSource);
+            return strategy;
+        }
+        
+        @Bean
+        @Order(2)
+        public SessionFixationProtectionStrategy sessionFixationProtectionStrategy(){
+            return new SessionFixationProtectionStrategy();
+        }
+
+        @Bean
+        @Order(3)
+        public RegisterSessionAuthenticationStrategy registerSessionAuthenticationStrategy(){
+            RegisterSessionAuthenticationStrategy registerSessionAuthenticationStrategy = new RegisterSessionAuthenticationStrategy(sessionRegistry());
+            return registerSessionAuthenticationStrategy;
+        }
+        
+        @Bean
+        public CompositeSessionAuthenticationStrategy compositeSessionAuthenticationStrategy(){
+            List<SessionAuthenticationStrategy> sessionAuthenticationStrategies = new ArrayList<>();
+            sessionAuthenticationStrategies.add(concurrentSessionControlAuthenticationStrategy());
+            sessionAuthenticationStrategies.add(sessionFixationProtectionStrategy());
+            sessionAuthenticationStrategies.add(registerSessionAuthenticationStrategy());
+            CompositeSessionAuthenticationStrategy compositeSessionAuthenticationStrategy = new CompositeSessionAuthenticationStrategy(sessionAuthenticationStrategies);
+            return compositeSessionAuthenticationStrategy;
+        }
+
     }
 }

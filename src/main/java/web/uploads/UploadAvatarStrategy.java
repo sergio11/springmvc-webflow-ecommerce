@@ -5,8 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import persistence.models.Avatar;
-import persistence.models.User;
 import persistence.repositories.AvatarRepository;
+import persistence.repositories.UserRepository;
 import web.models.upload.RequestUploadAvatarFile;
 import web.models.upload.UploadFileInfo;
 import web.uploads.exceptions.FileNotFoundException;
@@ -20,18 +20,20 @@ public class UploadAvatarStrategy implements UploadStrategy<Long, RequestUploadA
     
     private static Logger logger = LoggerFactory.getLogger(UploadAvatarStrategy.class);
     @Autowired
+    private UserRepository userRepository;
+    @Autowired
     private AvatarRepository avatarRepository;
 
     @Override
     public Long save(RequestUploadAvatarFile fileinfo) throws UploadFailException {
         Avatar avatar = new Avatar();
-        User user = fileinfo.getUser();
         avatar.setName(fileinfo.getOriginalName());
         avatar.setContentType(fileinfo.getContentType());
         avatar.setUser(fileinfo.getUser());
         avatar.setContent(fileinfo.getBytes());
-        user.setAvatar(avatar);
+        avatar.setSize(fileinfo.getSize());
         avatarRepository.save(avatar);
+        userRepository.save(fileinfo.getUser());
         return avatar.getId();
     }
 
@@ -55,6 +57,7 @@ public class UploadAvatarStrategy implements UploadStrategy<Long, RequestUploadA
             avatar.setContentType(fileinfo.getContentType());
             avatar.setUser(fileinfo.getUser());
             avatar.setContent(fileinfo.getBytes());
+            avatar.setSize(fileinfo.getSize());
             avatarRepository.save(avatar);
         } else {
             avatar.setContent(fileinfo.getBytes());

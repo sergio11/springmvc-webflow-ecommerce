@@ -11,16 +11,22 @@
         <!-- Fragment with basic personal information about user -->
         <div class="form-body" th:fragment="basic">
             <div class="form-group">
-                <label class="control-label" th:text="#{admin.user.form.username.label}">Username</label>
-                <input type="text" th:field="*{username}" th:placeholder="#{admin.user.form.username.placeholder}" class="form-control"/>
+                <label class="col-md-2 control-label" th:text="#{admin.user.form.username.label}">Username</label>
+                <div class="col-md-10">
+                    <input type="text" th:field="*{username}" th:placeholder="#{admin.user.form.username.placeholder}" class="form-control"/>
+                </div>
             </div>
             <div class="form-group">
-                <label class="control-label" th:text="#{admin.user.form.email.label}">email</label>
-                <input type="text" th:field="*{email}" th:placeholder="#{admin.user.form.email.placeholder}" class="form-control"/>
+                <label class="col-md-2 control-label" th:text="#{admin.user.form.email.label}">email</label>
+                <div class="col-md-10">
+                    <input type="text" th:field="*{email}" th:placeholder="#{admin.user.form.email.placeholder}" class="form-control"/>
+                </div>
             </div>
             <div class="form-group">
-                <label class="control-label" th:text="#{admin.user.form.fullName.label}">fullname</label>
-                <input type="text" th:field="*{fullName}" th:placeholder="#{admin.user.form.fullName.placeholder}" class="form-control"/>
+                <label class="col-md-2 control-label" th:text="#{admin.user.form.fullName.label}">fullname</label>
+                <div class="col-md-10">
+                    <input type="text" th:field="*{fullName}" th:placeholder="#{admin.user.form.fullName.placeholder}" class="form-control"/>
+                </div>
             </div>
         </div>
         
@@ -28,12 +34,16 @@
         <div class="form-body" th:fragment="complete">
             <th:block th:include="this::basic" th:remove="tag"/>
             <div class="form-group">
-                <label class="control-label" th:text="#{admin.user.form.password}">Password</label>
-                <input type="password" th:field="*{passwordClear}" class="form-control" th:placeholder="#{admin.user.form.password.placeholder}"/>
+                <label class="col-md-2 control-label" th:text="#{admin.user.form.password}">Password</label>
+                <div class="col-md-10">
+                    <input type="password" th:field="*{passwordClear}" class="form-control" th:placeholder="#{admin.user.form.password.placeholder}"/>
+                </div>
             </div>
             <div class="form-group">
-                <label class="control-label" th:text="#{admin.user.form.retry.password}">Re-type Password</label>
-                <input type="password" th:field="*{confirmPassword}" th:placeholder="#{admin.user.form.retry.password.placeholder}" class="form-control"/>
+                <label class="col-md-2 control-label" th:text="#{admin.user.form.retry.password}">Re-type Password</label>
+                <div class="col-md-10">
+                    <input type="password" th:field="*{confirmPassword}" th:placeholder="#{admin.user.form.retry.password.placeholder}" class="form-control"/>
+                </div>
             </div>
         </div>
         

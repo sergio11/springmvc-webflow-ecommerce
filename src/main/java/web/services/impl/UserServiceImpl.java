@@ -1,7 +1,6 @@
 package web.services.impl;
 
 import java.io.IOException;
-import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,18 +9,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import persistence.models.Authority;
-import persistence.models.AuthorityEnum;
 import persistence.models.User;
-import persistence.repositories.AuthorityRepository;
 import persistence.repositories.UserRepository;
 import web.events.user.ChangePasswordEvent;
 import web.models.upload.RequestUploadAvatarFile;
 import web.services.UserService;
-import web.uploads.UploadAvatarStrategy;
+import web.uploads.UploadStrategy;
 
 /**
- *
  * @author sergio
  */
 @Service
@@ -35,7 +30,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
-    private UploadAvatarStrategy uploadAvatarStrategy;
+    private UploadStrategy<Long, RequestUploadAvatarFile> uploadAvatarStrategy;
     @Autowired
     private ApplicationEventPublisher publisher;
 

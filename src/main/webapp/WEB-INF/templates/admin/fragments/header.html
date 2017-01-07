@@ -62,7 +62,7 @@
                             <li class="dropdown dropdown-user">
                                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                     <img alt="" class="img-circle" th:if="${#authentication.principal.avatar == null}" th:src="@{/assets/global/img/user_default.png}"/>
-                                    <img th:alt="${#authentication.principal.fullName}" class="img-circle" th:if="${#authentication.principal.avatar != null}" th:src="@{/admin/users/avatar/{id}(id=${#authentication.principal.avatar.id})}"/>
+                                    <img th:alt="${#authentication.principal.fullName}" class="img-circle" th:if="${#authentication.principal.avatar != null}" th:src="@{/admin/users/self/avatar/{id}(id=${#authentication.principal.avatar.id})}"/>
                                     <span class="username username-hide-on-mobile" sec:authentication="principal.fullName"></span>
                                     <i class="fa fa-angle-down"></i>
                                 </a>

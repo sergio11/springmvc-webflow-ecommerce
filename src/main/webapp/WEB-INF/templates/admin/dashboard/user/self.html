@@ -41,7 +41,7 @@
                             <!-- SIDEBAR USERPIC -->
                             <div class="profile-userpic">
                                 <img alt="" class="img-responsive" th:if="${#authentication.principal.avatar == null}" th:src="@{/assets/global/img/user_default.png}"/>
-                                <img th:alt="${#authentication.principal.fullName}"  class="img-responsive" th:if="${#authentication.principal.avatar != null}" th:src="@{/admin/users/avatar/{id}(id=${#authentication.principal.avatar.id})}"/>
+                                <img th:alt="${#authentication.principal.fullName}"  class="img-responsive" th:if="${#authentication.principal.avatar != null}" th:src="@{/admin/users/self/avatar/{id}(id=${#authentication.principal.avatar.id})}"/>
                             </div>
                             <!-- END SIDEBAR USERPIC -->
                             <!-- SIDEBAR USER TITLE -->

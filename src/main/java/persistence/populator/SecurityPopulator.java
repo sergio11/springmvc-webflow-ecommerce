@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import persistence.models.Authority;
 import persistence.models.AuthorityEnum;
 import persistence.models.User;
-import persistence.repositories.UserRepository;
+import persistence.repositories.AuthorityRepository;
 
 /**
  *
@@ -27,13 +27,13 @@ public class SecurityPopulator implements Serializable {
     private static Logger logger = LoggerFactory.getLogger(SecurityPopulator.class);
 
     @Autowired
-    private UserRepository userRepository;
+    private AuthorityRepository autorityRepository;
     
     @EventListener(ContextRefreshedEvent.class)
     @Transactional
     public void contextRefreshedEvent() {
         logger.info("SETUP SECURITY INIT DATA");
-        userRepository.deleteAll();
+        autorityRepository.deleteAll();
         Set<Authority> authorities = new HashSet();
         List<User> users = new ArrayList();
         
@@ -58,7 +58,7 @@ public class SecurityPopulator implements Serializable {
         authorityCustomer.addUser(user1);
         authorities.add(authorityCustomer);
         
-        userRepository.save(users);
+        autorityRepository.save(authorities);
         
     }
 }

@@ -1,7 +1,6 @@
 package web.admin.controllers;
 
 import java.io.IOException;
-import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +17,11 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import persistence.models.User;
-import persistence.repositories.UserRepository;
 import security.CurrentUser;
 import security.CurrentUserAttached;
 import web.models.upload.RequestUploadAvatarFile;
 import web.models.upload.UploadFileInfo;
-import web.uploads.UploadAvatarStrategy;
+import web.uploads.UploadStrategy;
 
 /**
  * @author sergio
@@ -37,10 +35,11 @@ public class SelfUserAvatarController {
     public static final String ATTRIBUTE_NAME = "user";
     
     @Autowired
-    private UploadAvatarStrategy uploadAvatarStrategy;
+    private UploadStrategy<Long, RequestUploadAvatarFile> uploadAvatarStrategy;
     
     @RequestMapping(method = RequestMethod.GET)
     public String show(@CurrentUser User user, Model model) {
+        logger.info(user.toString());
         if(!model.containsAttribute(ATTRIBUTE_NAME)) {
             model.addAttribute(ATTRIBUTE_NAME, user);
         }
@@ -52,7 +51,7 @@ public class SelfUserAvatarController {
     public String upload(
             @RequestPart("avatarfile") MultipartFile avatarFile,
             @CurrentUserAttached User activeUser) throws IOException{
-        
+        logger.info(activeUser.toString());
         RequestUploadAvatarFile uploadAvatar = new RequestUploadAvatarFile(activeUser, avatarFile.getSize(),
                 avatarFile.getBytes(), avatarFile.getContentType(), avatarFile.getOriginalFilename());
         logger.info(uploadAvatar.toString());
