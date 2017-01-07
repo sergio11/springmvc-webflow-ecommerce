@@ -1,6 +1,5 @@
 package web.admin.controllers;
 
-import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,19 +55,18 @@ public class ChangePasswordController {
             BindingResult bindingResult,
             RedirectAttributes redirectAttributes,
             // SessionStatus lets you clear your SessionAttributes
-            SessionStatus sessionStatus,
-            HttpServletRequest request){
+            SessionStatus sessionStatus){
         
-        String referer = request.getHeader("Referer");
+        String url = "/admin/users/self/change-password";
      
         if(bindingResult.hasErrors()) {
             //put the validation errors in Flash session and redirect to self
             redirectAttributes.addFlashAttribute(BINDING_RESULT_NAME, bindingResult);
-            return "redirect:"+referer;
+            return "redirect:"+url;
         }
         
         userService.updatePassword(user);
         sessionStatus.setComplete(); //remove user from session
-        return "redirect:"+referer;
+        return "redirect:"+url;
     }
 }

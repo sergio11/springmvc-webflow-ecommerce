@@ -129,7 +129,8 @@
                 // Prepend context path to all jQuery AJAX requests
                 $.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
                     if (!options.crossDomain) {
-                        options.url = _ctx + options.url;
+                        if(options.url.indexOf(_ctx) == -1)
+                            options.url = _ctx + options.url;
                     }
                 });
                 Metronic.init(); // init metronic core componets

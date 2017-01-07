@@ -50,15 +50,13 @@ public class SelfUserAvatarController {
     @PostMapping("/upload")
     public String upload(
             @RequestPart("avatarfile") MultipartFile avatarFile,
-            @CurrentUserAttached User activeUser,
-            HttpServletRequest request) throws IOException{
+            @CurrentUserAttached User activeUser) throws IOException{
         
         RequestUploadAvatarFile uploadAvatar = new RequestUploadAvatarFile(activeUser, avatarFile.getSize(),
                 avatarFile.getBytes(), avatarFile.getContentType(), avatarFile.getOriginalFilename());
         logger.info(uploadAvatar.toString());
         uploadAvatarStrategy.save(uploadAvatar);
-        String referer = request.getHeader("Referer");
-        return "redirect:" + referer;
+        return "redirect:/admin/users/self/avatar";
     }
     
     @GetMapping("/{id}")
