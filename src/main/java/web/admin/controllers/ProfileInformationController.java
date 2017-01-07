@@ -73,6 +73,7 @@ public class ProfileInformationController {
         String url = "/admin/users/self/profile";
         
         if(bindingResult.hasErrors()) {
+            logger.info("User has errors !!!");
             //put the validation errors in Flash session and redirect to self
             redirectAttributes.addFlashAttribute(BINDING_RESULT_NAME, bindingResult);
             return "redirect:"+url;

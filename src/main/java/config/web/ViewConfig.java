@@ -1,5 +1,6 @@
 package config.web;
 
+import es.sandbox.ui.messages.thymeleaf.FlashMessagesDialect;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -48,6 +49,7 @@ public class ViewConfig implements ApplicationContextAware {
         engine.setTemplateResolver(templateResolver);
         engine.addDialect(new LayoutDialect());
         engine.addDialect(new SpringSecurityDialect());
+        engine.addDialect(new FlashMessagesDialect());
         return engine;
     }
 

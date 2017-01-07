@@ -1,5 +1,6 @@
 package web.admin.controllers;
 
+import es.sandbox.ui.messages.Flash;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -83,6 +84,7 @@ public class ProductController {
     
     @PostMapping("/save")
     public String process(
+            Flash flash,
             @ModelAttribute(ATTRIBUTE_NAME) @Valid Product product, 
             BindingResult bindingResult,
             @RequestParam(value = "continueEditing", required = false, defaultValue = "false") boolean continueEditing,
@@ -103,9 +105,8 @@ public class ProductController {
         
         productsRepository.save(product);
         sessionStatus.setComplete(); //remove product from session
-        List<String> successMessages = new ArrayList();
-        successMessages.add(messageSource.getMessage("message.product.save.success", new Object[]{product.getId()}, Locale.getDefault()));
-        model.addFlashAttribute("successFlashMessages", successMessages);
+        // add success flash message
+        flash.success("message.product.save.success", product.getId());
         String redirectTo;
         if(continueEditing){
             model.addAttribute("productId", product.getId());

@@ -14,7 +14,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <org.slf4j-version>1.7.5</org.slf4j-version>
         <spring.security>4.2.0.RELEASE</spring.security>
+        <flash-messages.version>1.1.0</flash-messages.version>
     </properties>
+    
     
     <dependencies>
         <dependency>
@@ -201,6 +203,22 @@
                 </exclusion>
             </exclusions>
             <scope>runtime</scope>
+        </dependency>
+        <!-- Flash messages -->
+        <dependency>
+            <groupId>es.sandbox.ui.messages</groupId>
+            <artifactId>flash-messages-core</artifactId>
+            <version>${flash-messages.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>es.sandbox.ui.messages</groupId>
+            <artifactId>flash-messages-spring</artifactId>
+            <version>${flash-messages.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>es.sandbox.ui.messages</groupId>
+            <artifactId>flash-messages-thymeleaf</artifactId>
+            <version>${flash-messages.version}</version>
         </dependency>
     </dependencies>
 

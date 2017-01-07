@@ -1,17 +1,14 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:th="http://www.thymeleaf.org">
+      xmlns:flash="http://sandbox.es/flash-messages"
+        xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div th:fragment="flash-message" th:if="${not #lists.isEmpty(successFlashMessages)}" class="note note-success">
-            <ul>
-                <li th:each="message:${successFlashMessages}" th:text="${message}"></li>
-            </ul>
-        </div>
+        <th:block th:fragment="flash-message"/>
         <div th:fragment="form-errors" class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
             <ul>
                 <li class="text-left" th:each="err: ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>

@@ -113,7 +113,6 @@ public class SecurityConfig extends GlobalAuthenticationConfigurerAdapter {
     }
     
     /**
-     * 
      * Security Configuration for Admin zone
      */
     @Configuration

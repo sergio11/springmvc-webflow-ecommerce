@@ -23,9 +23,9 @@ import web.admin.converters.StringAuthorityConverter;
  * @author sergio
  */
 @Configuration
-@ComponentScan(value = "web")
-@Import(value = { ViewConfig.class, i18nConfig.class })
 @EnableWebMvc
+@Import(value = { FlashMessagesConfig.class, ViewConfig.class, i18nConfig.class })
+@ComponentScan(value = "web")
 public class WebConfig extends WebMvcConfigurerAdapter{
     
     @Autowired
