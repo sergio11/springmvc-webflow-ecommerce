@@ -51,7 +51,8 @@ public class ProfileInformationController {
     }
    
     @RequestMapping(method = RequestMethod.GET)
-    public String show(@CurrentUser User user, Model model) {
+    public String show(@CurrentUser User currentUser, Model model) {
+        User user = userRepository.findOne(currentUser.getId());
         logger.info(user.toString());
         if(!model.containsAttribute(BINDING_RESULT_NAME)) {
             model.addAttribute(ATTRIBUTE_NAME, user);
@@ -67,13 +68,13 @@ public class ProfileInformationController {
        BindingResult bindingResult, 
        RedirectAttributes redirectAttributes,
        // SessionStatus lets you clear your SessionAttributes
-       SessionStatus sessionStatus
+       SessionStatus sessionStatus,
+       @CurrentUser User currentUser
     ){
         
         String url = "/admin/users/self/profile";
         
         if(bindingResult.hasErrors()) {
-            logger.info("User has errors !!!");
             //put the validation errors in Flash session and redirect to self
             redirectAttributes.addFlashAttribute(BINDING_RESULT_NAME, bindingResult);
             return "redirect:"+url;
@@ -81,6 +82,9 @@ public class ProfileInformationController {
         
         userRepository.save(user);
         sessionStatus.setComplete(); //remove user from session
+        currentUser.setUsername(user.getUsername());
+        currentUser.setEmail(user.getFullName());
+        currentUser.setFullName(user.getEmail());
         List<String> successMessages = new ArrayList();
         successMessages.add(messageSource.getMessage("message.profile.save.success", new Object[]{ }, Locale.getDefault()));
         redirectAttributes.addFlashAttribute("successFlashMessages", successMessages);

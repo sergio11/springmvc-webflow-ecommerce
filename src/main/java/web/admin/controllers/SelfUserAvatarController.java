@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import persistence.models.User;
+import persistence.repositories.UserRepository;
 import security.CurrentUser;
 import security.CurrentUserAttached;
 import web.models.upload.RequestUploadAvatarFile;
