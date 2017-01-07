@@ -22,6 +22,8 @@ public class i18nConfig {
     @Bean(name="messageSource")
     public MessageSource  provideMessageSource() {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+        messageSource.setCacheSeconds(env.getProperty("i18n.cache.seconds", Integer.class, 30));
+        messageSource.setUseCodeAsDefaultMessage(true);
         messageSource.addBasenames(
                 env.getProperty("i18n.admin.messages.basename"), 
                 env.getProperty("i18n.frontend.messages.basename"),
