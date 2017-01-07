@@ -1,5 +1,7 @@
 package config.security;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -20,7 +22,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.session.CompositeSessionAuthenticationStrategy;
 import org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy;
+import org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy;
+import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
+import org.springframework.security.web.authentication.session.SessionFixationProtectionStrategy;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import persistence.models.AuthorityEnum;
 import security.handlers.CustomLogoutHandler;
@@ -72,7 +78,7 @@ public class SecurityConfig extends GlobalAuthenticationConfigurerAdapter {
         @Override
         public void configure(HttpSecurity http) throws Exception {
             http.sessionManagement()
-                    .sessionAuthenticationStrategy(concurrentSessionControlAuthenticationStrategy())
+                    .sessionAuthenticationStrategy(compositeSessionAuthenticationStrategy())
                     .sessionFixation()
                     .changeSessionId()
                     .maximumSessions(1)
@@ -104,12 +110,37 @@ public class SecurityConfig extends GlobalAuthenticationConfigurerAdapter {
         }
 
         @Bean
+        @Order(1)
         public ConcurrentSessionControlAuthenticationStrategy concurrentSessionControlAuthenticationStrategy() {
             ConcurrentSessionControlAuthenticationStrategy strategy = new ConcurrentSessionControlAuthenticationStrategy(sessionRegistry());
             strategy.setExceptionIfMaximumExceeded(true);
             strategy.setMessageSource(messageSource);
             return strategy;
         }
+        
+        @Bean
+        @Order(2)
+        public SessionFixationProtectionStrategy sessionFixationProtectionStrategy(){
+            return new SessionFixationProtectionStrategy();
+        }
+
+        @Bean
+        @Order(3)
+        public RegisterSessionAuthenticationStrategy registerSessionAuthenticationStrategy(){
+            RegisterSessionAuthenticationStrategy registerSessionAuthenticationStrategy = new RegisterSessionAuthenticationStrategy(sessionRegistry());
+            return registerSessionAuthenticationStrategy;
+        }
+        
+        @Bean
+        public CompositeSessionAuthenticationStrategy compositeSessionAuthenticationStrategy(){
+            List<SessionAuthenticationStrategy> sessionAuthenticationStrategies = new ArrayList<>();
+            sessionAuthenticationStrategies.add(concurrentSessionControlAuthenticationStrategy());
+            sessionAuthenticationStrategies.add(sessionFixationProtectionStrategy());
+            sessionAuthenticationStrategies.add(registerSessionAuthenticationStrategy());
+            CompositeSessionAuthenticationStrategy compositeSessionAuthenticationStrategy = new CompositeSessionAuthenticationStrategy(sessionAuthenticationStrategies);
+            return compositeSessionAuthenticationStrategy;
+        }
+
     }
     
     /**
