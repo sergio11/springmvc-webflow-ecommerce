@@ -26,7 +26,7 @@ public class ValidateDateRangeValidator implements ConstraintValidator<ValidateD
         {
             final Date start = (Date)PropertyUtils.getProperty(value, startFieldName);
             final Date end = (Date)PropertyUtils.getProperty(value, endFieldName);
-            return start == null && end == null || start != null && end.after(start);
+            return start == null && end == null || start != null && end == null || start != null && end.after(start);
         }
         catch (final Exception ignore)
         {

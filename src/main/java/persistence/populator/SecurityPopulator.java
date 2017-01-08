@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import persistence.models.Authority;
@@ -29,6 +30,7 @@ public class SecurityPopulator implements Serializable {
     @Autowired
     private AuthorityRepository autorityRepository;
     
+    @Order(1)
     @EventListener(ContextRefreshedEvent.class)
     @Transactional
     public void contextRefreshedEvent() {

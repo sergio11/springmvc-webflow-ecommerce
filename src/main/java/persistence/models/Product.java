@@ -25,7 +25,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
@@ -70,12 +69,10 @@ public class Product implements Serializable {
     private String shortDescription;
 
     @NotNull(message="{product.availableFrom.notnull}")
-    @Future(message="{product.availableFrom.future}")
     @Column(nullable = false)
     private Date availableFrom;
     
-    @NotNull(message="{product.availableTo.notnull}")
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Date availableTo;
     
     @Enumerated(EnumType.STRING)
@@ -171,6 +168,13 @@ public class Product implements Serializable {
     public void setReviews(Set<Review> reviews) {
         this.reviews = reviews;
     }
+    
+    public void addReview(Review review){
+        if(!reviews.contains(review)){
+            reviews.add(review);
+            review.setProduct(this);
+        }
+    }
 
     public ProductStatusEnum getStatus() {
         return status;
@@ -202,6 +206,13 @@ public class Product implements Serializable {
 
     public void setProductLines(List<ProductLine> productLines) {
         this.productLines = productLines;
+    }
+    
+    public void addProductLine(ProductLine line){
+        if(!productLines.contains(line)){
+            productLines.add(line);
+            line.setProduct(this);
+        }
     }
 
     @Override

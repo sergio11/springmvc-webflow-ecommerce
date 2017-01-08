@@ -38,10 +38,10 @@ public class Review implements Serializable {
     private Float rating = 0f;
     
     @Lob
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition="clob")
     private String body;
     
-    @ManyToOne
+    @ManyToOne(optional = false)
     private User user;
     
     @Enumerated(EnumType.STRING)
@@ -104,5 +104,6 @@ public class Review implements Serializable {
 
     public void setProduct(Product product) {
         this.product = product;
+        product.addReview(this);
     }
 }

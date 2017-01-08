@@ -78,6 +78,7 @@ public class ProductLine implements Serializable {
 
     public void setProduct(Product product) {
         this.product = product;
+        product.addProductLine(this);
     }
 
     public List<OrderLine> getOrderLines() {
