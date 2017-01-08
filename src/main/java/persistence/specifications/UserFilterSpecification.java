@@ -46,6 +46,10 @@ public class UserFilterSpecification implements Specification<User> {
         if(filterUser.getLastLoginAccessTo()!= null){
             predicates.add(cb.lessThanOrEqualTo(root.get(User_.lastLoginAccess), filterUser.getLastLoginAccessTo()));
         }
+        // exclude current user
+        if(filterUser.getCurrentUser() != null){
+            predicates.add(cb.notEqual(root.get(User_.id), filterUser.getCurrentUser()));
+        }
         return andTogether(predicates, cb);
     }
 

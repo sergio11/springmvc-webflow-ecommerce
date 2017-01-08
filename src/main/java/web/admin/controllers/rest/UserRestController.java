@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import persistence.models.User;
 import persistence.repositories.UserRepository;
 import persistence.specifications.UserFilterSpecification;
+import security.CurrentUserAttached;
 import web.models.datatables.DataTableUserInput;
+import web.models.datatables.FilterUser;
 
 @RestController
 @RequestMapping("/admin/users")
@@ -25,8 +27,13 @@ public class UserRestController {
    
     @JsonView(DataTablesOutput.View.class)
     @GetMapping("/data")
-    public DataTablesOutput<User> all(final @Valid DataTableUserInput input) {
-        return userRepository.findAll(input, new UserFilterSpecification(input.getFilter()));
+    public DataTablesOutput<User> all(final @CurrentUserAttached User currentUser, final @Valid DataTableUserInput input) {
+        FilterUser filterUser = input.getFilter();
+        if(currentUser != null){
+            logger.info(currentUser.toString());
+            filterUser.setCurrentUser(currentUser.getId());
+        }
+        return userRepository.findAll(input, new UserFilterSpecification(filterUser));
     }
     
 }

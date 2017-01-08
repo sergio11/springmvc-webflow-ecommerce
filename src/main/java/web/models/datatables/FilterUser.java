@@ -15,6 +15,7 @@ public class FilterUser implements Serializable {
     private Date lastLoginAccessFrom;
     private Date lastLoginAccessTo;
     private Boolean enabled;
+    private Long currentUser;
 
     public Long getId() {
         return id;
@@ -70,5 +71,13 @@ public class FilterUser implements Serializable {
 
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public Long getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(Long currentUser) {
+        this.currentUser = currentUser;
     }
 }
