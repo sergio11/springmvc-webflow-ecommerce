@@ -29,6 +29,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
+import persistence.constraints.AfterTomorrow;
 import persistence.constraints.ValidateDateRange;
 
 /**
@@ -69,6 +70,7 @@ public class Product implements Serializable {
     private String shortDescription;
 
     @NotNull(message="{product.availableFrom.notnull}")
+    @AfterTomorrow(message = "{product.availableFrom.future}")
     @Column(nullable = false)
     private Date availableFrom;
     
