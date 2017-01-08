@@ -74,6 +74,25 @@ public class UserController {
         return "admin/dashboard/user/save";
     }
     
+    @GetMapping("/remove/{id}")
+    public String remove(@PathVariable Long id, Model model) {
+         /* if "fresh" GET (ie, not redirect w validation errors): */
+        if(!model.containsAttribute(BINDING_RESULT_NAME)) {
+            User user = userRepository.findOne(id);
+            if (user == null) {
+                throw new UserNotFoundException();
+            }
+            model.addAttribute(ATTRIBUTE_NAME, user);
+        }
+        return "admin/dashboard/user/remove";
+    }
+    
+    @PostMapping("/remove")
+    public String remove(@ModelAttribute(ATTRIBUTE_NAME) User user) {
+        userRepository.delete(user);
+        return "redirect:/admin/users/all";
+    }
+    
     @PostMapping("/save")
     public String create(
             @RequestPart("avatarfile") MultipartFile avatarFile,

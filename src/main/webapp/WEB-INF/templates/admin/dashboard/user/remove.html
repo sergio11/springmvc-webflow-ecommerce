@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    layout:decorator="admin/dashboard/layout">
+    <head>
+        <title th:text="#{admin.user.remove.title(${user.fullName})}">Remove User</title>
+        <th:block layout:fragment="page-styles">
+            <link th:href="@{/assets/admin/pages/css/profile.css}" rel="stylesheet" type="text/css"/>
+        </th:block>
+    </head>
+    <body>
+        <th:block layout:fragment="content">
+            <h3 class="page-title">
+                <span th:text="#{admin.user.remove.title2}">Remove User</span> 
+                <small th:text="#{${user.fullName}}">Sergio Sánchez</small>
+            </h3>
+            <div class="page-bar">
+                <ul class="page-breadcrumb">
+                    <li>
+                        <i class="fa fa-home"></i>
+                        <a href="index.html">Home</a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li>
+                        <a href="#">Pages</a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li>
+                        <a href="#">User Account</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- BEGIN PAGE CONTENT-->
+            <div class="row margin-top-20">
+                <div class="col-md-12">
+                    <!-- BEGIN PROFILE SIDEBAR -->
+                    <div class="profile-sidebar">
+                        <!-- PORTLET MAIN -->
+                        <div class="portlet light profile-sidebar-portlet">
+                            <!-- SIDEBAR USERPIC -->
+                            <div class="profile-userpic">
+                                <img alt="" class="img-responsive" th:if="${user.avatar == null}" th:src="@{/assets/global/img/user_default.png}"/>
+                                <img th:alt="${user.fullName}"  class="img-responsive" th:if="${user.avatar != null}" th:src="@{/admin/users/self/avatar/{id}(id=${user.avatar.id})}"/>
+                            </div>
+                            <!-- END SIDEBAR USERPIC -->
+                            <!-- SIDEBAR USER TITLE -->
+                            <div class="profile-usertitle">
+                                <div class="profile-usertitle-name" th:text="${user.fullName}"></div>
+                                <div class="profile-usertitle-job">
+                                    Developer
+                                </div>
+                            </div>
+                            <!-- END SIDEBAR USER TITLE -->
+                        </div>
+                        <!-- END PORTLET MAIN -->
+                        <!-- PORTLET MAIN -->
+                        <div class="portlet light">
+                            <!-- STAT -->
+                            <div class="row list-separated profile-stat">
+                                <div class="col-md-4 col-sm-4 col-xs-6">
+                                    <div class="uppercase profile-stat-title">
+                                        37
+                                    </div>
+                                    <div class="uppercase profile-stat-text" th:text="#{admin.user.account.stat.total.purchases}">
+                                        Total Purchases
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-6">
+                                    <div class="uppercase profile-stat-title">
+                                        51
+                                    </div>
+                                    <div class="uppercase profile-stat-text" th:text="#{admin.user.account.stat.total.spent.this.month}">
+                                        Total Spent this Month
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-6">
+                                    <div class="uppercase profile-stat-title">
+                                        61
+                                    </div>
+                                    <div class="uppercase profile-stat-text" th:text="#{admin.user.account.stat.total.spent}">
+                                        Total Spent
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END STAT -->
+                        </div>
+                        <!-- END PORTLET MAIN -->
+                    </div>
+                    <!-- END BEGIN PROFILE SIDEBAR -->
+                    <!-- BEGIN PROFILE CONTENT -->
+                    <div class="profile-content">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="portlet light">
+                                    <div class="portlet-title tabbable-line">
+                                        <div class="caption caption-md">
+                                            <i class="icon-globe theme-font hide"></i>
+                                            <span class="caption-subject font-blue-madison bold uppercase" th:text="#{admin.user.remove.title.confirm(${user.fullName})}">Delete User</span>
+                                        </div>
+                                    </div>
+                                    <div class="portlet-body" 
+                                         th:replace="admin/fragments/user/personal::form-remove('/admin/users/remove', '/admin/users/all')"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END PROFILE CONTENT -->
+                </div>
+            </div>
+        </th:block>
+    </body>
+</html>

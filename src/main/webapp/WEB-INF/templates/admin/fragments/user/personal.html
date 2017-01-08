@@ -59,6 +59,17 @@
             </form>
         </th:block>
                 
+        <!-- A fragment with wrapper form for remove user -->
+        <th:block th:fragment="form-remove(remove, back)">
+            <form role="form" th:action="@{${remove}}" method="post" th:object="${user}">
+                <th:block th:include="this::basic" th:remove="tag"/>
+                <div class="margiv-top-10">
+                    <input type="submit" class="btn red-haze" value="Remove" th:value="#{common.btns.remove}"/>
+                    <a class="btn default" th:href="@{${back}}" th:text="#{common.btns.back}">Back</a>
+                </div>
+            </form>
+        </th:block>
+        
         <!-- A fragment with wrapper form for complete user fragment -->
         <th:block th:fragment="form-complete(url)">
             <form role="form" th:action="${url}" method="post" th:object="${user}">
