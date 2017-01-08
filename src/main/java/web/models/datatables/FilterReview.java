@@ -14,7 +14,7 @@ public class FilterReview implements Serializable {
     private Date dateFrom;
     private Date dateTo;
     private String custumer;
-    private String content;
+    private Float rating;
     private ReviewStatusEnum status;
     private Long product;
 
@@ -50,12 +50,12 @@ public class FilterReview implements Serializable {
         this.custumer = custumer;
     }
 
-    public String getContent() {
-        return content;
+    public Float getRating() {
+        return rating;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setRating(Float rating) {
+        this.rating = rating;
     }
 
     public ReviewStatusEnum getStatus() {

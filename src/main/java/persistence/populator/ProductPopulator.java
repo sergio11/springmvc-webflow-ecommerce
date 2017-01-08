@@ -1,8 +1,10 @@
 package persistence.populator;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,12 +46,15 @@ public class ProductPopulator implements Serializable {
         
         productRepository.deleteAll();
         
+        List<Product> products = new ArrayList();
+        
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.DATE, 3);
+        
         Product product = new Product();
         product.setName("Nike Air Max 2017");
         product.setConsumerType(ConsumerTypeEnum.MAN);
         product.setPrice(190.0);
-        Calendar c = Calendar.getInstance();
-        c.add(Calendar.DATE, 3);
         product.setAvailableFrom(c.getTime());
         product.setShortDescription("Las zapatillas de running Nike Air Max 2017 para hombre, diseñadas a la perfección con la sujeción y la transpirabilidad .");
         product.setDescription("Las zapatillas de running Nike Air Max 2017 para hombre, diseñadas a la perfección con la sujeción y la transpirabilidad adecuadas donde más lo necesitas, cuentan con una parte superior Flymesh que se combina con la suave amortiguación de la unidad Max Air de longitud completa.");
@@ -81,7 +86,33 @@ public class ProductPopulator implements Serializable {
         line3.setProduct(product);
         line3.setStock(0);
         
-        productRepository.save(product);
+        
+        products.add(product);
+        
+        Product product2 = new Product();
+        product2.setName("Nike Metcon DSX Flyknit");
+        product2.setConsumerType(ConsumerTypeEnum.MAN);
+        product2.setPrice(150.0);
+        product2.setAvailableFrom(c.getTime());
+        product2.setShortDescription("Las ligeras zapatillas de entrenamiento Nike Metcon DSX Flyknit para hombre son perfectas para tus entrenamientos más exigentes.");
+        product2.setDescription("Las ligeras zapatillas de entrenamiento Nike Metcon DSX Flyknit para hombre son perfectas para tus entrenamientos más exigentes, desde ejercicios de pared a escalada de cuerdas o sprints y levantamiento de pesas.");
+        product2.setStatus(ProductStatusEnum.NOT_PUBLISHED);
+        
+        ProductLine line4 = new ProductLine();
+        line4.setDescription("Amarillo Voltio");
+        line4.setImage("test4.jpg");
+        line4.setProduct(product2);
+        line4.setStock(5);
+        
+        ProductLine line5 = new ProductLine();
+        line5.setDescription("Rojo Universitario");
+        line5.setImage("test5.jpg");
+        line5.setProduct(product2);
+        line5.setStock(2);
+        
+        products.add(product2);
+        
+        productRepository.save(products);
         
     }
 }

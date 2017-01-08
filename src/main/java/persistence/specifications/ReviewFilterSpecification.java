@@ -14,7 +14,6 @@ import persistence.models.Review_;
 import persistence.models.User_;
 
 /**
- *
  * @author sergio
  */
 public class ReviewFilterSpecification implements Specification<Review> {
@@ -44,9 +43,9 @@ public class ReviewFilterSpecification implements Specification<Review> {
         if(filterReview.getCustumer()!= null && !filterReview.getCustumer().isEmpty()){
             predicates.add(cb.like(cb.lower(root.get(Review_.user).<String>get(User_.fullName)), "%" + filterReview.getCustumer().toLowerCase() + "%"));
         }
-        // filter by content
-        if(filterReview.getContent() != null && !filterReview.getContent().isEmpty()){
-            predicates.add(cb.like(cb.lower(root.get(Review_.body)), "%" + filterReview.getContent().toLowerCase() + "%"));
+        // filter by rating
+        if(filterReview.getRating() != null){
+            predicates.add(cb.greaterThanOrEqualTo(root.get(Review_.rating), filterReview.getRating()));
         }
         // filter by status
         if (filterReview.getStatus() != null) {

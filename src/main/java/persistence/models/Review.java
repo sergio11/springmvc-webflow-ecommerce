@@ -27,6 +27,7 @@ public class Review implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView(DataTablesOutput.View.class)
     private Long id;
     
     @Temporal(TemporalType.TIMESTAMP)
@@ -35,6 +36,7 @@ public class Review implements Serializable {
     private Date createAt = new Date();
     
     @Column(nullable = false)
+    @JsonView(DataTablesOutput.View.class)
     private Float rating = 0f;
     
     @Lob
@@ -42,9 +44,11 @@ public class Review implements Serializable {
     private String body;
     
     @ManyToOne(optional = false)
+    @JsonView(DataTablesOutput.View.class)
     private User user;
     
     @Enumerated(EnumType.STRING)
+    @JsonView(DataTablesOutput.View.class)
     private ReviewStatusEnum status;
     
     @ManyToOne(optional=false)

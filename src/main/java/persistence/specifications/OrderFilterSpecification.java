@@ -12,7 +12,6 @@ import persistence.models.Order_;
 import web.models.datatables.FilterOrder;
 
 /**
- *
  * @author sergio
  */
 public class OrderFilterSpecification implements Specification<Order> {

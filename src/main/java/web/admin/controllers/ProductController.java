@@ -84,7 +84,7 @@ public class ProductController {
     
     @PostMapping("/save")
     public String process(
-            Flash flash,
+           // Flash flash,
             @ModelAttribute(ATTRIBUTE_NAME) @Valid Product product, 
             BindingResult bindingResult,
             @RequestParam(value = "continueEditing", required = false, defaultValue = "false") boolean continueEditing,
@@ -106,7 +106,7 @@ public class ProductController {
         productsRepository.save(product);
         sessionStatus.setComplete(); //remove product from session
         // add success flash message
-        flash.success("message.product.save.success", product.getId());
+        //flash.success("message.product.save.success", product.getId());
         String redirectTo;
         if(continueEditing){
             model.addAttribute("productId", product.getId());

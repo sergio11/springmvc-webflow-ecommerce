@@ -15,7 +15,7 @@
                             <th width="5%" th:text="#{admin.product.edit.reviews.th.id}">Review&nbsp;#</th>
                             <th width="10%" th:text="#{admin.product.edit.reviews.th.date}">Review&nbsp;Date</th>
                             <th width="10%" th:text="#{admin.product.edit.reviews.th.customer}">Customer</th>
-                            <th width="20%" th:text="#{admin.product.edit.reviews.th.content}">Review&nbsp;Content</th>
+                            <th width="20%" th:text="#{admin.product.edit.reviews.th.rating}">Review&nbsp;Rating</th>
                             <th width="10%" th:text="#{admin.product.edit.reviews.th.status}">Status</th>
                             <th width="10%" th:text="#{admin.product.edit.reviews.th.actions}">Actions</th>
                         </tr>
@@ -41,10 +41,10 @@
                                 <input type="text" class="form-control form-filter input-sm" name="filter.costumer">
                             </td>
                             <td>
-                                <input type="text" class="form-control form-filter input-sm" name="filter.content">
+                                <input type="number" step="0.5" min="0" max="6" class="form-control form-filter input-sm" name="filter.rating">
                             </td>
                             <td>
-                                <select name="filter.status" class="form-control form-filter input-sm">
+                                <select id="filterStatus" name="filter.status" class="form-control form-filter input-sm">
                                     <option th:each="state : ${T(persistence.models.ReviewStatusEnum).values()}"
                                             th:value="${state}" 
                                             th:text="${state}">
@@ -68,6 +68,20 @@
                     <tbody>
                     </tbody>
                 </table>
+            </div>
+            <th:block th:include="this::detail-review" />
+        </th:block>
+        
+        <th:block th:fragment="detail-review">
+            <div id="detailReviewModal" class="modal fade"  role="basic" aria-hidden="true" style="display:none;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <img th:src="@{/assets/global/img/loading-spinner-grey.gif}" alt="" class="loading">
+                            <span>&nbsp;&nbsp;Loading... </span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </th:block>
     </body>

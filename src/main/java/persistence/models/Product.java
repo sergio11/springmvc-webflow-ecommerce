@@ -80,7 +80,7 @@ public class Product implements Serializable {
     @Enumerated(EnumType.STRING)
     private ConsumerTypeEnum consumerType;
     
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Review> reviews = new HashSet();
     
     @Temporal(TemporalType.TIMESTAMP)
@@ -219,6 +219,6 @@ public class Product implements Serializable {
 
     @Override
     public String toString() {
-        return "Product{" + "id=" + id + ", name=" + name + ", price=" + price + ", description=" + description + ", shortDescription=" + shortDescription + ", availableFrom=" + availableFrom + ", availableTo=" + availableTo + ", consumerType=" + consumerType + ", reviews=" + reviews + ", createAt=" + createAt + ", status=" + status + ", completeDesc=" + completeDesc + ", productLines=" + productLines + '}';
+        return "Product{" + "id=" + id + ", name=" + name + ", price=" + price + ", description=" + description + ", shortDescription=" + shortDescription + ", availableFrom=" + availableFrom + ", availableTo=" + availableTo + ", consumerType=" + consumerType + ", reviews=" + reviews + ", createAt=" + createAt + ", status=" + status + ", completeDesc=" + completeDesc + '}';
     }
 }

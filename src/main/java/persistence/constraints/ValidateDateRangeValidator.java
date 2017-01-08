@@ -6,7 +6,6 @@ import javax.validation.ConstraintValidatorContext;
 import org.apache.commons.beanutils.PropertyUtils;
 
 /**
- *
  * @author sergio
  */
 public class ValidateDateRangeValidator implements ConstraintValidator<ValidateDateRange, Object>{

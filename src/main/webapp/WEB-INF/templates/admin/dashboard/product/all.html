@@ -20,29 +20,12 @@
             </h3>
             <div class="page-bar">
                 <!--<th:block th:include="admin/fragments/header::breadcrumb(${ {{url:'admin/home', text:'breadcrumb.home'}} })"/>-->
-                <div class="page-toolbar">
-                    <div class="btn-group pull-right">
-                        <button type="button" class="btn btn-fit-height btn-success dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
-                            <span th:text="#{admin.products.actions.btn}">Actions</span>
-                            <i class="fa fa-angle-down"></i>
-                        </button>
-                        <ul class="dropdown-menu pull-right" role="menu">
-                            <li>
-                                <a th:href="@{/admin/products/create}">
-                                    <span class="icon-present"></span>
-                                    <span th:text="#{admin.products.actions.add}">Add Product</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
             </div>
             <!-- END PAGE HEADER-->
             <!-- BEGIN PAGE CONTENT-->
             <div class="row">
                 <div class="col-md-12">
                     <th:block th:replace="admin/fragments/alerts::flash-message"></th:block>
-                    <flash:messages />
                     <!-- Begin: life time stats -->
                     <div class="portlet">
                         <div class="portlet-title">
@@ -81,18 +64,10 @@
                         <div class="portlet-body">
                             <div class="table-container">
                                 <div class="table-actions-wrapper">
-                                    <span>
-                                    </span>
-                                    <select class="table-group-action-input form-control input-inline input-small input-sm">
-                                        <option th:each="state : ${T(persistence.models.ProductStatusEnum).values()}"
-                                                th:value="${state}" 
-                                                th:text="${state}">
-                                         </option>
-                                    </select>
-                                    <button class="btn btn-sm yellow table-group-action-submit">
-                                        <i class="fa fa-check"></i>
-                                        <span th:text="#{admin.products.table.filter.status}">Update</span>
-                                    </button>
+                                    <a class="btn btn-sm btn-success" th:href="@{/admin/products/create}">
+                                        <span class="icon-present"></span>
+                                        <span th:text="#{admin.products.actions.add}">Add Product</span>
+                                    </a>
                                 </div>
                                 <table class="table table-striped table-bordered table-hover" id="datatable_products">
                                     <thead>

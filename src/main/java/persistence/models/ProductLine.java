@@ -91,6 +91,6 @@ public class ProductLine implements Serializable {
 
     @Override
     public String toString() {
-        return "ProductLine{" + "id=" + id + ", image=" + image + ", stock=" + stock + ", description=" + description + ", orderLines=" + orderLines + '}';
+        return "ProductLine{" + "id=" + id + ", image=" + image + ", stock=" + stock + ", description=" + description + '}';
     }
 }
