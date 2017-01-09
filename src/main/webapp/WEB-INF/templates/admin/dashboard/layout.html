@@ -135,6 +135,10 @@
                 });
                 Metronic.init(); // init metronic core componets
                 Layout.init(); // init layout
+
+		doLogout = function() {
+                    document.getElementById("logoutForm").submit();
+		}
             });
         </script>
         <th:block layout:fragment="init-script" />

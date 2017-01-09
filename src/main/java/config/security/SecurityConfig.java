@@ -30,7 +30,10 @@ import org.springframework.security.web.authentication.session.SessionAuthentica
 import org.springframework.security.web.authentication.session.SessionFixationProtectionStrategy;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import persistence.models.AuthorityEnum;
+import persistence.repositories.RememberMeTokenRepository;
 import security.handlers.CustomLogoutHandler;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import security.CustomPersistentTokenRepositoryImpl;
 
 /**
  * @author sergio
@@ -66,7 +69,6 @@ public class SecurityConfig extends GlobalAuthenticationConfigurerAdapter {
         return new DefaultAuthenticationEventPublisher();
     }
     
-    
     /**
      * Security Configuration for Admin zone
      */
@@ -80,8 +82,10 @@ public class SecurityConfig extends GlobalAuthenticationConfigurerAdapter {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http.authorizeRequests()
+                .antMatchers("/admin/users/self/**")
+                    .fullyAuthenticated()
                 .antMatchers("/admin/**")
-                .hasAuthority(AuthorityEnum.ROLE_ADMIN.name())
+                    .hasAuthority(AuthorityEnum.ROLE_ADMIN.name())
                 .and()
                 .formLogin()
                     .loginPage("/admin/login")
@@ -130,7 +134,6 @@ public class SecurityConfig extends GlobalAuthenticationConfigurerAdapter {
                 .and()
                 .logout()
                     .addLogoutHandler(logoutHandler)
-                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                     .logoutSuccessUrl("/login?logout")
                     .deleteCookies("JSESSIONID")
                     .invalidateHttpSession(true)
@@ -149,6 +152,9 @@ public class SecurityConfig extends GlobalAuthenticationConfigurerAdapter {
 
         @Autowired
         private MessageSource messageSource;
+        
+        @Autowired
+        private RememberMeTokenRepository rememberMeTokenRepository;
 
         @Override
         public void configure(HttpSecurity http) throws Exception {
@@ -162,7 +168,12 @@ public class SecurityConfig extends GlobalAuthenticationConfigurerAdapter {
                     .sessionRegistry(sessionRegistry())
                     .and()
                     .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-                    .invalidSessionUrl("/");
+                    .invalidSessionUrl("/")
+                    .and()
+                    .rememberMe()
+                    .rememberMeParameter("remember-me")
+                    .tokenRepository(persistentTokenRepository())
+                    .tokenValiditySeconds(1209600);
 
             // Here we protect site from:
             // 1. X-Content-Type-Options
@@ -174,6 +185,11 @@ public class SecurityConfig extends GlobalAuthenticationConfigurerAdapter {
             // 3. X-Frame-Options
             http.headers().frameOptions();
 
+        }
+        
+        @Bean
+	public PersistentTokenRepository persistentTokenRepository() {
+            return new CustomPersistentTokenRepositoryImpl(rememberMeTokenRepository);
         }
 
         @Bean

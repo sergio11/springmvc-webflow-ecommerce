@@ -84,9 +84,12 @@
                                             <i class="icon-lock"></i> Lock Screen </a>
                                     </li>
                                     <li>
-                                        <a th:href="@{/admin/logout}">
+                                        <form th:action="@{/admin/logout}" method="post" id="logoutForm" style="display: none;">
+                                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                        </form>
+                                        <a href="javascript:doLogout()">
                                             <i class="icon-key"></i> 
-                                            <span th:text="#{admin.header.user.dropdown.logout}">Log Out</span> 
+                                            <span th:text="#{admin.header.user.dropdown.logout}">Log Out</span>
                                         </a>
                                     </li>
                                 </ul>
