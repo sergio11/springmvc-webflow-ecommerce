@@ -17,16 +17,15 @@
             <!-- BEGIN SIDEBAR & CONTENT -->
             <div class="row margin-bottom-40">
                 <!-- BEGIN SIDEBAR -->
-                <th:block th:include="frontend/fragments/sidebar::account" />
+                <th:block th:include="frontend/fragments/sidebar::account-options" />
                 <!-- END SIDEBAR -->
-
                 <!-- BEGIN CONTENT -->
                 <div class="col-md-9 col-sm-9">
                     <h1>Login</h1>
                     <div class="content-form-page">
                         <div class="row">
                             <div class="col-md-7 col-sm-7">
-                                <form class="form-horizontal form-without-legend" role="form" method="post" th:action="@{/login}">
+                                <form class="form-horizontal form-without-legend" name="f" role="form" th:action="@{/login}" method="post" >
                                     <th:block th:include="global/fragments/login::alerts" />
                                     <div class="form-group">
                                         <label for="username" class="col-lg-4 control-label">
@@ -43,7 +42,7 @@
                                             <span class="require">*</span>
                                         </label>
                                         <div class="col-lg-8">
-                                            <input type="text" name="password" class="form-control" id="password">
+                                            <input type="password" name="password" class="form-control" id="password">
                                         </div>
                                     </div>
                                     <div class="row">

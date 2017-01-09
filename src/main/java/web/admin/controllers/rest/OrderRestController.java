@@ -15,7 +15,6 @@ import persistence.specifications.OrderFilterSpecification;
 import web.models.datatables.DataTableOrderInput;
 
 /**
- *
  * @author sergio
  */
 @RestController

@@ -3,7 +3,6 @@ package config.security;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -112,9 +111,9 @@ public class SecurityConfig extends GlobalAuthenticationConfigurerAdapter {
     @Configuration
     @Order(2)
     public class FrontendConfiguration extends WebSecurityConfigurerAdapter {
-        
-        @Value("{redirect.frontend.after.success.login}")
-        private String successRedirectURL;
+
+        @Autowired
+        private Environment env;
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
@@ -126,7 +125,7 @@ public class SecurityConfig extends GlobalAuthenticationConfigurerAdapter {
                     .loginPage("/login")
                     .usernameParameter("username")
                     .passwordParameter("password")
-                    .defaultSuccessUrl(successRedirectURL, true)
+                    .defaultSuccessUrl(env.getProperty("redirect.frontend.after.success.login"), true)
                     .permitAll()
                 .and()
                 .logout()

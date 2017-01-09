@@ -6,7 +6,7 @@ import org.springframework.web.servlet.mvc.UrlFilenameViewController;
 import org.springframework.webflow.config.AbstractFlowConfiguration;
 import org.springframework.webflow.definition.registry.FlowDefinitionRegistry;
 import org.springframework.webflow.executor.FlowExecutor;
-import org.springframework.webflow.mvc.portlet.FlowHandlerAdapter;
+import org.springframework.webflow.mvc.servlet.FlowHandlerAdapter;
 import org.springframework.webflow.mvc.servlet.FlowHandlerMapping;
 
 /**
@@ -33,8 +33,6 @@ public class WebFlowConfig extends AbstractFlowConfiguration {
         FlowHandlerMapping mapping = new FlowHandlerMapping();
 	mapping.setOrder(1);
         mapping.setFlowRegistry(flowRegistry());
-        /* If no flow matches, map the path to a view, e.g. "/intro" maps to a view named "intro" */
-	mapping.setDefaultHandler(new UrlFilenameViewController());
 	return mapping;
     }
     

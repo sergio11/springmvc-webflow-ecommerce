@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="frontend/layout">
+    <head>
+        <title th:text="#{signup.page.title}">Signup User</title>
+    </head>
+    <body>
+        <!-- BEGIN MAIN -->
+        <div layout:fragment="content">
+            <ul class="breadcrumb">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="javascript:;">Pages</a></li>
+                <li class="active">Login</li>
+            </ul>
+            <!-- BEGIN SIDEBAR & CONTENT -->
+            <div class="row margin-bottom-40">
+                <!-- BEGIN SIDEBAR -->
+                <th:block th:include="frontend/fragments/sidebar::account-options" />
+                <!-- END SIDEBAR -->
+                <!-- BEGIN CONTENT -->
+                <div class="col-md-9 col-sm-9">
+                    <h1 th:text="#{signup.form.title}">Create an account</h1>
+                    <div class="content-form-page">
+                        <div class="row">
+                            <div class="col-md-7 col-sm-7">
+                                <th:block th:include="frontend/fragments/user/personal::create-user(url)" />
+                            </div>
+                            <div class="col-md-4 col-sm-4 pull-right">
+                                <div class="form-info">
+                                    <h2><em>Important</em> Information</h2>
+                                    <p>Lorem ipsum dolor ut sit ame dolore  adipiscing elit, sed sit nonumy nibh sed euismod ut laoreet dolore magna aliquarm erat sit volutpat. Nostrud exerci tation ullamcorper suscipit lobortis nisl aliquip  commodo quat.</p>
+
+                                    <p>Duis autem vel eum iriure at dolor vulputate velit esse vel molestie at dolore.</p>
+
+                                    <button type="button" class="btn btn-default">More details</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END CONTENT -->
+            </div>
+            <!-- END SIDEBAR & CONTENT -->
+        </div>
+        <!-- MAIN END -->
+    </body>
+</html>

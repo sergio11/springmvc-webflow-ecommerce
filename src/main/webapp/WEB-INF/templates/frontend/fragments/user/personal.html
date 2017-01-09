@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        
+        <!-- Fragment for personal details -->
+        <fieldset th:fragment="personal-details">
+            <legend th:text="#{frontend.user.details.legend}">Your personal details</legend>
+            <div class="form-group">
+                <label for="username" class="col-lg-4 control-label" th:text="#{frontend.user.details.username.label}">username</label>
+                <div class="col-lg-8">
+                    <input type="text" id="username" th:field="*{username}" th:placeholder="#{frontend.user.details.username.placeholder}" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email" class="col-lg-4 control-label" th:text="#{frontend.user.details.email.label}">Email></label>
+                <div class="col-lg-8">
+                     <input type="text" id="email" th:field="*{email}" th:placeholder="#{frontend.user.details.email.placeholder}" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="fullname" class="col-lg-4 control-label" th:text="#{frontend.user.details.fullName.label}">fullname</label>
+                <div class="col-lg-8">
+                    <input type="text" id="fullname" th:field="*{fullName}" th:placeholder="#{frontend.user.details.fullName.placeholder}" class="form-control"/>
+                </div>
+            </div>
+        </fieldset>
+        
+        <!-- Fragment for create password -->
+        <fieldset th:fragment="password">
+            <legend th:text="#{frontend.user.password.legend}">Your password</legend>
+            <div class="form-group">
+                <label for="password" class="col-lg-4 control-label" th:text="#{frontend.user.password.clearpassword.label}">Password</label>
+                <div class="col-lg-8">
+                    <input type="password" th:field="*{passwordClear}" class="form-control" id="password" th:placeholder="#{frontend.user.password.clearpassword.placeholder}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="confirm-password" class="col-lg-4 control-label" th:text="#{frontend.user.password.confirm.label}">Confirm password</label>
+                <div class="col-lg-8">
+                    <input type="password" th:field="*{confirmPassword}" class="form-control" id="confirm-password" th:placeholder="#{frontend.user.password.confirm.placeholder}">
+                </div>
+            </div>
+        </fieldset>
+        
+        <!-- Create user form -->
+        <th:block th:fragment="create-user(url)">
+            <form class="form-horizontal" role="form" th:href="@{${url}}" method="post" th:object="${user}">
+                <th:block th:replace="admin/fragments/alerts::form-errors"></th:block>
+                <th:block th:include="this::personal-details" />
+                <th:block th:include="this::password" />
+                <div class="row">
+                    <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20">                        
+                        <button type="submit" class="btn btn-primary" th:text="#{signup.form.submit}">Create an account</button>
+                        <button type="reset" class="btn btn-default" th:text="#{signup.form.reset}">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </th:block>
+    </body>
+</html>
