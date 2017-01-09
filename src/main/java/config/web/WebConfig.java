@@ -24,7 +24,7 @@ import web.admin.converters.StringAuthorityConverter;
  */
 @Configuration
 @EnableWebMvc
-@Import(value = { ViewConfig.class, i18nConfig.class })
+@Import(value = { ViewConfig.class, i18nConfig.class, WebFlowConfig.class })
 @ComponentScan(value = "web")
 public class WebConfig extends WebMvcConfigurerAdapter{
     
