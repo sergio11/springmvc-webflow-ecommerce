@@ -40,7 +40,7 @@ xmlns:th="http://www.thymeleaf.org">
                         <ul class="list-unstyled list-inline pull-right">
                             <li><a href="#" sec:authorize="isAuthenticated()" th:text="#{topbar.myaccount}">My Account</a></li>
                             <li><a href="#" th:text="#{topbar.checkout}">Checkout</a></li>
-                            <li><a href="#" sec:authorize="!isAuthenticated()" th:text="#{topbar.login}">Log In</a></li>
+                            <li><a href="#" th:href="@{/login}" sec:authorize="!isAuthenticated()" th:text="#{topbar.login}">Log In</a></li>
                             <li><a href="#" th:href="@{/admin/home}" sec:authorize="${hasRole(T(persistence.models.AuthorityEnum).ROLE_ADMIN)}" th:text="#{topbar.admin}">Admin</a></li>
                         </ul>
                     </div>

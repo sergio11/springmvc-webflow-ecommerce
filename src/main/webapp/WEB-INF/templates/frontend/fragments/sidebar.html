@@ -53,5 +53,22 @@
             </ul>
         </div>
         <!-- END SIDEBAR -->
+        
+        <div th:fragment="account-options" class="sidebar col-md-3 col-sm-3">
+            <ul class="list-group margin-bottom-25 sidebar-menu">
+                <li class="list-group-item clearfix">
+                    <a th:href="@{/login}">
+                        <i class="fa fa-angle-right"></i> 
+                        <span th:text="#{sidebar.account.login}">Login</span>
+                    </a>
+                </li>
+                <li class="list-group-item clearfix">
+                    <a th:href="@{/signup}">
+                        <i class="fa fa-angle-right"></i>
+                        <span th:text="#{sidebar.account.signup}">Signup</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </body>
 </html>

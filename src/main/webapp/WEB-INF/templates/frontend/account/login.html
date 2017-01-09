@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="frontend/layout">
+    <head>
+        <title th:text="#{login.page.title}">Login</title>
+    </head>
+    <body>
+        <!-- BEGIN MAIN -->
+        <div layout:fragment="content">
+            <ul class="breadcrumb">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="javascript:;">Pages</a></li>
+                <li class="active">Login</li>
+            </ul>
+            <!-- BEGIN SIDEBAR & CONTENT -->
+            <div class="row margin-bottom-40">
+                <!-- BEGIN SIDEBAR -->
+                <th:block th:include="frontend/fragments/sidebar::account" />
+                <!-- END SIDEBAR -->
+
+                <!-- BEGIN CONTENT -->
+                <div class="col-md-9 col-sm-9">
+                    <h1>Login</h1>
+                    <div class="content-form-page">
+                        <div class="row">
+                            <div class="col-md-7 col-sm-7">
+                                <form class="form-horizontal form-without-legend" role="form" method="post" th:action="@{/login}">
+                                    <th:block th:include="global/fragments/login::alerts" />
+                                    <div class="form-group">
+                                        <label for="username" class="col-lg-4 control-label">
+                                            <span th:text="#{login.form.username.label}">username</span>
+                                            <span class="require">*</span>
+                                        </label>
+                                        <div class="col-lg-8">
+                                            <input type="text" name="username" class="form-control" id="username">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password" class="col-lg-4 control-label">
+                                            <span th:text="#{login.form.password.label}">Password</span>
+                                            <span class="require">*</span>
+                                        </label>
+                                        <div class="col-lg-8">
+                                            <input type="text" name="password" class="form-control" id="password">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-8 col-md-offset-4 padding-left-0">
+                                            <a href="" th:text="#{login.forgot.password}">Forget Password?</a>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-8 col-md-offset-4 padding-left-0 padding-top-20">
+                                            <button type="submit" class="btn btn-primary">Login</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-4 col-sm-4 pull-right">
+                                <div class="form-info">
+                                    <h2><em>Important</em> Information</h2>
+                                    <p>Duis autem vel eum iriure at dolor vulputate velit esse vel molestie at dolore.</p>
+
+                                    <button type="button" class="btn btn-default">More details</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END CONTENT -->
+            </div>
+            <!-- END SIDEBAR & CONTENT -->
+        </div>
+        <!-- MAIN END -->
+    </body>
+</html>

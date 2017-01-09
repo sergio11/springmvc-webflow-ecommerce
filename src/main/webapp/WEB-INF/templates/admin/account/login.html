@@ -19,12 +19,7 @@
                 <!-- BEGIN LOGIN FORM -->
                 <form class="login-form" name="f" th:action="@{/admin/login}" method="post">
                     <h3 class="form-title" th:text="#{admin.login.form.legend}">Login Admin</h3>
-                    <div th:if="${param.error}" th:text="#{admin.login.form.invalid}" class="alert alert-danger">    
-                        Invalid username and password.
-                    </div>
-                    <div th:if="${param.logout}" th:text="#{admin.login.form.logged.out}" class="alert alert-success"> 
-                        You have been logged out.
-                    </div>
+                    <th:block th:include="global/fragments/login::alerts" />
                     <div class="alert alert-danger display-hide">
                         <button class="close" data-close="alert"></button>
                         <span th:text="#{admin.login.form.alert}">Enter any username and password.</span>
