@@ -29,6 +29,7 @@ public class Review implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonView(DataTablesOutput.View.class)
     private Long id;
+   
     
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
