@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="frontend/layout">
+    <head>
+        <title th:text="#{frontend.cart.page.title}">Carrito de la compra</title>
+    </head>
+    <body>
+        <!-- BEGIN MAIN -->
+        <div layout:fragment="content">
+            <!-- BEGIN SIDEBAR & CONTENT -->
+            <div class="row margin-bottom-40">
+                <!-- BEGIN CONTENT -->
+                <div class="col-md-12 col-sm-12">
+                    <h1 th:text="#{frontend.cart.page.title}">Shopping cart</h1>
+                    <div class="shopping-cart-page" th:if="${#lists.isEmpty(items)}">
+                        <div class="shopping-cart-data clearfix">
+                            <p th:text="#{frontend.cart.empty}">Your shopping cart is empty!</p>
+                        </div>
+                    </div>
+                    <div class="goods-page" th:if="${not #lists.isEmpty(items)}">
+                        <div class="goods-data clearfix">
+                            <div class="table-wrapper-responsive">
+                                <table summary="Shopping cart" th:summary="#{frontend.cart.page.title}">
+                                    <tr>
+                                        <th class="goods-page-image" th:text="#{frontend.cart.table.image}">Image</th>
+                                        <th class="goods-page-description" th:text="#{frontend.cart.table.description}">Description</th>
+                                        <th class="goods-page-ref-no" th:text="#{frontend.cart.table.id}">Ref No</th>
+                                        <th class="goods-page-quantity" th:text="#{frontend.cart.table.quantity}">Quantity</th>
+                                        <th class="goods-page-price" th:text="#{frontend.cart.table.unit.price}">Unit price</th>
+                                        <th class="goods-page-total" colspan="2" th:text="#{frontend.cart.table.total}">Total</th>
+                                    </tr>
+                                    <tr th:each="item:${items}">
+                                        <td class="goods-page-image">
+                                            <a href="javascript:;">
+                                                <img th:src="@{/images/products/{image}(image=${item.productLine.product.image})}"  width="100" height="100" />
+                                            </a>
+                                        </td>
+                                        <td class="goods-page-description">
+                                            <h3><a href="javascript:;" th:text="${item.productLine.product.name}">Product Name</a></h3>
+                                            <em th:text="${item.productLine.description}">More info is here</em>
+                                        </td>
+                                        <td class="goods-page-ref-no" th:text="${item.productLine.id}">javc2133</td>
+                                        <td class="goods-page-quantity">
+                                            <div class="product-quantity">
+                                                <input id="product-quantity" type="text" value="1" th:value="${item.quantity}" readonly class="form-control input-sm">
+                                            </div>
+                                        </td>
+                                        <td class="goods-page-price">
+                                            <strong><span>€</span><span th:text="${item.productLine.product.price}">47.00</span></strong>
+                                        </td>
+                                        <td class="goods-page-total">
+                                            <strong><span>€</span><span th:text="${item.totalPrice}">47.00</span></strong>
+                                        </td>
+                                        <td class="del-goods-col">
+                                            <a class="del-goods" href="javascript:;">&nbsp;</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="shopping-total" th:with="subTotal = ${#aggregates.sum(items.![totalPrice])}">
+                                <ul>
+                                    <li>
+                                        <em th:text="#{frontend.cart.resume}">Sub total</em>
+                                        <strong class="price"><span>€</span><span th:text="${subTotal}">47.00</span></strong>
+                                    </li>
+                                    <li>
+                                        <em th:text="#{frontend.cart.shipping.cost}">Shipping cost</em>
+                                        <strong class="price"><span>$</span>3.00</strong>
+                                    </li>
+                                    <li class="shopping-total-price">
+                                        <em th:text="#{frontend.cart.total}">Total</em>
+                                        <strong class="price">
+                                            <span>$</span>
+                                            <span th:with="total=${subTotal + 3.00}" th:text="${total}">50.00</span>
+                                        </strong>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <button class="btn btn-default" type="submit"><span th:text="#{frontend.cart.actions.continue}">Continue shopping</span> <i class="fa fa-shopping-cart"></i></button>
+                        <button class="btn btn-primary" type="submit"><span th:text="#{frontend.cart.actions.checkout}">Checkout</span> <i class="fa fa-check"></i></button>
+                    </div>
+                </div>
+                <!-- END CONTENT -->
+            </div>
+            <!-- END SIDEBAR & CONTENT -->
+
+        </div>
+    </div>
+    </body>
+</html>

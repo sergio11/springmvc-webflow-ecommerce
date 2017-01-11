@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,7 +36,7 @@ public class ProductLine implements Serializable {
     @NotBlank(message="{product.line.desc.notnull}")
     @Size(min=5, max=80, message="{product.line.desc.size}")
     private String description;
-    @ManyToOne(optional=false)
+    @ManyToOne(optional=false, fetch = FetchType.EAGER)
     private Product product;
     @OneToMany(mappedBy = "productLine")
     private List<OrderLine> orderLines = new ArrayList();
