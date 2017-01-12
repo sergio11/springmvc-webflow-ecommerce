@@ -29,7 +29,23 @@
             <!-- BEGIN SALE PRODUCT & NEW ARRIVALS -->
             <div class="row margin-bottom-40">
                 <div class="col-md-12 sale-product">
-                    <h2>New Arrivals</h2>
+                    <h2 th:text="#{frontend.arrivals.title}">New Arrivals</h2>
+                    <div class="owl-carousel owl-carousel5">
+                        <div>
+                            <div class="product-item" th:each="product:${arrivals}" th:with="productLine = ${product.productLines[0]}">
+                                <div class="pi-img-wrapper">
+                                    <img th:src="@{/images/products/{image}(image=${productLine.image})}"  class="img-responsive" th:alt="${productLine.description}">
+                                    <div>
+                                        <a th:href="@{/images/products/{image}(image=${productLine.image})}" class="btn btn-default fancybox-button">Zoom</a>
+                                        <a href="#product-pop-up" class="btn btn-default fancybox-fast-view">View</a>
+                                    </div>
+                                </div>
+                                <h3><a th:href="@{/products/detail/{line}(line=${productLine.id})}" th:text="${product.name}">Product Name</a></h3>
+                                <div class="pi-price" th:text="${product.price}">$29.00</div>
+                                <div class="sticker sticker-sale"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- BEGIN SIDEBAR & CONTENT -->

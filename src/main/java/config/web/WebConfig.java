@@ -1,5 +1,4 @@
 package config.web;
-
 import net.rossillo.spring.web.mvc.CacheControlHandlerInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -30,6 +29,7 @@ public class WebConfig extends WebMvcConfigurerAdapter{
     
     @Autowired
     private LocaleChangeInterceptor localeChangeInterceptor;
+    
     @Autowired
     private StringAuthorityConverter stringAuthorityConverter;
 

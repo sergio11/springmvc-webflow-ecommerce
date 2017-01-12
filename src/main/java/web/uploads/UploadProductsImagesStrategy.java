@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
-import java.util.logging.Level;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang.RandomStringUtils;
@@ -19,7 +18,6 @@ import web.models.upload.RequestUploadFile;
 import web.models.upload.UploadFileInfo;
 import web.uploads.exceptions.FileNotFoundException;
 import web.uploads.exceptions.UploadFailException;
-
 
 /**
  * @author sergio

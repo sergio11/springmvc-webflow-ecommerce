@@ -184,7 +184,6 @@ public class SecurityConfig extends GlobalAuthenticationConfigurerAdapter {
             http.headers().httpStrictTransportSecurity();
             // 3. X-Frame-Options
             http.headers().frameOptions();
-
         }
         
         @Bean
