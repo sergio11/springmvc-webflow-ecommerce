@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import persistence.models.ProductLine;
 import persistence.repositories.ProductLineRepository;
 
-
 /**
  * @author sergio
  */

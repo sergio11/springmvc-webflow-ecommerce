@@ -80,5 +80,7 @@
             });
         </script>
         <th:block layout:fragment="init-script" />
+        <input type="hidden" id="csrfToken" value="${_csrf.token}"/>
+        <input type="hidden" id="csrfHeader" value="${_csrf.headerName}"/>
     </body>
 </html>

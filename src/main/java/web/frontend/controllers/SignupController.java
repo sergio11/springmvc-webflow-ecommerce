@@ -26,7 +26,6 @@ import web.services.UserService;
 public class SignupController {
     
     private static Logger logger = LoggerFactory.getLogger(SignupController.class);
-    
     public static final String ATTRIBUTE_NAME = "user";
     public static final String BINDING_RESULT_NAME = "org.springframework.validation.BindingResult." + ATTRIBUTE_NAME;
     

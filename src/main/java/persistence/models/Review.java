@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -44,13 +45,13 @@ public class Review implements Serializable {
     @Column(nullable = false, columnDefinition="clob")
     private String body;
     
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JsonView(DataTablesOutput.View.class)
     private User user;
     
     @Enumerated(EnumType.STRING)
     @JsonView(DataTablesOutput.View.class)
-    private ReviewStatusEnum status;
+    private ReviewStatusEnum status = ReviewStatusEnum.PENDING;
     
     @ManyToOne(optional=false)
     private Product product;
