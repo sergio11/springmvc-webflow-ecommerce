@@ -10,7 +10,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Target;
 
 /**
- *
  * @author sergio
  */
 @Target({TYPE, ANNOTATION_TYPE})

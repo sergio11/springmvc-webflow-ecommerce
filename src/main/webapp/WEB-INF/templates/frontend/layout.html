@@ -12,6 +12,8 @@
         <meta content="Spring MVC Spring Web Flow Spring Security" name="keywords">
         <meta content="sergio" name="author">
         <meta name="ctx" th:content="${#httpServletRequest.getContextPath()}" />
+        <!--<meta th:name="_csrf" th:content="${_csrf.token}"/>
+        <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>-->
         <!-- Fonts START -->
         <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|PT+Sans+Narrow|Source+Sans+Pro:200,300,400,600,700,900&amp;subset=all" rel="stylesheet" type="text/css">
         <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900&amp;subset=all" rel="stylesheet" type="text/css"><!--- fonts for slider on the index page -->  
@@ -80,7 +82,6 @@
             });
         </script>
         <th:block layout:fragment="init-script" />
-        <input type="hidden" id="csrfToken" value="${_csrf.token}"/>
-        <input type="hidden" id="csrfHeader" value="${_csrf.headerName}"/>
+        
     </body>
 </html>

@@ -5,7 +5,6 @@ import java.util.Objects;
 import persistence.models.ProductLine;
 
 /**
- *
  * @author sergio
  */
 public class CartItem implements Serializable {

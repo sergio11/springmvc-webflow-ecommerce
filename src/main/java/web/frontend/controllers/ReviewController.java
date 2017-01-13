@@ -18,14 +18,16 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import persistence.models.Product;
 import persistence.models.Review;
+import persistence.models.User;
 import persistence.repositories.ProductRepository;
 import persistence.repositories.ReviewRepository;
+import security.CurrentUserAttached;
 
 /**
  * @author sergio
  */
 @Controller("FrontendReviewsController")
-@RequestMapping("/reviews")
+@RequestMapping("/products/{productId}/reviews")
 @SessionAttributes({ReviewController.ATTRIBUTE_NAME})
 public class ReviewController {
     
@@ -40,35 +42,36 @@ public class ReviewController {
     @Autowired
     private ReviewRepository reviewRepository;
     
-    @GetMapping("/list/{productId}")
-    public String add(@PathVariable Long productId, Model model) {
+    @GetMapping("/create")
+    public String create(@PathVariable Long productId, Model model) {
         if (!model.containsAttribute(BINDING_RESULT_NAME)) {
-            List<Review> items = reviewRepository.findByProductId(productId);
             model.addAttribute(ATTRIBUTE_NAME,  new Review());
-            model.addAttribute("items", items);
-            model.addAttribute("url", "/list/"+productId);
         }
-        return "frontend/fragments/product/review::list";
+        String url = "/products/"+productId+"/reviews/create";
+        return String.format("frontend/fragments/product/review::create(url='%s')",url);
     }
     
-    @PostMapping("/list/{productId}")
-    public String add(
+    @PostMapping("/create")
+    public String create(
             @PathVariable Long productId,
             @ModelAttribute(ATTRIBUTE_NAME) @Valid Review review, 
             BindingResult bindingResult,
             RedirectAttributes model,
             // SessionStatus lets you clear your SessionAttributes
-            SessionStatus sessionStatus
+            SessionStatus sessionStatus,
+            @CurrentUserAttached User currentUser
     ){
         model.addAttribute("productId", productId);
+        String urlRedirect = "redirect:/products/{productId}/reviews/create";
         if (bindingResult.hasErrors()) {
             model.addFlashAttribute(BINDING_RESULT_NAME, bindingResult);
-            return "redirect:/list/{productId}";
+            return urlRedirect;
         }
         Product product = productRepository.findOne(productId);
         review.setProduct(product);
+        review.setUser(currentUser);
         reviewRepository.save(review);
         sessionStatus.setComplete(); //remove product from session
-        return "redirect:/list/{productId}";
+        return urlRedirect;
     }
 }

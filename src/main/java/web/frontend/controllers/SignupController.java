@@ -26,6 +26,7 @@ import web.services.UserService;
 public class SignupController {
     
     private static Logger logger = LoggerFactory.getLogger(SignupController.class);
+    
     public static final String ATTRIBUTE_NAME = "user";
     public static final String BINDING_RESULT_NAME = "org.springframework.validation.BindingResult." + ATTRIBUTE_NAME;
     
@@ -47,7 +48,6 @@ public class SignupController {
         RedirectAttributes model,
         // SessionStatus lets you clear your SessionAttributes
         SessionStatus sessionStatus) {
-        
         if (bindingResult.hasErrors()) {
             model.addFlashAttribute(BINDING_RESULT_NAME, bindingResult);
             return "redirect:/signup";

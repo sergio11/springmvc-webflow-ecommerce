@@ -49,7 +49,7 @@ public class ProfileInformationController {
     public void setAllowedFields(WebDataBinder dataBinder) {
         dataBinder.setAllowedFields("username", "email", "fullName");
     }
-   
+    
     @RequestMapping(method = RequestMethod.GET)
     public String show(@CurrentUser User currentUser, Model model) {
         User user = userRepository.findOne(currentUser.getId());

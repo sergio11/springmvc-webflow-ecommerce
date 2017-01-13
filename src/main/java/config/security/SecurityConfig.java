@@ -140,7 +140,8 @@ public class SecurityConfig extends GlobalAuthenticationConfigurerAdapter {
                 .and()
                 .exceptionHandling().accessDeniedPage("/403")
                 .and()
-                .csrf();
+                .csrf()
+                .disable();
         }
     }
     

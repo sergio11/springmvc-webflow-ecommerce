@@ -2,6 +2,7 @@ package web.services;
 
 import java.util.List;
 import persistence.models.Product;
+import persistence.models.Review;
 
 
 /**
@@ -9,4 +10,5 @@ import persistence.models.Product;
  */
 public interface ProductService {
     List<Product> getNewArrivals();
+    List<Review> getApprovedReviews(Long productId);
 }
