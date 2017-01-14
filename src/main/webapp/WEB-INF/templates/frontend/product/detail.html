@@ -24,10 +24,11 @@
                             <div class="product-main-image">
                                 <img th:src="@{/images/products/{image}(image=${productLine.image})}" alt="Cool green dress with red bell" class="img-responsive" data-BigImgsrc="../../assets/frontend/pages/img/products/model7.jpg">
                             </div>
-                            <div class="product-other-images">
-                                <a href="../../assets/frontend/pages/img/products/model3.jpg" class="fancybox-button" rel="photos-lib"><img alt="Berry Lace Dress" src="../../assets/frontend/pages/img/products/model3.jpg"></a>
-                                <a href="../../assets/frontend/pages/img/products/model4.jpg" class="fancybox-button" rel="photos-lib"><img alt="Berry Lace Dress" src="../../assets/frontend/pages/img/products/model4.jpg"></a>
-                                <a href="../../assets/frontend/pages/img/products/model5.jpg" class="fancybox-button" rel="photos-lib"><img alt="Berry Lace Dress" src="../../assets/frontend/pages/img/products/model5.jpg"></a>
+                            <div class="product-other-images" th:with="all = ${productLine.product.productLines}" th:if="${all > 1}">
+                                <a th:each="otherLine:${all}" th:if="${otherLine.id != productLine.id }" 
+                                   th:href="@{/products/detail/{line}(line=${otherLine.id})}" class="fancybox-button" rel="photos-lib">
+                                    <img th:alt="${otherLine.description}" th:src="@{/images/products/{image}(image=${otherLine.image})}" />
+                                </a>
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-6">
@@ -48,20 +49,16 @@
                                 <p th:text="${productLine.product.shortDescription}">Lorem ipsum dolor ut sit ame dolore  adipiscing elit, sed nonumy nibh sed euismod laoreet dolore magna aliquarm erat volutpat 
                                     Nostrud duis molestie at dolore.</p>
                             </div>
-                           
-                            <div class="product-page-cart">
-                                <div class="product-quantity">
-                                    <input id="product-quantity" type="text" value="1" readonly class="form-control input-sm">
-                                </div>
-                                <a href="#" th:href="@{/shopping-cart/add/{id}(id=${productLine.id})}" th:value="#{common.btns.add.to.cart}" class="btn btn-primary">Add to cart</a>
-                            </div>
+                            <!-- Add this product line to cart -->
+                            <div id="addProductToCart" th:data-source="@{/shopping-cart/add/{line}(line=${productLine.id})}"></div>
+                            
                             <div class="review">
                                 <input type="range" value="4" step="0.25" id="backing4">
                                     <div class="rateit" data-rateit-backingfld="#backing4" data-rateit-resetable="false"  data-rateit-ispreset="true" data-rateit-min="0" data-rateit-max="5">
                                     </div>
-                                    <a href="javascript:;" th:text="#{common.reviews.total(${productLine.product.reviews.size()})}">7 reviews</a>
+                                    <a href="#Reviews" th:text="#{common.reviews.total(${productLine.product.reviews.size()})}">7 reviews</a>
                                     &nbsp;&nbsp;|&nbsp;&nbsp;
-                                    <a href="javascript:;" th:text="#{common.reviews.write}">Write a review</a>
+                                    <a href="#reviews-form" th:text="#{common.reviews.write}">Write a review</a>
                             </div>
                         </div>
 

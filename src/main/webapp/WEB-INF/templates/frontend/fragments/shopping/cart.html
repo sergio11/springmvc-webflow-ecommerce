@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <!-- Fragment for add product line to cart -->
+        <th:block th:fragment="add(url)">
+            <form th:action="@{${url}}" id="addProductToCartForm" class="product-page-cart" role="form" method="post" th:object="${cartItem}">
+                <th:block th:replace="admin/fragments/alerts::form-errors"></th:block>
+                <div class="product-quantity">
+                    <input id="product-quantity" type="text" th:field="*{quantity}" value="1" readonly class="form-control input-sm">
+                </div>
+                <input type="submit" th:value="#{common.btns.add.to.cart}" value="Add to cart" class="btn btn-primary" />
+            </form>
+        </th:block>
+    </body>
+</html>

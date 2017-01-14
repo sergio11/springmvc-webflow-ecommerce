@@ -2,21 +2,29 @@ package web.models.shop;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import persistence.models.ProductLine;
 
 /**
  * @author sergio
  */
 public class CartItem implements Serializable {
-
+    
     private Integer id;
+    @NotNull(message="{cart.item.productline.notnull}")
     private ProductLine productLine;
-    private Integer quantity;
+    @Min(value = 1, message = "{order.line.quantity.min}")
+    @Max(value = 999, message = "{order.line.quantity.max}")
+    private Integer quantity = 1;
     private Double totalPrice;
+    
+    public CartItem(){}
 
-    public CartItem(Integer cartItemId, ProductLine product, Integer quantity, Double totalPrice) {
+    public CartItem(Integer cartItemId, ProductLine productLine, Integer quantity, Double totalPrice) {
         this.id = cartItemId;
-        this.productLine = product;
+        this.productLine = productLine;
         this.quantity = quantity;
         this.totalPrice = totalPrice;
     }

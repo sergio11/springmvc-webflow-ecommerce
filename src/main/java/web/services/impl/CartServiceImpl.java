@@ -50,4 +50,17 @@ public class CartServiceImpl implements CartService {
         }
         return subTotal;
     }
+
+    @Override
+    public CartItem getCartItemByProductLine(Long id) {
+        CartItem cartItemResult = null;
+        Set<CartItem> cartItems = cart.getCartItems();
+        for(CartItem cartItem: cartItems){
+            if(cartItem.getProductLine().getId().equals(id)){
+                cartItemResult = cartItem;
+                break;
+            }
+        }
+        return cartItemResult;
+    }
 }

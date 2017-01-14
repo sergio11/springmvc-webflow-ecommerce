@@ -38,20 +38,20 @@
                                             </a>
                                         </td>
                                         <td class="goods-page-description">
-                                            <h3><a href="javascript:;" th:text="${item.productLine.product.name}">Product Name</a></h3>
+                                            <h3><a th:href="@{/products/detail/{line}(line=${item.productLine.id})}" th:text="${item.productLine.product.name}">Product Name</a></h3>
                                             <em th:text="${item.productLine.description}">More info is here</em>
                                         </td>
                                         <td class="goods-page-ref-no" th:text="${item.productLine.id}">javc2133</td>
                                         <td class="goods-page-quantity">
                                             <div class="product-quantity">
-                                                <input id="product-quantity" type="text" value="1" th:value="${item.quantity}" readonly class="form-control input-sm">
+                                                <input id="product-quantity" type="text" value="1" th:value="${item.quantity}" class="form-control input-sm">
                                             </div>
                                         </td>
                                         <td class="goods-page-price">
-                                            <strong><span>€</span><span th:text="${item.productLine.product.price}">47.00</span></strong>
+                                            <strong><span th:text="${item.productLine.product.price}">47.00</span><span>&euro;</span></strong>
                                         </td>
                                         <td class="goods-page-total">
-                                            <strong><span>€</span><span th:text="${item.totalPrice}">47.00</span></strong>
+                                            <strong><span th:text="${item.totalPrice}">47.00</span><span>&euro;</span></strong>
                                         </td>
                                         <td class="del-goods-col">
                                             <a class="del-goods" href="javascript:;">&nbsp;</a>
@@ -63,30 +63,40 @@
                                 <ul>
                                     <li>
                                         <em th:text="#{frontend.cart.resume}">Sub total</em>
-                                        <strong class="price"><span>€</span><span th:text="${subTotal}">47.00</span></strong>
+                                        <strong class="price"><span th:text="${subTotal}">47.00</span><span>&euro;</span></strong>
                                     </li>
                                     <li>
                                         <em th:text="#{frontend.cart.shipping.cost}">Shipping cost</em>
-                                        <strong class="price"><span>$</span>3.00</strong>
+                                        <strong class="price">3.00<span>&euro;</span></strong>
                                     </li>
                                     <li class="shopping-total-price">
                                         <em th:text="#{frontend.cart.total}">Total</em>
                                         <strong class="price">
-                                            <span>$</span>
                                             <span th:with="total=${subTotal + 3.00}" th:text="${total}">50.00</span>
+                                            <span>&euro;</span>
                                         </strong>
                                     </li>
                                 </ul>
                             </div>
                         </div>
-                        <button class="btn btn-default" type="submit"><span th:text="#{frontend.cart.actions.continue}">Continue shopping</span> <i class="fa fa-shopping-cart"></i></button>
+                        <a class="btn btn-default" th:href="@{/home}"><span th:text="#{frontend.cart.actions.continue}">Continue shopping</span> <i class="fa fa-shopping-cart"></i></a>
                         <button class="btn btn-primary" type="submit"><span th:text="#{frontend.cart.actions.checkout}">Checkout</span> <i class="fa fa-check"></i></button>
                     </div>
                 </div>
                 <!-- END CONTENT -->
             </div>
             <!-- END SIDEBAR & CONTENT -->
-
         </div>
+        
+        <!-- BEGIN INIT SCRIPT -->
+        <th:block layout:fragment="init-script">
+            <script type="text/javascript">
+                jQuery(document).ready(function() {
+                    Layout.initImageZoom();
+                    Layout.initTouchspin();
+                });
+            </script>
+        </th:block>
+        <!-- END INIT SCRIPT -->
     </body>
 </html>

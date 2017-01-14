@@ -20,20 +20,19 @@
                     <div class="top-cart-info">
                         <a th:href="@{/shopping-cart}" class="top-cart-info-count" th:text="${items.size()}">3 items</a>
                         <a th:href="@{/shopping-cart}" class="top-cart-info-value"  th:if="${not #lists.isEmpty(items)}"
-                           th:with="subTotal = ${#aggregates.sum(items.![totalPrice])}" th:text="#{subTotal}">$1260</a>
+                           th:with="subTotal = ${#aggregates.sum(items.![totalPrice])}" th:text="${subTotal}">$1260</a>
                     </div>
                     <i class="fa fa-shopping-cart"></i>
                     <div class="top-cart-content-wrapper">
                         <div class="top-cart-content">
-                            <ul class="scroller" style="height: 250px;">
+                            <ul class="scroller">
                                 <li th:each="item:${items}">
                                     <a th:href="@{/products/detail/{line}(line=${item.productLine.id})}">
                                         <img th:src="@{/images/products/{image}(image=${item.productLine.image})}" th:alt="${item.productLine.description}" width="37" height="34">
                                     </a>
-                                    <span class="cart-content-count">x <span th:text="${item.quantity}">1</span></span>
+                                    <span class="cart-content-count">x<span th:text="${item.quantity}">1</span></span>
                                     <strong><a th:href="@{/products/detail/{line}(line=${item.productLine.id})}" th:text="${item.productLine.product.name}">Product Name</a></strong>
-                                    <em>$1230</em>
-                                    <a href="javascript:void(0);" class="del-goods">&nbsp;</a>
+                                    <em><span th:text="${item.totalPrice}">1230</span><span>&euro;</span></em>
                                 </li>
                             </ul>
                             <div class="text-right">
