@@ -1,5 +1,6 @@
 package web.services.impl;
 
+import java.util.Iterator;
 import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,9 +39,15 @@ public class CartServiceImpl implements CartService {
     
     @Override
     public void updateItems(Set<CartItem> items) {
-        for(CartItem item: items){
-            Double productPrice = item.getProductLine().getProduct().getPrice();
-            item.setTotalPrice(productPrice * item.getQuantity());
+        Iterator<CartItem> ite = items.iterator();
+        while(ite.hasNext()){
+            CartItem item = ite.next();
+            if(!item.isRemove()){
+                Double productPrice = item.getProductLine().getProduct().getPrice();
+                item.setTotalPrice(productPrice * item.getQuantity());
+            } else {
+                ite.remove();
+            }
         }
         cart.setCartItems(items);
     }
@@ -72,7 +79,7 @@ public class CartServiceImpl implements CartService {
         }
         return cartItemResult;
     }
-
+    
     @Override
     public Cart getCart() {
        return cart;

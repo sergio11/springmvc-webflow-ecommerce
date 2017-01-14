@@ -19,6 +19,7 @@ public class CartItem implements Serializable {
     @Max(value = 999, message = "{order.line.quantity.max}")
     private Integer quantity = 1;
     private Double totalPrice;
+    private Boolean remove = false;
     
     public CartItem(){}
 
@@ -61,6 +62,18 @@ public class CartItem implements Serializable {
         this.totalPrice = totalPrice;
     }
 
+    public Boolean getRemove() {
+        return remove;
+    }
+    
+    public Boolean isRemove() {
+        return remove;
+    }
+
+    public void setRemove(Boolean remove) {
+        this.remove = remove;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 5;
