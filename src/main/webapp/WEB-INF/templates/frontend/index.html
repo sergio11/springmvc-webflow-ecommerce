@@ -41,7 +41,7 @@
                                     </div>
                                 </div>
                                 <h3><a th:href="@{/products/detail/{line}(line=${productLine.id})}" th:text="${product.name}">Product Name</a></h3>
-                                <div class="pi-price" th:text="${product.price}">$29.00</div>
+                                <div class="pi-price"><span th:text="${product.price}">29.00</span><span>&euro;</span></div>
                                 <div class="sticker sticker-sale"></div>
                             </div>
                         </div>

@@ -14,12 +14,12 @@
                 <!-- BEGIN CONTENT -->
                 <div class="col-md-12 col-sm-12">
                     <h1 th:text="#{frontend.cart.page.title}">Shopping cart</h1>
-                    <div class="shopping-cart-page" th:if="${#lists.isEmpty(items)}">
+                    <div class="shopping-cart-page" th:if="${#lists.isEmpty(cart.cartItems)}">
                         <div class="shopping-cart-data clearfix">
                             <p th:text="#{frontend.cart.empty}">Your shopping cart is empty!</p>
                         </div>
                     </div>
-                    <div class="goods-page" th:if="${not #lists.isEmpty(items)}">
+                    <form th:if="${not #lists.isEmpty(cart.cartItems)}" method="post" role="form" th:action="@{/shopping-cart}" class="goods-page" th:object="${cart}" >
                         <div class="goods-data clearfix">
                             <div class="table-wrapper-responsive">
                                 <table summary="Shopping cart" th:summary="#{frontend.cart.page.title}">
@@ -31,11 +31,9 @@
                                         <th class="goods-page-price" th:text="#{frontend.cart.table.unit.price}">Unit price</th>
                                         <th class="goods-page-total" colspan="2" th:text="#{frontend.cart.table.total}">Total</th>
                                     </tr>
-                                    <tr th:each="item:${items}">
+                                    <tr th:each="item, stat:*{cartItems}">
                                         <td class="goods-page-image">
-                                            <a href="javascript:;">
-                                                <img th:src="@{/images/products/{image}(image=${item.productLine.image})}"  width="100" height="100" />
-                                            </a>
+                                            <img th:src="@{/images/products/{image}(image=${item.productLine.image})}"  class="img-responsive" data-BigImgsrc="@{/images/products/{image}(image=${item.productLine.image})}" width="100" height="100" />
                                         </td>
                                         <td class="goods-page-description">
                                             <h3><a th:href="@{/products/detail/{line}(line=${item.productLine.id})}" th:text="${item.productLine.product.name}">Product Name</a></h3>
@@ -44,7 +42,7 @@
                                         <td class="goods-page-ref-no" th:text="${item.productLine.id}">javc2133</td>
                                         <td class="goods-page-quantity">
                                             <div class="product-quantity">
-                                                <input id="product-quantity" type="text" value="1" th:value="${item.quantity}" class="form-control input-sm">
+                                                <input id="product-quantity" type="text" th:field="*{cartItems[__${stat.index}__].quantity}" th:value="${item.quantity}" readonly class="form-control input-sm">
                                             </div>
                                         </td>
                                         <td class="goods-page-price">
@@ -59,7 +57,7 @@
                                     </tr>
                                 </table>
                             </div>
-                            <div class="shopping-total" th:with="subTotal = ${#aggregates.sum(items.![totalPrice])}">
+                            <div class="shopping-total" th:with="subTotal = ${#aggregates.sum(cart.cartItems.![totalPrice])}">
                                 <ul>
                                     <li>
                                         <em th:text="#{frontend.cart.resume}">Sub total</em>
@@ -80,23 +78,14 @@
                             </div>
                         </div>
                         <a class="btn btn-default" th:href="@{/home}"><span th:text="#{frontend.cart.actions.continue}">Continue shopping</span> <i class="fa fa-shopping-cart"></i></a>
-                        <button class="btn btn-primary" type="submit"><span th:text="#{frontend.cart.actions.checkout}">Checkout</span> <i class="fa fa-check"></i></button>
-                    </div>
+                        <a class="btn btn-primary" href="#"><span th:text="#{frontend.cart.actions.checkout}">Checkout</span> <i class="fa fa-check"></i></a>
+                        <button class="btn btn-success" type="submit"><span th:text="#{common.btns.save}">Save</span> <i class="fa fa-save"></i></button>
+                    </form>
                 </div>
                 <!-- END CONTENT -->
             </div>
             <!-- END SIDEBAR & CONTENT -->
         </div>
-        
-        <!-- BEGIN INIT SCRIPT -->
-        <th:block layout:fragment="init-script">
-            <script type="text/javascript">
-                jQuery(document).ready(function() {
-                    Layout.initImageZoom();
-                    Layout.initTouchspin();
-                });
-            </script>
-        </th:block>
         <!-- END INIT SCRIPT -->
     </body>
 </html>

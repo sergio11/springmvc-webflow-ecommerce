@@ -7,7 +7,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        
         <!-- BEGIN HEADER -->
         <div th:fragment="header" class="header">
             <div class="container">
@@ -18,13 +17,13 @@
                 <!-- BEGIN CART -->
                 <div class="top-cart-block" th:with="items = ${@cartService.getAllItem()}">
                     <div class="top-cart-info">
-                        <a th:href="@{/shopping-cart}" class="top-cart-info-count" th:text="${items.size()}">3 items</a>
+                        <a th:href="@{/shopping-cart}" class="top-cart-info-count" th:text="#{frontend.cart.total.products(${items.size()})}">3 items</a>
                         <a th:href="@{/shopping-cart}" class="top-cart-info-value"  th:if="${not #lists.isEmpty(items)}"
-                           th:with="subTotal = ${#aggregates.sum(items.![totalPrice])}" th:text="${subTotal}">$1260</a>
+                           th:with="subTotal = ${#aggregates.sum(items.![totalPrice])}" th:text="${subTotal}">1260<span>&euro;</span></a>
                     </div>
                     <i class="fa fa-shopping-cart"></i>
                     <div class="top-cart-content-wrapper">
-                        <div class="top-cart-content">
+                        <div class="top-cart-content" style="min-height: 100px;">
                             <ul class="scroller">
                                 <li th:each="item:${items}">
                                     <a th:href="@{/products/detail/{line}(line=${item.productLine.id})}">

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 /**
  * @author sergio
  */
-@Component
+@Component("cart")
 @Scope( value = "session",  proxyMode= ScopedProxyMode.TARGET_CLASS)
 public class Cart implements Serializable {
     
@@ -39,5 +39,10 @@ public class Cart implements Serializable {
     
     public void removeItem(CartItem item){
         cartItems.remove(item);
+    }
+
+    @Override
+    public String toString() {
+        return "Cart{" + "id=" + id + ", cartItems=" + cartItems + '}';
     }
 }

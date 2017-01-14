@@ -20,7 +20,6 @@ public class CartServiceImpl implements CartService {
     @Autowired
     private Cart cart;
    
-    
     @Override
     public Set<CartItem> getAllItem() {
         return cart.getCartItems();
@@ -28,12 +27,22 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public void addItem(CartItem item) {
+        Double productPrice = item.getProductLine().getProduct().getPrice();
+        item.setTotalPrice(productPrice * item.getQuantity());
         cart.addItem(item);
     }
 
     @Override
     public void updateItem(CartItem item) {
-       
+    }
+    
+    @Override
+    public void updateItems(Set<CartItem> items) {
+        for(CartItem item: items){
+            Double productPrice = item.getProductLine().getProduct().getPrice();
+            item.setTotalPrice(productPrice * item.getQuantity());
+        }
+        cart.setCartItems(items);
     }
 
     @Override
@@ -62,5 +71,10 @@ public class CartServiceImpl implements CartService {
             }
         }
         return cartItemResult;
+    }
+
+    @Override
+    public Cart getCart() {
+       return cart;
     }
 }
