@@ -42,6 +42,10 @@ public class Order implements Serializable {
     private OrderStatusEnum status;
     @OneToMany(mappedBy = "order")
     private List<OrderLine> orderLines = new ArrayList();
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private Address shipTo;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Address billTo;
     
 
     public Long getId() {
@@ -98,6 +102,22 @@ public class Order implements Serializable {
 
     public void setOrderLines(List<OrderLine> orderLines) {
         this.orderLines = orderLines;
+    }
+
+    public Address getShipTo() {
+        return shipTo;
+    }
+
+    public void setShipTo(Address shipTo) {
+        this.shipTo = shipTo;
+    }
+
+    public Address getBillTo() {
+        return billTo;
+    }
+
+    public void setBillTo(Address billTo) {
+        this.billTo = billTo;
     }
 
     @Override

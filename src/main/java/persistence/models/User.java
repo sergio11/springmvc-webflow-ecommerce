@@ -116,6 +116,14 @@ public class User implements Serializable, UserDetails {
     
     @OneToOne(optional = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Avatar avatar;
+    
+    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "USER_ADDRESSES",
+            joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "ADDRESS_ID", referencedColumnName = "ID")
+    )
+    private Set<Address> address;
 
     public Long getId() {
         return id;
@@ -223,6 +231,14 @@ public class User implements Serializable, UserDetails {
 
     public void setAvatar(Avatar avatar) {
         this.avatar = avatar;
+    }
+
+    public Set<Address> getAddress() {
+        return address;
+    }
+
+    public void setAddress(Set<Address> address) {
+        this.address = address;
     }
     
     @Override
