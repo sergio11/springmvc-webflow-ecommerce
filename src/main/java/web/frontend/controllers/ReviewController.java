@@ -70,6 +70,7 @@ public class ReviewController {
         Product product = productRepository.findOne(productId);
         review.setProduct(product);
         review.setUser(currentUser);
+        logger.info("Review for product: " + product);
         reviewRepository.save(review);
         sessionStatus.setComplete(); //remove product from session
         return urlRedirect;
