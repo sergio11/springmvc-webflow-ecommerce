@@ -84,4 +84,9 @@ public class CartServiceImpl implements CartService {
     public Cart getCart() {
        return cart;
     }
+
+    @Override
+    public boolean isEmpty() {
+        return cart.getCartItems().isEmpty();
+    }
 }

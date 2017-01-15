@@ -16,4 +16,5 @@ public interface CartService {
     void updateItems(Set<CartItem> item);
     void removeAllItems();
     CartItem getCartItemByProductLine(Long id);
+    boolean isEmpty();
 }

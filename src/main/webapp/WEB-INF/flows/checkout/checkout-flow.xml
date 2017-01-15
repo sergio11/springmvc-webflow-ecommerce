@@ -4,6 +4,10 @@
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
     <var name="order" class="persistence.models.Order" />
+    <!-- Check if cart is empty -->
+    <decision-state id="checkEmptyCart">
+        <if test="cartService.isEmpty()" then="endState" else="finish" />
+    </decision-state>
     
     <view-state id="confirm" view="frontend/checkout/confirm" model="order">
         <transition on="confirm" to="thankCustomer" />
