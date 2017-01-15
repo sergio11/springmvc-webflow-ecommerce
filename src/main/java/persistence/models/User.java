@@ -112,7 +112,7 @@ public class User implements Serializable, UserDetails {
     private Set<Authority> authorities = new HashSet();
     
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
-    private Set<Review> reviews;
+    private Set<Review> reviews = new HashSet();
     
     @OneToOne(optional = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Avatar avatar;
@@ -123,7 +123,7 @@ public class User implements Serializable, UserDetails {
             joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "ADDRESS_ID", referencedColumnName = "ID")
     )
-    private Set<Address> address;
+    private Set<Address> addresses = new HashSet();
 
     public Long getId() {
         return id;
@@ -233,12 +233,16 @@ public class User implements Serializable, UserDetails {
         this.avatar = avatar;
     }
 
-    public Set<Address> getAddress() {
-        return address;
+    public Set<Address> getAddresses() {
+        return addresses;
     }
 
-    public void setAddress(Set<Address> address) {
-        this.address = address;
+    public void setAddresses(Set<Address> addresses) {
+        this.addresses = addresses;
+    }
+    
+    public void addAddress(Address address){
+        addresses.add(address);
     }
     
     @Override

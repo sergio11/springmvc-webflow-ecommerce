@@ -19,7 +19,7 @@ import web.uploads.UploadStrategy;
 /**
  * @author sergio
  */
-@Service
+@Service("userService")
 @Transactional
 public class UserServiceImpl implements UserService {
     
@@ -60,6 +60,10 @@ public class UserServiceImpl implements UserService {
         } catch (IOException ex) {
             logger.error(ex.toString());
         }
-        
+    }
+
+    @Override
+    public boolean hasAddresses(Long id) {
+        return userRepository.countAddresses(id) > 0;
     }
 }

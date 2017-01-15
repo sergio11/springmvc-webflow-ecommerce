@@ -13,6 +13,7 @@ import org.springframework.webflow.executor.FlowExecutor;
 import org.springframework.webflow.mvc.builder.MvcViewFactoryCreator;
 import org.springframework.webflow.mvc.servlet.FlowHandlerAdapter;
 import org.springframework.webflow.mvc.servlet.FlowHandlerMapping;
+import org.springframework.webflow.security.SecurityFlowExecutionListener;
 
 /**
  * Spring Web Config with Thymeleaf support
@@ -54,7 +55,9 @@ public class WebFlowConfig extends AbstractFlowConfiguration {
     
     @Bean
     public FlowExecutor flowExecutor() {
-        return getFlowExecutorBuilder(flowRegistry()).build();
+        return getFlowExecutorBuilder(flowRegistry())
+                .addFlowExecutionListener(new SecurityFlowExecutionListener() , "*")
+                .build();
     }
     
     @Bean

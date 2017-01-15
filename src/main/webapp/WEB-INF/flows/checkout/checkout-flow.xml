@@ -3,24 +3,34 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
-    <var name="order" class="persistence.models.Order" />
+    <secured attributes="ROLE_ANONYMOUS" />
     <!-- Check if cart is empty -->
     <decision-state id="checkEmptyCart">
-        <if test="cartService.isEmpty()" then="endState" else="finish" />
+        <if test="cartService.isEmpty()" then="finishCheckout" else="createOrder" />
     </decision-state>
+    <!-- subflow for create order -->
+    <subflow-state id="createOrder" subflow="order">
+        <transition to="confirm" />
+    </subflow-state>
+    
+    <!-- View state for auth user -->
+    <view-state id="auth" view="frontend/checkout/auth" model="order">
+        <transition on="onSuccess" to="createOrder" />
+    </view-state>
     
     <view-state id="confirm" view="frontend/checkout/confirm" model="order">
         <transition on="confirm" to="thankCustomer" />
     </view-state>
     
     <view-state id="thankCustomer" view="frontend/checkout/thankCustomer" model="order">
-        <transition to="endState" />
+        <transition to="finishCheckout" />
     </view-state>
 
-    <end-state id="endState" />
+    <end-state id="finishCheckout" view="externalRedirect:/home"/>
     
     <global-transitions>
         <transition on="cancel" to="cancelCheckout" />
+        <transition on-exception="org.springframework.security.access.AccessDeniedException" to="auth" />
     </global-transitions>
     
 </flow>

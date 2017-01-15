@@ -4,15 +4,15 @@
       xmlns:th="http://www.thymeleaf.org"
       layout:decorator="frontend/layout">
     <head>
-        <title th:text="#{frontend.checkout.options}">Step 1: Checkout Options</title>
+        <title th:text="#{frontend.checkout.user}">User data</title>
     </head>
     <body>
         <!-- BEGIN MAIN -->
         <div layout:fragment="content">
-            <h1 th:text="#{frontend.checkout.options}">Step 1: Checkout Options</h1>
+            <h1 th:text="#{frontend.checkout.user}">User data</h1>
             <div class="row">
                 <div class="col-md-6 col-sm-6">
-                    <h3>New Customer</h3>
+                    <h3 th:text="#{frontend.checkout.user.new}">New Customer</h3>
                     <p>Checkout Options:</p>
                     <div class="radio-list">
                         <label>
@@ -26,16 +26,27 @@
                     <button class="btn btn-primary" type="submit" data-toggle="collapse" data-parent="#checkout-page" data-target="#payment-address-content">Continue</button>
                 </div>
                 <div class="col-md-6 col-sm-6">
-                    <h3>Returning Customer</h3>
-                    <p>I am a returning customer.</p>
-                    <form role="form" action="#">
+                    <h3 th:text="#{frontend.checkout.user.returning.customer}">Returning Customer</h3>
+                    <p th:text="#{frontend.checkout.user.returning.customer2}">I am a returning customer.</p>
+                    <form role="form" th:action="@{/login}" method="post">
+                        <th:block th:include="global/fragments/login::alerts" />
                         <div class="form-group">
-                            <label for="email-login">E-Mail</label>
-                            <input type="text" id="email-login" class="form-control">
+                            <label for="username" class="col-lg-4 control-label">
+                                <span th:text="#{login.form.username.label}">username</span>
+                                <span class="require">*</span>
+                            </label>
+                            <div class="col-lg-8">
+                                <input type="text" name="username" class="form-control" id="username">
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label for="password-login">Password</label>
-                            <input type="password" id="password-login" class="form-control">
+                            <label for="password" class="col-lg-4 control-label">
+                                <span th:text="#{login.form.password.label}">Password</span>
+                                <span class="require">*</span>
+                            </label>
+                            <div class="col-lg-8">
+                                <input type="password" name="password" class="form-control" id="password">
+                            </div>
                         </div>
                         <a href="javascript:;">Forgotten Password?</a>
                         <div class="padding-top-20">                  

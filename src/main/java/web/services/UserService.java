@@ -10,4 +10,5 @@ public interface UserService {
     void updatePassword(User user);
     void create(User user);
     void create(User user, MultipartFile avatarFile);
+    boolean hasAddresses(Long id);
 }

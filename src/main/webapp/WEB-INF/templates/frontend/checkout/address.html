@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="frontend/layout">
+    <head>
+        <title th:text="#{frontend.checkout.address}">Add Address for order process</title>
+    </head>
+    <body>
+        <!-- BEGIN MAIN -->
+        <div layout:fragment="content">
+            <h1 th:text="#{frontend.checkout.address}">Add Address for order process</h1>
+            <div class="row">
+                <form method="post" th:action="${flowExecutionUrl}" th:object="${address}">
+                    <div class="col-md-6 col-sm-6">
+                        <div class="form-group">
+                            <label for="street">
+                                <span th:text="#{frontend.checkout.address.form.street.label}">Street</span>
+                                <span class="require">*</span>
+                            </label>
+                            <input type="text" id="street" class="form-control" maxlength="40" th:field="*{street}">
+                        </div>
+                        <div class="form-group">
+                            <label for="city">
+                                <span th:text="#{frontend.checkout.address.form.city.label}">City</span>
+                                <span class="require">*</span>
+                            </label>
+                            <input type="text" id="city" class="form-control" maxlength="40" th:field="*{city}">
+                        </div>
+                        <div class="form-group">
+                            <label for="zipcode">
+                                <span th:text="#{frontend.checkout.address.form.zipcode.label}">ZipCode</span>
+                                <span class="require">*</span>
+                            </label>
+                            <input type="text" id="zipcode" class="form-control" maxlength="20" th:field="*{zipCode}">
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <div class="form-group">
+                            <label for="country">
+                                <span th:text="#{frontend.checkout.address.form.country.label}">Country</span> 
+                                <span class="require">*</span>
+                            </label>
+                            <select class="form-control input-sm" id="country-dd" th:field="*{country}">
+                                <option value="" th:each="country: ${countries}" th:value="${country.id}" th:text="${country.name}"> --- Please Select --- </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <input type="hidden" name="_flowExecutionKey" th:value="${flowExecutionKey}" />
+                        <button class="btn btn-primary  pull-right" name="_eventId_createAddress" type="submit" th:text="#{common.btns.save}">Create</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

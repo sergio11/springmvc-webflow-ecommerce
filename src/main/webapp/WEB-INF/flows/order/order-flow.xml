@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+    <secured attributes="ROLE_CONSUMER" />
+    
+    <var name="order" class="persistence.models.Order" />
+    <var name="address" class="persistence.models.Address"  />
+    
+    <!-- Check if user has any address -->
+    <decision-state id="checkUserAddresses">
+        <if test="userService.hasAddresses(currentUser.id)" then="finishCheckout" else="createAddress" />
+    </decision-state>
+    
+    <!-- View state for create address -->
+    <view-state id="createAddress" view="frontend/checkout/address" model="address">
+        <on-render>
+		<evaluate 
+                    expression="countryService.getAll()"
+                    result="viewScope.countries" result-type="dataModel" />
+	</on-render>
+        <transition on="createAddress" to="createAddress" />
+    </view-state>
+    
+    <!-- Create Address for Curret user -->
+    <action-state id="createAddress">
+        <evaluate expression="addressAction"/>
+        <transition on="success" to="" />
+    </action-state>
+    
+</flow>
