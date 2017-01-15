@@ -43,9 +43,7 @@ public class ProductPopulator implements Serializable {
     @Transactional
     public void contextRefreshedEvent() {
         logger.info("SETUP PRODUCT INIT DATA");
-        
-        productRepository.deleteAll();
-        
+       
         List<Product> products = new ArrayList();
         
         Calendar c = Calendar.getInstance();
@@ -112,7 +110,11 @@ public class ProductPopulator implements Serializable {
         
         products.add(product2);
         
-        productRepository.save(products);
-        
+        try{
+            productRepository.deleteAll();
+            productRepository.save(products);
+        } catch(Exception e){
+            logger.error(e.getMessage());
+        }
     }
 }

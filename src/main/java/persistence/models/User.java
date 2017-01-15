@@ -111,7 +111,7 @@ public class User implements Serializable, UserDetails {
     )
     private Set<Authority> authorities = new HashSet();
     
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
     private Set<Review> reviews;
     
     @OneToOne(optional = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)

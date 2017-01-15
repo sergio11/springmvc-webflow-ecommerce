@@ -3,7 +3,20 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
+    <var name="order" class="persistence.models.Order" />
+    
+    <view-state id="confirm" view="frontend/checkout/confirm" model="order">
+        <transition on="confirm" to="thankCustomer" />
+    </view-state>
+    
+    <view-state id="thankCustomer" view="frontend/checkout/thankCustomer" model="order">
+        <transition to="endState" />
+    </view-state>
+
+    <end-state id="endState" />
+    
     <global-transitions>
         <transition on="cancel" to="cancelCheckout" />
     </global-transitions>
+    
 </flow>

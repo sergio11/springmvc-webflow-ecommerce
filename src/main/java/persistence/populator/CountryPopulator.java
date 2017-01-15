@@ -151,6 +151,13 @@ public class CountryPopulator implements Serializable {
         countries.add(new Country("KR", "Korea, Republic of"));
         countries.add(new Country("XK", "Kosovo"));
         countries.add(new Country("KW", "Kuwait"));
-        countryRepository.save(countries);
+        
+        try{
+            countryRepository.deleteAll();
+            countryRepository.save(countries);
+        } catch(Exception e){
+            logger.info(e.getMessage());
+        }
+        
     }
 }

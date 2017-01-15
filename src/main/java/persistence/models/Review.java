@@ -16,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 
 /**
@@ -45,7 +47,8 @@ public class Review implements Serializable {
     @Column(nullable = false, columnDefinition="clob")
     private String body;
     
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonView(DataTablesOutput.View.class)
     private User user;
     

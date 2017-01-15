@@ -79,7 +79,7 @@
                             </div>
                         </div>
                         <a class="btn btn-default" th:href="@{/home}"><span th:text="#{frontend.cart.actions.continue}">Continue shopping</span> <i class="fa fa-shopping-cart"></i></a>
-                        <a class="btn btn-primary" href="#"><span th:text="#{frontend.cart.actions.checkout}">Checkout</span> <i class="fa fa-check"></i></a>
+                        <a class="btn btn-primary"  th:if="${not #lists.isEmpty(cart.cartItems)}" th:href="@{/checkout}"><span th:text="#{frontend.cart.actions.checkout}">Checkout</span> <i class="fa fa-check"></i></a>
                         <button class="btn btn-success" type="submit"><span th:text="#{common.btns.save}">Save</span> <i class="fa fa-save"></i></button>
                     </form>
                 </div>

@@ -37,7 +37,7 @@ public class SecurityPopulator implements Serializable {
     @Transactional
     public void contextRefreshedEvent() {
         logger.info("SETUP SECURITY INIT DATA");
-        autorityRepository.deleteAll();
+        
         Set<Authority> authorities = new HashSet();
         List<User> users = new ArrayList();
         
@@ -62,7 +62,12 @@ public class SecurityPopulator implements Serializable {
         authorityCustomer.addUser(user1);
         authorities.add(authorityCustomer);
         
-        autorityRepository.save(authorities);
+        try{
+            autorityRepository.deleteAll();
+            autorityRepository.save(authorities);
+        } catch(Exception e){
+            logger.error(e.getMessage());
+        }
         
     }
 }

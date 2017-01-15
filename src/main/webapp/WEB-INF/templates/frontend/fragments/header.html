@@ -36,7 +36,7 @@
                             </ul>
                             <div class="text-right">
                                 <a th:href="@{/shopping-cart}" class="btn btn-default" th:text="#{common.btns.view.cart}">View Cart</a>
-                                <a href="shop-checkout.html" class="btn btn-primary" th:text="#{common.btns.checkout}">Checkout</a>
+                                <a th:href="@{/checkout}" th:if="${not #lists.isEmpty(items)}" class="btn btn-primary" th:text="#{common.btns.checkout}">Checkout</a>
                             </div>
                         </div>
                     </div>            

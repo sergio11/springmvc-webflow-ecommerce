@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="frontend/layout">
+    <head>
+        <title th:text="#{frontend.checkout.options}">Step 1: Checkout Options</title>
+    </head>
+    <body>
+        <!-- BEGIN MAIN -->
+        <div layout:fragment="content">
+            <h1 th:text="#{frontend.checkout.options}">Step 1: Checkout Options</h1>
+            <div class="row">
+                <div class="col-md-6 col-sm-6">
+                    <h3>New Customer</h3>
+                    <p>Checkout Options:</p>
+                    <div class="radio-list">
+                        <label>
+                            <input type="radio" name="account"  value="register"> Register Account
+                        </label>
+                        <label>
+                            <input type="radio" name="account"  value="guest"> Guest Checkout
+                        </label> 
+                    </div>
+                    <p>By creating an account you will be able to shop faster, be up to date on an order's status, and keep track of the orders you have previously made.</p>
+                    <button class="btn btn-primary" type="submit" data-toggle="collapse" data-parent="#checkout-page" data-target="#payment-address-content">Continue</button>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <h3>Returning Customer</h3>
+                    <p>I am a returning customer.</p>
+                    <form role="form" action="#">
+                        <div class="form-group">
+                            <label for="email-login">E-Mail</label>
+                            <input type="text" id="email-login" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="password-login">Password</label>
+                            <input type="password" id="password-login" class="form-control">
+                        </div>
+                        <a href="javascript:;">Forgotten Password?</a>
+                        <div class="padding-top-20">                  
+                            <button class="btn btn-primary" type="submit">Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

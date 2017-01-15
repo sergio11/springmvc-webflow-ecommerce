@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="frontend/layout">
+    <head>
+        <title th:text="#{frontend.checkout.confirm}">Step 6: Confirm Order</title>
+    </head>
+    <body>
+        <!-- BEGIN MAIN -->
+        <div layout:fragment="content">
+            <h1 th:text="#{frontend.checkout.confirm}">Step 6: Confirm Order</h1>
+            <div class="col-md-12 clearfix">
+                <div class="table-wrapper-responsive">
+                    <table>
+                        <tr>
+                            <th class="checkout-image">Image</th>
+                            <th class="checkout-description">Description</th>
+                            <th class="checkout-model">Model</th>
+                            <th class="checkout-quantity">Quantity</th>
+                            <th class="checkout-price">Price</th>
+                            <th class="checkout-total">Total</th>
+                        </tr>
+                        <tr>
+                            <td class="checkout-image">
+                                <a href="javascript:;"><img src="../../assets/frontend/pages/img/products/model3.jpg" alt="Berry Lace Dress"></a>
+                            </td>
+                            <td class="checkout-description">
+                                <h3><a href="javascript:;">Cool green dress with red bell</a></h3>
+                                <p><strong>Item 1</strong> - Color: Green; Size: S</p>
+                                <em>More info is here</em>
+                            </td>
+                            <td class="checkout-model">RES.193</td>
+                            <td class="checkout-quantity">1</td>
+                            <td class="checkout-price"><strong><span>$</span>47.00</strong></td>
+                            <td class="checkout-total"><strong><span>$</span>47.00</strong></td>
+                        </tr>
+                        <tr>
+                            <td class="checkout-image">
+                                <a href="javascript:;"><img src="../../assets/frontend/pages/img/products/model4.jpg" alt="Berry Lace Dress"></a>
+                            </td>
+                            <td class="checkout-description">
+                                <h3><a href="javascript:;">Cool green dress with red bell</a></h3>
+                                <p><strong>Item 1</strong> - Color: Green; Size: S</p>
+                                <em>More info is here</em>
+                            </td>
+                            <td class="checkout-model">RES.193</td>
+                            <td class="checkout-quantity">1</td>
+                            <td class="checkout-price"><strong><span>$</span>47.00</strong></td>
+                            <td class="checkout-total"><strong><span>$</span>47.00</strong></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="checkout-total-block">
+                    <ul>
+                        <li>
+                            <em>Sub total</em>
+                            <strong class="price"><span>$</span>47.00</strong>
+                        </li>
+                        <li>
+                            <em>Shipping cost</em>
+                            <strong class="price"><span>$</span>3.00</strong>
+                        </li>
+                        <li>
+                            <em>Eco Tax (-2.00)</em>
+                            <strong class="price"><span>$</span>3.00</strong>
+                        </li>
+                        <li>
+                            <em>VAT (17.5%)</em>
+                            <strong class="price"><span>$</span>3.00</strong>
+                        </li>
+                        <li class="checkout-total-price">
+                            <em>Total</em>
+                            <strong class="price"><span>$</span>56.00</strong>
+                        </li>
+                    </ul>
+                </div>
+                <div class="clearfix"></div>
+                <button class="btn btn-primary pull-right" type="submit" id="button-confirm">Confirm Order</button>
+                <button type="button" class="btn btn-default pull-right margin-right-20">Cancel</button>
+            </div>
+        </div>
+    </body>
+</html>
