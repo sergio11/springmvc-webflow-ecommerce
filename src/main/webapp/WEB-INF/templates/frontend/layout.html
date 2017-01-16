@@ -12,7 +12,7 @@
         <meta content="Spring MVC Spring Web Flow Spring Security" name="keywords">
         <meta content="sergio" name="author">
         <meta name="ctx" th:content="${#httpServletRequest.getContextPath()}" />
-        <th:block sec:authorize="isAuthenticated()">
+        <th:block sec:authorize="isAuthenticated()" th:if="${_csrf}">
             <meta th:name="_csrf" th:content="${_csrf.token}"/>
             <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
         </th:block>

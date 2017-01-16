@@ -21,6 +21,6 @@ public interface UserRepository extends DataTablesRepository<User, Long> {
     @Modifying(clearAutomatically = true)
     @Query("update User user set user.lastLoginAccess =:lastLoginAccess where user.username =:username")
     void updateLastLoginAccess(@Param("username") String username, @Param("lastLoginAccess") Date lastLoginAccess);
-    @Query("SELECT COUNT(u.address) FROM User u WHERE u.id = :id")
+    @Query("SELECT COUNT(u.addresses) FROM User u WHERE u.id = :id")
     Long countAddresses(@Param("id") Long id);
 }

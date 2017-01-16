@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import persistence.models.User;
 import persistence.repositories.UserRepository;
 
+
 /**
  * @author sergio
  */
@@ -34,5 +35,4 @@ public class CustomUserDetailsService implements UserDetailsService, Serializabl
         logger.info("Usuario obtenido: " + user.toString());
         return user;
     }
-    
 }

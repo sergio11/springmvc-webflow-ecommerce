@@ -5,28 +5,72 @@
 
     <secured attributes="ROLE_CONSUMER" />
     
-    <var name="order" class="persistence.models.Order" />
     <var name="address" class="persistence.models.Address"  />
+    <var name="comingFrom" class="java.lang.String"/>
+    
+    <input name="order" type="persistence.models.Order"/>
+    
+    <on-start>
+        <set name="comingFrom" value="shipToState"/>
+    </on-start>
     
     <!-- Check if user has any address -->
-    <decision-state id="checkUserAddresses">
-        <if test="userService.hasAddresses(currentUser.id)" then="finishCheckout" else="createAddress" />
+    <decision-state id="checkUserAddressesState">
+        <if test="userService.hasAddresses(currentUser.id)" then="finishCheckoutState" else="createAddressState" />
     </decision-state>
     
     <!-- View state for create address -->
-    <view-state id="createAddress" view="frontend/checkout/address" model="address">
+    <view-state id="createAddressState" view="frontend/checkout/address" model="address">
         <on-render>
 		<evaluate 
                     expression="countryService.getAll()"
-                    result="viewScope.countries" result-type="dataModel" />
+                    result="viewScope.countries"/>
 	</on-render>
-        <transition on="createAddress" to="createAddress" />
+        <transition on="createAddress" to="saveAddressState" />
     </view-state>
     
     <!-- Create Address for Curret user -->
-    <action-state id="createAddress">
+    <action-state id="saveAddressState">
         <evaluate expression="addressAction"/>
-        <transition on="success" to="" />
+        <transition on="success" to="backToPrevState" />
     </action-state>
     
+    <decision-state id="backToPrevState">
+        <if test="comginFrom == 'shipToState'" then="shipToState" else="billToState"/>
+    </decision-state>
+    
+    <!-- View state select address for ship to -->
+    <view-state id="shipToState" view="frontend/checkout/shipTo">
+        <on-render>
+            <evaluate 
+                expression="userService.getAddresses(currentUser.id)"
+                result="viewScope.addresses" />
+	</on-render>
+        <transition on="addAddress" to="createAddressState">
+            <set name="comingFrom" value="shipToState"/>
+        </transition>
+        <transition on="confirmShipToAddress" to="billToState">
+            <evaluate expression="setShipAddressToOrder" />
+        </transition>
+    </view-state>
+    
+    <!-- View state select address for bill to -->
+    <view-state id="billToState" view="frontend/checkout/billTo">
+        <on-render>
+            <evaluate 
+                expression="userService.getAddresses(currentUser.id)"
+                result="viewScope.addresses" />
+	</on-render>
+        <transition on="addAddress" to="createAddressState">
+            <set name="comingFrom" value="billToState"/>
+        </transition>
+        <transition on="confirmBillToAddress" to="finishState">
+            <evaluate expression="setBillAddressToOrder" />
+        </transition>
+    </view-state>
+    
+    <!-- Finish State return order -->
+    <end-state id="finishState" >
+        <output name="order" value="flowScope.order" type="persistence.models.Order" />
+    </end-state>
 </flow>

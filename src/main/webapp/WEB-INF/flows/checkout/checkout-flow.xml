@@ -4,33 +4,39 @@
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
     <secured attributes="ROLE_ANONYMOUS" />
+    
+    <var name="order" class="persistence.models.Order" />
+    
     <!-- Check if cart is empty -->
-    <decision-state id="checkEmptyCart">
-        <if test="cartService.isEmpty()" then="finishCheckout" else="createOrder" />
+    <decision-state id="checkEmptyCartState">
+        <if test="cartService.isEmpty()" then="finishCheckout" else="createOrderState" />
     </decision-state>
+    
     <!-- subflow for create order -->
-    <subflow-state id="createOrder" subflow="order">
-        <transition to="confirm" />
+    <subflow-state id="createOrderState" subflow="order">
+        <input name="order" value="flowScope.order" type="persistence.models.Order"/>
+        <transition on="finishState" to="confirmState" />
     </subflow-state>
     
     <!-- View state for auth user -->
-    <view-state id="auth" view="frontend/checkout/auth" model="order">
-        <transition on="onSuccess" to="createOrder" />
+    <view-state id="authState" view="frontend/checkout/auth" model="order">
+        <transition on="onSuccess" to="createOrderState" />
     </view-state>
     
-    <view-state id="confirm" view="frontend/checkout/confirm" model="order">
-        <transition on="confirm" to="thankCustomer" />
+    <view-state id="confirmState" view="frontend/checkout/confirm" model="order">
+        <transition on="confirm" to="thankCustomerState" />
     </view-state>
     
-    <view-state id="thankCustomer" view="frontend/checkout/thankCustomer" model="order">
-        <transition to="finishCheckout" />
+    <view-state id="thankCustomerState" view="frontend/checkout/thankCustomer" model="order">
+        <transition to="finishCheckoutState" />
     </view-state>
 
-    <end-state id="finishCheckout" view="externalRedirect:/home"/>
+    <end-state id="finishCheckoutState" view="externalRedirect:/home"/>
+    <end-state id="cancelCheckoutState" view="externalRedirect:/home"/>
     
     <global-transitions>
-        <transition on="cancel" to="cancelCheckout" />
-        <transition on-exception="org.springframework.security.access.AccessDeniedException" to="auth" />
+        <transition on="cancel" to="cancelCheckoutState" />
+        <transition on-exception="org.springframework.security.access.AccessDeniedException" to="authState" />
     </global-transitions>
     
 </flow>

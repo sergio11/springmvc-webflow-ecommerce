@@ -1,4 +1,5 @@
 package config.web;
+
 import net.rossillo.spring.web.mvc.CacheControlHandlerInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -35,7 +36,7 @@ public class WebConfig extends WebMvcConfigurerAdapter{
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/403").setViewName("403");
+        registry.addViewController("/403").setViewName("admin/errors/404");
         registry.addViewController("/admin/users/self").setViewName("admin/dashboard/user/self");
         registry.addViewController("/admin/404").setViewName("admin/errors/404");
         registry.addViewController("/500").setViewName("global/errors/500");
