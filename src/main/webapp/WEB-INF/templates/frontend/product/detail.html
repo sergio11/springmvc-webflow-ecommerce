@@ -71,10 +71,16 @@
                                 <div class="tab-pane fade" id="Description" th:text="${productLine.product.description}">
                                     <p>Lorem ipsum dolor ut sit ame dolore  adipiscing elit, sed sit nonumy nibh sed euismod laoreet dolore magna aliquarm erat sit volutpat Nostrud duis molestie at dolore. Lorem ipsum dolor ut sit ame dolore  adipiscing elit, sed sit nonumy nibh sed euismod laoreet dolore magna aliquarm erat sit volutpat Nostrud duis molestie at dolore. Lorem ipsum dolor ut sit ame dolore  adipiscing elit, sed sit nonumy nibh sed euismod laoreet dolore magna aliquarm erat sit volutpat Nostrud duis molestie at dolore. </p>
                                 </div>
-                                <div class="tab-pane fade" id="Information" th:text="${productLine.product.completeDesc}"></div>
+                                <div class="tab-pane fade" id="Information" th:with="completeDesc = ${productLine.product.completeDesc}"
+                                     th:if="${completeDesc != null && !completeDesc.isEmpty()}" 
+                                     th:text="${completeDesc}">
+                                </div>
                                 <div class="tab-pane fade in active" id="Reviews">
                                     <th:block th:include="frontend/fragments/product/review::list(${reviews})" />
-                                    <div id="createReviewContainer" 
+                                    <div class="alert alert-info" sec:authorize="!isAuthenticated()">
+                                        <p th:text="#{frontend.review.not.loggin}"></p>
+                                    </div>
+                                    <div id="createReviewContainer" sec:authorize="isAuthenticated()"
                                          th:data-source="@{/products/{productId}/reviews/create(productId=${productLine.product.id})}"></div>
                                 </div>
                             </div>

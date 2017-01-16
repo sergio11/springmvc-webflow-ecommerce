@@ -33,7 +33,12 @@ public class ErrorController {
     
     @ExceptionHandler(NotFoundException.class)
     public String notfound(final NotFoundException notFoundException, final Model model) {
-        return "redirect:/admin/404";
+        String referrer = request.getHeader("Referer");
+        String urlToRedirect = "/404";
+        if (referrer != null && referrer.startsWith("/admin")) {
+            urlToRedirect = "/admin/404";
+        }
+        return "redirect:"+urlToRedirect;
     }
 
     @ExceptionHandler(Throwable.class)

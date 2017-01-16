@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import persistence.models.ProductLine;
 import persistence.models.Review;
 import persistence.repositories.ProductLineRepository;
+import web.frontend.exceptions.ProductLineNotFoundException;
 import web.services.ProductService;
 
 /**
@@ -28,6 +29,9 @@ public class ProductController {
     @GetMapping("/detail/{line}")
     public String detail(@PathVariable Long line, Model model){
         ProductLine productLine = productLineRepository.findOne(line);
+        if(productLine == null){
+            throw new ProductLineNotFoundException();
+        }
         List<Review> reviews = productService.getApprovedReviews(productLine.getProduct().getId());
         model.addAttribute("productLine", productLine);
         model.addAttribute("reviews", reviews);
