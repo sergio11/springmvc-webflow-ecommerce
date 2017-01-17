@@ -81,7 +81,11 @@ public class SecurityConfig extends GlobalAuthenticationConfigurerAdapter {
         
         @Override
         protected void configure(HttpSecurity http) throws Exception {
-            http.authorizeRequests()
+            http
+                .requestMatchers()
+                    .antMatchers("/admin/**")
+                .and()
+                .authorizeRequests()
                 .antMatchers("/admin/users/self/**")
                     .fullyAuthenticated()
                 .antMatchers("/admin/**")
@@ -101,7 +105,7 @@ public class SecurityConfig extends GlobalAuthenticationConfigurerAdapter {
                     .deleteCookies("JSESSIONID")
                     .invalidateHttpSession(true)
                 .and()
-                .exceptionHandling().accessDeniedPage("/403")
+                .exceptionHandling().accessDeniedPage("/admin/403")
                 .and()
                 .csrf()
                 .disable();

@@ -41,6 +41,16 @@ xmlns:th="http://www.thymeleaf.org">
                             <li><a href="#" sec:authorize="isAuthenticated()" th:text="#{topbar.myaccount}">My Account</a></li>
                             <li><a href="#" th:text="#{topbar.checkout}">Checkout</a></li>
                             <li><a href="#" th:href="@{/login}" sec:authorize="!isAuthenticated()" th:text="#{topbar.login}">Log In</a></li>
+                            <li>
+                                <form th:action="@{/logout}" method="post" id="logoutForm" style="display: none;">
+                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                </form>
+                                <a href="javascript:doLogout()">
+                                    <i class="icon-key"></i> 
+                                    <span th:text="#{topbar.logout}">Log Out</span>
+                                </a>
+                            </li>
+                            
                             <li><a href="#" th:href="@{/admin/home}" sec:authorize="${hasRole(T(persistence.models.AuthorityEnum).ROLE_ADMIN)}" th:text="#{topbar.admin}">Admin</a></li>
                         </ul>
                     </div>
