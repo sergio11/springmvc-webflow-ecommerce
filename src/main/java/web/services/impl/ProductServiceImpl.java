@@ -8,6 +8,8 @@ import persistence.models.Review;
 import persistence.models.ReviewStatusEnum;
 import persistence.repositories.ProductRepository;
 import persistence.repositories.ReviewRepository;
+import persistence.specifications.SearchProductSpecification;
+import web.models.search.SearchProduct;
 import web.services.ProductService;
 
 /**
@@ -26,7 +28,7 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> getNewArrivals() {
         return productRepository.findFirst10ByOrderByCreateAtDesc();
     }
-
+    
     @Override
     public List<Review> getApprovedReviews(Long productId) {
         return reviewRepository.findByProductIdAndStatus(productId, ReviewStatusEnum.APPROVED);
@@ -35,5 +37,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> search(String query) {
         return productRepository.findByNameIgnoreCaseContaining(query);
+    }
+
+    @Override
+    public List<Product> search(SearchProduct searchProduct) {
+        return productRepository.findAll(new SearchProductSpecification(searchProduct));
     }
 }

@@ -33,7 +33,7 @@
                     <div class="owl-carousel owl-carousel5">
                         <div>
                             <th:block  th:each="product:${arrivals}" 
-                                       th:include="templates/frontend/fragments/product/detail::simple-card(${product})" />
+                                       th:include="frontend/fragments/product/detail::simple-card(${product})" />
                         </div>
                     </div>
                 </div>
