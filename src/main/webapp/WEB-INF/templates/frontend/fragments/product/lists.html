@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <th:block th:fragment="bestsellers(products)">
+            <h2>Bestsellers</h2>
+            <div class="item" th:each="product:${products}" th:with="productLine = ${product.productLines[0]}">
+                <a th:href="@{/products/detail/{line}(line=${productLine.id})}">
+                    <img th:src="@{/images/products/{image}(image=${productLine.image})}"  class="img-responsive" th:alt="${productLine.description}">
+                </a>
+                <h3><a th:href="@{/products/detail/{line}(line=${productLine.id})}" th:text="${product.name}">Product Name</a></h3>
+                <div class="price"><span th:text="${product.price}">29.00</span><span>&euro;</span></div>
+            </div>
+        </th:block>
+    </body>
+</html>

@@ -31,4 +31,9 @@ public class ProductServiceImpl implements ProductService {
     public List<Review> getApprovedReviews(Long productId) {
         return reviewRepository.findByProductIdAndStatus(productId, ReviewStatusEnum.APPROVED);
     }
+
+    @Override
+    public List<Product> search(String query) {
+        return productRepository.findByNameIgnoreCaseContaining(query);
+    }
 }

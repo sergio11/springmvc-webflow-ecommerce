@@ -11,4 +11,5 @@ import persistence.models.Review;
 public interface ProductService {
     List<Product> getNewArrivals();
     List<Review> getApprovedReviews(Long productId);
+    List<Product> search(String query);
 }

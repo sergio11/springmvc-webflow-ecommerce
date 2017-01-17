@@ -7,6 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import persistence.models.Product;
 import persistence.models.ProductLine;
 import persistence.models.Review;
 import persistence.repositories.ProductLineRepository;
@@ -36,5 +38,13 @@ public class ProductController {
         model.addAttribute("productLine", productLine);
         model.addAttribute("reviews", reviews);
         return "frontend/product/detail";
+    }
+    
+    @GetMapping("/search")
+    public String search(@RequestParam(value="query", required = true) String query, Model model){
+        List<Product> products = productService.search(query);
+        model.addAttribute("bestsellers", products);
+        model.addAttribute("results", products);
+        return "frontend/product/search_result";
     }
 }

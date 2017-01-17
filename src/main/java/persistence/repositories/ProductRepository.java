@@ -9,4 +9,5 @@ import persistence.models.Product;
  */
 public interface ProductRepository extends DataTablesRepository<Product, Long> {
     List<Product> findFirst10ByOrderByCreateAtDesc();
+    List<Product> findByNameIgnoreCaseContaining(String name);
 }
