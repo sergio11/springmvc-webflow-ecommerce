@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import persistence.models.Product;
 import persistence.models.ProductLine;
@@ -73,16 +72,13 @@ public class ProductController {
     public String search(
             @ModelAttribute(SEARCH_PRODUCT) @Valid SearchProduct searchProduct, 
             BindingResult bindingResult,
-            RedirectAttributes model,
-            SessionStatus sessionStatus){
-        
+            RedirectAttributes model){
         String url = "redirect:/products/search-result";
         if(bindingResult.hasErrors()){
             model.addFlashAttribute(BINDING_SEARCH_PRODUCT, bindingResult);
             return url;
         }
         Page<Product> productPage = productService.search(searchProduct);
-        logger.info("Total items: " + productPage.getContent().size());
         model.addFlashAttribute("productPage", productPage);
         return url;
     }
@@ -90,10 +86,6 @@ public class ProductController {
     @GetMapping("/search-result")
     public String result(Model model){
         model.addAttribute("bestsellers", new ArrayList<Product>());
-        if(!model.containsAttribute(BINDING_SEARCH_PRODUCT) || !model.containsAttribute(SEARCH_PRODUCT)) {
-            logger.info("Reset model: ");
-            model.addAttribute(SEARCH_PRODUCT,  new SearchProduct());
-        }
         return "frontend/product/search_result";
     }
     
