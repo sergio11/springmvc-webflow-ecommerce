@@ -2,6 +2,8 @@ package web.services.impl;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import persistence.models.Product;
 import persistence.models.Review;
@@ -35,12 +37,21 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> search(String query) {
-        return productRepository.findByNameIgnoreCaseContaining(query);
+    public Page<Product> search(String query) {
+        return productRepository.findByNameIgnoreCaseContaining(query, new PageRequest(0, 20));
     }
 
     @Override
-    public List<Product> search(SearchProduct searchProduct) {
-        return productRepository.findAll(new SearchProductSpecification(searchProduct));
+    public Page<Product> search(SearchProduct searchProduct) {
+        return productRepository.findAll(
+                new SearchProductSpecification(searchProduct), 
+                new PageRequest(0, searchProduct.getLimit()));
+    }
+
+    @Override
+    public Page<Product> search(SearchProduct searchProduct, Integer page) {
+        return productRepository.findAll(
+                new SearchProductSpecification(searchProduct), 
+                new PageRequest(page, searchProduct.getLimit()));
     }
 }

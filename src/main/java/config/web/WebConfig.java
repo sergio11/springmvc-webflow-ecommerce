@@ -19,6 +19,7 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import persistence.models.Authority;
 import web.admin.converters.StringAuthorityConverter;
 
+
 /**
  * @author sergio
  */

@@ -56,7 +56,6 @@
                                     <h1>Search result for <em th:text="${currentQuery}">shoes</em></h1>
                                 </div>
                                 <div class="col-md-6">
-
                                     <div class="input-group">
                                         <input type="search" th:field="*{query}" 
                                                th:placeholder="#{frontend.search.result.form.query.placeholder}" class="form-control" />
@@ -75,12 +74,12 @@
                             <div class="col-md-10 col-sm-10">
                                 <div class="pull-right">
                                     <label class="control-label">Show:</label>
-                                    <select class="form-control input-sm">
-                                        <option value="#?limit=24" selected="selected">24</option>
-                                        <option value="#?limit=25">25</option>
-                                        <option value="#?limit=50">50</option>
-                                        <option value="#?limit=75">75</option>
-                                        <option value="#?limit=100">100</option>
+                                    <select class="form-control input-sm" th:field="*{limit}">
+                                        <option value="24" selected="selected">24</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="75">75</option>
+                                        <option value="100">100</option>
                                     </select>
                                 </div>
                                 <div class="pull-right">
@@ -93,40 +92,47 @@
                                         <option value="#?sort=p.price&amp;order=DESC">Price (High &gt; Low)</option>
                                         <option value="#?sort=rating&amp;order=DESC">Rating (Highest)</option>
                                         <option value="#?sort=rating&amp;order=ASC">Rating (Lowest)</option>
-                                        <option value="#?sort=p.model&amp;order=ASC">Model (A - Z)</option>
-                                        <option value="#?sort=p.model&amp;order=DESC">Model (Z - A)</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
-                        <!-- BEGIN PRODUCT LIST -->
-                        <div class="row product-list">
-                            <div class="alert alert-info" 
-                                th:if="${#lists.isEmpty(results)}">
-                                <p th:text="#{frontend.search.result.not.found}">No data found</p>
-                            </div>
-                            <div class="col-md-4 col-sm-6 col-xs-12"
-                                th:if="${not #lists.isEmpty(results)}"
-                                th:each="product:${results}"
-                                th:include="frontend/fragments/product/detail::simple-card(${product})"></div>
+                        <div class="alert alert-info" th:if="${productPage == null}">
+                            <p th:text="#{frontend.search.result.not.filter}">No filter specified</p>
                         </div>
-                        <!-- END PRODUCT LIST -->
-                        <!-- BEGIN PAGINATOR -->
-                        <div class="row">
-                            <div class="col-md-4 col-sm-4 items-info">Items 1 to 9 of 10 total</div>
-                            <div class="col-md-8 col-sm-8">
-                                <ul class="pagination pull-right">
-                                    <li><a href="javascript:;">&laquo;</a></li>
-                                    <li><a href="javascript:;">1</a></li>
-                                    <li><span>2</span></li>
-                                    <li><a href="javascript:;">3</a></li>
-                                    <li><a href="javascript:;">4</a></li>
-                                    <li><a href="javascript:;">5</a></li>
-                                    <li><a href="javascript:;">&raquo;</a></li>
-                                </ul>
+                        <th:block th:if="${productPage != null}" th:with="results = ${productPage.content}">
+                            <!-- BEGIN PRODUCT LIST -->
+                            <div class="row product-list">
+                                <div class="alert alert-info" th:if="${#lists.isEmpty(results)}">
+                                    <p th:text="#{frontend.search.result.not.found}">No data found</p>
+                                </div>
+                                <div class="col-md-4 col-sm-6 col-xs-12"
+                                     th:if="${not #lists.isEmpty(results)}"
+                                     th:each="product:${results}"
+                                     th:include="frontend/fragments/product/detail::simple-card(${product})"></div>
                             </div>
-                        </div>
-                        <!-- END PAGINATOR -->
+                            <!-- END PRODUCT LIST -->
+                            <!-- BEGIN PAGINATOR -->
+                            <div class="row">
+                                <div class="col-md-4 col-sm-4 items-info" 
+                                     th:text="#{frontend.search.result.total(${productPage.getNumber()}, ${productPage.getTotalPages()})}">Items 1 to 9 of 10 total</div>
+                                <div class="col-md-8 col-sm-8">
+                                    <ul class="pagination pull-right">
+                                        <li th:if="${productPage.hasPrevious()}">
+                                            <a th:href="@{/search-result/page/{page}(page = ${productPage.getNumber() - 1})}">&laquo;</a>
+                                        </li>
+                                        <li th:each="numPage:${productPage.getTotalPages()}">
+                                            <a th:href="@{/search-result/page/{page}(page = ${numPage})}">
+                                                <span th:if="${numPage == productPage.getNumber()}" th:text="${numPage}">2</span>
+                                            </a>
+                                        </li>
+                                        <li th:if="${productPage.hasNext()}">
+                                            <a th:href="@{/search-result/page/{page}(page = ${productPage.getNumber() + 1})}">&raquo;</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- END PAGINATOR -->
+                        </th:block>
                     </div>
                     <!-- END CONTENT -->
                 </form>

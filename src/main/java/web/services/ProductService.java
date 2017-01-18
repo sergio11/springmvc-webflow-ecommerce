@@ -1,6 +1,7 @@
 package web.services;
 
 import java.util.List;
+import org.springframework.data.domain.Page;
 import persistence.models.Product;
 import persistence.models.Review;
 import web.models.search.SearchProduct;
@@ -12,6 +13,7 @@ import web.models.search.SearchProduct;
 public interface ProductService {
     List<Product> getNewArrivals();
     List<Review> getApprovedReviews(Long productId);
-    List<Product> search(String query);
-    List<Product> search(SearchProduct searchProduct);
+    Page<Product> search(String query);
+    Page<Product> search(SearchProduct searchProduct);
+    Page<Product> search(SearchProduct searchProduct, Integer page);
 }

@@ -2,10 +2,12 @@ package web.frontend.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -59,9 +61,9 @@ public class ProductController {
     
     @GetMapping("/search")
     public String search(@RequestParam(value="query", required = true) String query, RedirectAttributes model){
-        List<Product> products = productService.search(query);
+        Page<Product> productPage = productService.search(query);
         model.addFlashAttribute("currentQuery", query);
-        model.addFlashAttribute("results", products);
+        model.addFlashAttribute("productPage", productPage);
         return "redirect:/products/search-result";
     }
     
@@ -77,8 +79,9 @@ public class ProductController {
             model.addFlashAttribute(BINDING_SEARCH_PRODUCT, bindingResult);
             return url;
         }
-        List<Product> products = productService.search(searchProduct);
-        model.addFlashAttribute("results", products);
+        Page<Product> productPage = productService.search(searchProduct);
+        logger.info("Total items: " + productPage.getContent().size());
+        model.addFlashAttribute("productPage", productPage);
         sessionStatus.setComplete(); //remove searchProduct from session
         return url;
     }
@@ -89,6 +92,17 @@ public class ProductController {
         if(!model.containsAttribute(BINDING_SEARCH_PRODUCT)) {
             model.addAttribute(SEARCH_PRODUCT,  new SearchProduct());
         }
+        return "frontend/product/search_result";
+    }
+    
+    @GetMapping( value = { "/search-result/page/", "/search-result/page", "/search-result/page/{page}" } )
+    public String result(
+            @ModelAttribute(SEARCH_PRODUCT) SearchProduct searchProduct,
+            @PathVariable Optional<Integer> page,
+            Model model) {
+        model.addAttribute("bestsellers", new ArrayList<Product>());
+        Page<Product> productPage = productService.search(searchProduct, page.isPresent() ? page.get() : 0);
+        model.addAttribute("productPage", productPage);
         return "frontend/product/search_result";
     }
 }

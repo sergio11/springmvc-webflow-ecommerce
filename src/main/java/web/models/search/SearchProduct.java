@@ -11,6 +11,7 @@ public class SearchProduct implements Serializable {
     private String query;
     private StockAvailabilityEnum avaliability;
     private String amount;
+    private Integer limit = 20;
 
     public String getQuery() {
         return query;
@@ -34,5 +35,13 @@ public class SearchProduct implements Serializable {
 
     public void setAmount(String amount) {
         this.amount = amount;
+    }
+
+    public Integer getLimit() {
+        return limit;
+    }
+
+    public void setLimit(Integer limit) {
+        this.limit = limit;
     }
 }

@@ -12,7 +12,6 @@ import persistence.models.Product_;
 import web.models.search.SearchProduct;
 
 /**
- *
  * @author sergio
  */
 public class SearchProductSpecification implements Specification<Product> {
@@ -31,6 +30,7 @@ public class SearchProductSpecification implements Specification<Product> {
         if (searchProduct.getQuery() != null && !searchProduct.getQuery().isEmpty()) {
             predicates.add(cb.like(cb.lower(root.get(Product_.name)), "%" + searchProduct.getQuery().toLowerCase() + "%"));
         }
+        
         return andTogether(predicates, cb);
     }
 
