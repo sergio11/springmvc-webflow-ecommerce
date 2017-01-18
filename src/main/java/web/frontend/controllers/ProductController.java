@@ -61,8 +61,10 @@ public class ProductController {
     
     @GetMapping("/search")
     public String search(@RequestParam(value="query", required = true) String query, RedirectAttributes model){
+        SearchProduct searchProduct = new SearchProduct();
+        searchProduct.setQuery(query);
         Page<Product> productPage = productService.search(query);
-        model.addFlashAttribute("currentQuery", query);
+        model.addFlashAttribute(SEARCH_PRODUCT, searchProduct);
         model.addFlashAttribute("productPage", productPage);
         return "redirect:/products/search-result";
     }
@@ -82,14 +84,14 @@ public class ProductController {
         Page<Product> productPage = productService.search(searchProduct);
         logger.info("Total items: " + productPage.getContent().size());
         model.addFlashAttribute("productPage", productPage);
-        sessionStatus.setComplete(); //remove searchProduct from session
         return url;
     }
     
     @GetMapping("/search-result")
     public String result(Model model){
         model.addAttribute("bestsellers", new ArrayList<Product>());
-        if(!model.containsAttribute(BINDING_SEARCH_PRODUCT)) {
+        if(!model.containsAttribute(BINDING_SEARCH_PRODUCT) || !model.containsAttribute(SEARCH_PRODUCT)) {
+            logger.info("Reset model: ");
             model.addAttribute(SEARCH_PRODUCT,  new SearchProduct());
         }
         return "frontend/product/search_result";

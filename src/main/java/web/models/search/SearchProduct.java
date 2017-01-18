@@ -11,6 +11,7 @@ public class SearchProduct implements Serializable {
     private String query;
     private StockAvailabilityEnum avaliability;
     private String amount;
+    private ProductSortEnum sort;
     private Integer limit = 20;
 
     public String getQuery() {
@@ -37,6 +38,14 @@ public class SearchProduct implements Serializable {
         this.amount = amount;
     }
 
+    public ProductSortEnum getSort() {
+        return sort;
+    }
+
+    public void setSort(ProductSortEnum sort) {
+        this.sort = sort;
+    }
+    
     public Integer getLimit() {
         return limit;
     }

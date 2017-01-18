@@ -13,6 +13,7 @@ import persistence.repositories.ReviewRepository;
 import persistence.specifications.SearchProductSpecification;
 import web.models.search.SearchProduct;
 import web.services.ProductService;
+import web.utils.ProductUtils;
 
 /**
  * @author sergio
@@ -45,13 +46,15 @@ public class ProductServiceImpl implements ProductService {
     public Page<Product> search(SearchProduct searchProduct) {
         return productRepository.findAll(
                 new SearchProductSpecification(searchProduct), 
-                new PageRequest(0, searchProduct.getLimit()));
+                new PageRequest(0, searchProduct.getLimit(), 
+                ProductUtils.getProductOrder(searchProduct.getSort())));
     }
 
     @Override
     public Page<Product> search(SearchProduct searchProduct, Integer page) {
         return productRepository.findAll(
                 new SearchProductSpecification(searchProduct), 
-                new PageRequest(page, searchProduct.getLimit()));
+                new PageRequest(page, searchProduct.getLimit(),
+                ProductUtils.getProductOrder(searchProduct.getSort())));
     }
 }

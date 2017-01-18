@@ -53,7 +53,7 @@
                         <div class="content-search margin-bottom-20">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <h1>Search result for <em th:text="${currentQuery}">shoes</em></h1>
+                                    <h1>Search result for <em th:text="${searchProduct.query}">shoes</em></h1>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="input-group">
@@ -73,7 +73,7 @@
                             </div>
                             <div class="col-md-10 col-sm-10">
                                 <div class="pull-right">
-                                    <label class="control-label">Show:</label>
+                                    <label class="control-label" th:text="#{frontend.search.result.limit.label}">Show:</label>
                                     <select class="form-control input-sm" th:field="*{limit}">
                                         <option value="24" selected="selected">24</option>
                                         <option value="25">25</option>
@@ -83,15 +83,10 @@
                                     </select>
                                 </div>
                                 <div class="pull-right">
-                                    <label class="control-label">Sort&nbsp;By:</label>
-                                    <select class="form-control input-sm">
-                                        <option value="#?sort=p.sort_order&amp;order=ASC" selected="selected">Default</option>
-                                        <option value="#?sort=pd.name&amp;order=ASC">Name (A - Z)</option>
-                                        <option value="#?sort=pd.name&amp;order=DESC">Name (Z - A)</option>
-                                        <option value="#?sort=p.price&amp;order=ASC">Price (Low &gt; High)</option>
-                                        <option value="#?sort=p.price&amp;order=DESC">Price (High &gt; Low)</option>
-                                        <option value="#?sort=rating&amp;order=DESC">Rating (Highest)</option>
-                                        <option value="#?sort=rating&amp;order=ASC">Rating (Lowest)</option>
+                                    <label class="control-label" th:text="#{frontend.search.result.sort.label}">Sort&nbsp;By:</label>
+                                    <select class="form-control input-sm" th:field="*{sort}">
+                                        <option th:each="sortType:${T(web.models.search.ProductSortEnum).values()}"
+                                                th:value="${sortType}" th:text="${sortType}">Default</option>
                                     </select>
                                 </div>
                             </div>
