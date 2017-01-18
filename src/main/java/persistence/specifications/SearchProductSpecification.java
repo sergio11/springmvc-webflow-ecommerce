@@ -31,6 +31,15 @@ public class SearchProductSpecification implements Specification<Product> {
             predicates.add(cb.like(cb.lower(root.get(Product_.name)), "%" + searchProduct.getQuery().toLowerCase() + "%"));
         }
         
+        // filter by product price min
+        if (searchProduct.getPriceMin() != null) {
+            predicates.add(cb.greaterThanOrEqualTo(root.get(Product_.price), searchProduct.getPriceMin()));
+        }
+        // filter by product price max
+        if (searchProduct.getPriceMax() != null) {
+            predicates.add(cb.lessThanOrEqualTo(root.get(Product_.price), searchProduct.getPriceMax()));
+        }
+        
         return andTogether(predicates, cb);
     }
 
