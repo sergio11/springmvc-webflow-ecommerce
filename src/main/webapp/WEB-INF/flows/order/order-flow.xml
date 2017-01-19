@@ -11,12 +11,12 @@
     <input name="order" type="persistence.models.Order"/>
     
     <on-start>
-        <set name="comingFrom" value="shipToState"/>
+        <set name="comingFrom" value="'shipToState'"/>
     </on-start>
     
     <!-- Check if user has any address -->
     <decision-state id="checkUserAddressesState">
-        <if test="userService.hasAddresses(currentUser.id)" then="finishCheckoutState" else="createAddressState" />
+        <if test="userService.hasAddresses(currentUser.name)" then="finishCheckoutState" else="createAddressState" />
     </decision-state>
     
     <!-- View state for create address -->
@@ -47,7 +47,7 @@
                 result="viewScope.addresses" />
 	</on-render>
         <transition on="addAddress" to="createAddressState">
-            <set name="comingFrom" value="shipToState"/>
+            <set name="comingFrom" value="'shipToState'"/>
         </transition>
         <transition on="confirmShipToAddress" to="billToState">
             <evaluate expression="setShipAddressToOrder" />
@@ -62,7 +62,7 @@
                 result="viewScope.addresses" />
 	</on-render>
         <transition on="addAddress" to="createAddressState">
-            <set name="comingFrom" value="billToState"/>
+            <set name="comingFrom" value="'billToState'"/>
         </transition>
         <transition on="confirmBillToAddress" to="finishState">
             <evaluate expression="setBillAddressToOrder" />

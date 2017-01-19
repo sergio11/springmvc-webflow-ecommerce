@@ -6,6 +6,7 @@
     <secured attributes="ROLE_ANONYMOUS" />
     
     <var name="order" class="persistence.models.Order" />
+    <var name="signinCredentials" class="web.models.SigninCredentials" />
     
     <!-- Check if cart is empty -->
     <decision-state id="checkEmptyCartState">
@@ -19,9 +20,19 @@
     </subflow-state>
     
     <!-- View state for auth user -->
-    <view-state id="authState" view="frontend/checkout/auth" model="order">
-        <transition on="onSuccess" to="createOrderState" />
+    <view-state id="authState" view="frontend/checkout/auth" model="signinCredentials">
+        <transition on="login" to="loginUserState" />
+        <transition on="createAccount" to="createAccountState" />
     </view-state>
+    
+    <view-state id="createAccountState" view="externalRedirect:/signup"/>
+    
+    <!-- Authenticate User -->
+    <action-state id="loginUserState">
+        <evaluate expression="signinAction"/>
+        <transition on="success" to="createOrderState" />
+        <transition on="error" to="authState" />
+    </action-state>
     
     <!-- View state for confirm the order -->
     <view-state id="confirmState" view="frontend/checkout/confirm" model="order">

@@ -9,50 +9,46 @@
     <body>
         <!-- BEGIN MAIN -->
         <div layout:fragment="content">
-            <h1 th:text="#{frontend.checkout.user}">User data</h1>
-            <div class="row">
-                <div class="col-md-6 col-sm-6">
-                    <h3 th:text="#{frontend.checkout.user.new}">New Customer</h3>
-                    <p>Checkout Options:</p>
-                    <div class="radio-list">
-                        <label>
-                            <input type="radio" name="account"  value="register"> Register Account
-                        </label>
-                        <label>
-                            <input type="radio" name="account"  value="guest"> Guest Checkout
-                        </label> 
-                    </div>
-                    <p>By creating an account you will be able to shop faster, be up to date on an order's status, and keep track of the orders you have previously made.</p>
-                    <button class="btn btn-primary" type="submit" data-toggle="collapse" data-parent="#checkout-page" data-target="#payment-address-content">Continue</button>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="panel-title" th:text="#{frontend.checkout.user}">User data</h2>
                 </div>
-                <div class="col-md-6 col-sm-6">
-                    <h3 th:text="#{frontend.checkout.user.returning.customer}">Returning Customer</h3>
-                    <p th:text="#{frontend.checkout.user.returning.customer2}">I am a returning customer.</p>
-                    <form role="form" th:action="@{/login}" method="post">
-                        <th:block th:include="global/fragments/login::alerts" />
-                        <div class="form-group">
-                            <label for="username" class="col-lg-4 control-label">
-                                <span th:text="#{login.form.username.label}">username</span>
-                                <span class="require">*</span>
-                            </label>
-                            <div class="col-lg-8">
-                                <input type="text" name="username" class="form-control" id="username">
+                <div class="panel-body row">
+                    <div class="col-md-6 col-sm-6">
+                        <h3 th:text="#{frontend.checkout.user.new}">New Customer</h3>
+                        <a class="btn btn-primary" th:href="${flowExecutionUrl + '&_eventId=createAccount' }"
+                           th:text="#{frontend.checkout.user.register}">Register Account</a>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <h3 th:text="#{frontend.checkout.user.returning.customer}">Returning Customer</h3>
+                        <p th:text="#{frontend.checkout.user.returning.customer2}">I am a returning customer.</p>
+                        <form role="form" th:action="${flowExecutionUrl}" th:object="${signinCredentials}" method="post">
+                            <th:block th:include="global/fragments/login::alerts" />
+                            <div class="form-group">
+                                <label for="username" class="col-lg-4 control-label">
+                                    <span th:text="#{login.form.username.label}">username</span>
+                                    <span class="require">*</span>
+                                </label>
+                                <div class="col-lg-8">
+                                    <input type="text" th:field="*{username}" class="form-control" id="username">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="password" class="col-lg-4 control-label">
-                                <span th:text="#{login.form.password.label}">Password</span>
-                                <span class="require">*</span>
-                            </label>
-                            <div class="col-lg-8">
-                                <input type="password" name="password" class="form-control" id="password">
+                            <div class="form-group">
+                                <label for="password" class="col-lg-4 control-label">
+                                    <span th:text="#{login.form.password.label}">Password</span>
+                                    <span class="require">*</span>
+                                </label>
+                                <div class="col-lg-8">
+                                    <input type="password" th:field="*{password}" class="form-control" id="password">
+                                </div>
                             </div>
-                        </div>
-                        <a href="javascript:;">Forgotten Password?</a>
-                        <div class="padding-top-20">                  
-                            <button class="btn btn-primary" type="submit">Login</button>
-                        </div>
-                    </form>
+                            <a href="javascript:;">Forgotten Password?</a>
+                            <div class="padding-top-20">
+                                <input type="hidden" name="_flowExecutionKey" th:value="${flowExecutionKey}" />
+                                <button class="btn btn-primary" name="_eventId_login" type="submit">Login</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

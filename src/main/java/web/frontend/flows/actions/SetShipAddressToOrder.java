@@ -1,6 +1,7 @@
 package web.frontend.flows.actions;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.webflow.action.AbstractAction;
 import org.springframework.webflow.execution.Event;
 import org.springframework.webflow.execution.RequestContext;
@@ -11,6 +12,7 @@ import persistence.repositories.AddressRepository;
 /**
  * @author sergio
  */
+@Component
 public class SetShipAddressToOrder extends AbstractAction {
     
     @Autowired

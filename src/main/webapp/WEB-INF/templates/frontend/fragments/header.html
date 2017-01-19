@@ -23,8 +23,8 @@
                     </div>
                     <i class="fa fa-shopping-cart"></i>
                     <div class="top-cart-content-wrapper">
-                        <div class="top-cart-content" style="min-height: 100px;">
-                            <ul class="scroller">
+                        <div class="top-cart-content">
+                            <ul class="scroller" style="height: 250px;">
                                 <li th:each="item:${items}">
                                     <a th:href="@{/products/detail/{line}(line=${item.productLine.id})}">
                                         <img th:src="@{/images/products/{image}(image=${item.productLine.image})}" th:alt="${item.productLine.description}" width="37" height="34">
