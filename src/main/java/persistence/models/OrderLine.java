@@ -30,6 +30,7 @@ public class OrderLine implements Serializable {
     @Max(value = 999, message = "{order.line.quantity.max}")
     @Column(nullable = false)
     private Integer quantity;
+    private Double totalPrice;
     private Integer discount;
 
     public Order getOrder() {
@@ -56,6 +57,14 @@ public class OrderLine implements Serializable {
         this.quantity = quantity;
     }
 
+    public Double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+    
     public Integer getDiscount() {
         return discount;
     }
@@ -66,6 +75,6 @@ public class OrderLine implements Serializable {
 
     @Override
     public String toString() {
-        return "OrderLine{" + "order=" + order + ", productLine=" + productLine + ", quantity=" + quantity + ", discount=" + discount + '}';
+        return "OrderLine{" + "order=" + order + ", productLine=" + productLine + ", quantity=" + quantity + ", totalPrice=" + totalPrice + ", discount=" + discount + '}';
     }
 }

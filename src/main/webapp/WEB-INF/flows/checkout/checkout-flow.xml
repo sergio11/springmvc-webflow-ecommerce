@@ -23,19 +23,33 @@
         <transition on="onSuccess" to="createOrderState" />
     </view-state>
     
+    <!-- View state for confirm the order -->
     <view-state id="confirmState" view="frontend/checkout/confirm" model="order">
-        <transition on="confirm" to="thankCustomerState" />
+        <transition on="confirm" to="saveOrderState" />
     </view-state>
     
+    <!-- Save Order -->
+    <action-state id="saveOrderState">
+        <evaluate expression="saveOrderAction"/>
+        <transition on="success" to="thankCustomerState" />
+        <transition on="error" to="failAtCreateOrderStatus" />
+    </action-state>
+    
+    <!-- This view state will show, when order was not created succesfully -->
+    <view-state id="failAtCreateOrderStatus" view="frontend/checkout/failAtCreateOrder" model="order">
+        <transition to="cancelCheckoutState" />
+    </view-state>
+    
+    <!-- This view state will show, when order was created succesfully -->
     <view-state id="thankCustomerState" view="frontend/checkout/thankCustomer" model="order">
-        <transition to="finishCheckoutState" />
+        <transition on="finish" to="finishCheckoutState" />
     </view-state>
 
     <end-state id="finishCheckoutState" view="externalRedirect:/home"/>
     <end-state id="cancelCheckoutState" view="externalRedirect:/home"/>
     
     <global-transitions>
-        <transition on="cancel" to="cancelCheckoutState" />
+        <transition on="cancelOrder" to="cancelCheckoutState" />
         <transition on-exception="org.springframework.security.access.AccessDeniedException" to="authState" />
     </global-transitions>
     

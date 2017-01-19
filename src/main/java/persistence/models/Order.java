@@ -62,6 +62,7 @@ public class Order implements Serializable {
 
     public void setCustomer(User customer) {
         this.customer = customer;
+        customer.addOrder(this);
     }
 
     public Date getPurchasedOn() {

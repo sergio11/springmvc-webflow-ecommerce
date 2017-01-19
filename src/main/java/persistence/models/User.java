@@ -124,6 +124,9 @@ public class User implements Serializable, UserDetails {
             inverseJoinColumns = @JoinColumn(name = "ADDRESS_ID", referencedColumnName = "ID")
     )
     private Set<Address> addresses = new HashSet();
+    
+    @OneToMany(mappedBy = "customer")
+    private Set<Order> orders = new HashSet();
 
     public Long getId() {
         return id;
@@ -243,6 +246,21 @@ public class User implements Serializable, UserDetails {
     
     public void addAddress(Address address){
         addresses.add(address);
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
+    }
+    
+    public void addOrder(Order order){
+        if(!orders.contains(order)){
+            orders.add(order);
+            order.setCustomer(this);
+        }
     }
     
     @Override

@@ -61,15 +61,15 @@
                             <div class="shopping-total" th:with="subTotal = ${#aggregates.sum(cart.cartItems.![totalPrice])}">
                                 <ul>
                                     <li>
-                                        <em th:text="#{frontend.cart.resume}">Sub total</em>
+                                        <em th:text="#{common.shop.subtotal}">Sub total</em>
                                         <strong class="price"><span th:text="${subTotal}">47.00</span><span>&euro;</span></strong>
                                     </li>
                                     <li>
-                                        <em th:text="#{frontend.cart.shipping.cost}">Shipping cost</em>
+                                        <em th:text="#{common.shop.shipping.cost}">Shipping cost</em>
                                         <strong class="price">3.00<span>&euro;</span></strong>
                                     </li>
                                     <li class="shopping-total-price">
-                                        <em th:text="#{frontend.cart.total}">Total</em>
+                                        <em th:text="#{common.shop.total}">Total</em>
                                         <strong class="price">
                                             <span th:with="total=${subTotal + 3.00}" th:text="${total}">50.00</span>
                                             <span>&euro;</span>
