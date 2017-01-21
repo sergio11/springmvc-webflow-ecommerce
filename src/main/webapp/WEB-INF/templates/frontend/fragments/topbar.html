@@ -45,7 +45,7 @@ xmlns:th="http://www.thymeleaf.org">
                                 <form th:action="@{/logout}" method="post" id="logoutForm" style="display: none;">
                                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                                 </form>
-                                <a href="javascript:doLogout()">
+                                <a href="javascript:GlobalSettings.doLogout()">
                                     <i class="icon-key"></i> 
                                     <span th:text="#{topbar.logout}">Log Out</span>
                                 </a>
