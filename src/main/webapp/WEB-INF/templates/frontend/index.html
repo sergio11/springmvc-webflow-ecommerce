@@ -31,9 +31,8 @@
                 <div class="col-md-12 sale-product">
                     <h2 th:text="#{frontend.arrivals.title}">New Arrivals</h2>
                     <div class="owl-carousel owl-carousel5">
-                        <div>
-                            <th:block  th:each="product:${arrivals}" 
-                                       th:include="frontend/fragments/product/detail::simple-card(${product})" />
+                        <div th:each="product:${arrivals}" 
+                             th:include="frontend/fragments/product/detail::simple-card(${product})">
                         </div>
                     </div>
                 </div>
@@ -41,6 +40,57 @@
             <!-- BEGIN SIDEBAR & CONTENT -->
             <div class="row margin-bottom-40 ">
                 <th:block th:replace="frontend/fragments/sidebar::categories" />
+                <!-- BEGIN FEATURED PRODUCTS -->
+                <div class="col-md-9 col-sm-8">
+                    <h2 th:text="#{frontend.featured.title}">Featured Products</h2>
+                    <div class="owl-carousel owl-carousel3">
+                        <div th:each="featuredProduct:${featured}" 
+                             th:include="frontend/fragments/product/detail::simple-card(${featuredProduct})"></div>
+                    </div> 
+                </div>
+                <!-- END FEATURED PRODUCTS -->
+            </div>
+            <!-- END SIDEBAR & CONTENT -->
+            <!-- BEGIN TWO PRODUCTS & PROMO -->
+            <div class="row margin-bottom-35 ">
+                <!-- BEGIN TWO PRODUCTS -->
+                <div class="col-md-6 two-items-bottom-items">
+                    <h2 th:text="#{frontend.bestsellers.title}">Best Sellers</h2>
+                    <div class="owl-carousel owl-carousel2">
+                        <div th:each="bestseller:${bestsellers}" 
+                             th:include="frontend/fragments/product/detail::simple-card(${bestseller})"></div>
+                    </div>
+                </div>
+                <!-- END TWO PRODUCTS -->
+                <!-- BEGIN PROMO -->
+                <div class="col-md-6 shop-index-carousel">
+                    <div class="content-slider">
+                        <div id="promoCarousel" class="carousel slide" data-ride="carousel">
+                            <!-- Indicators -->
+                            <ol class="carousel-indicators">
+                                <li data-target="#promoCarousel" data-slide-to="0" class="active"></li>
+                                <li data-target="#promoCarousel" data-slide-to="1"></li>
+                                <li data-target="#promoCarousel" data-slide-to="2"></li>
+                                <li data-target="#promoCarousel" data-slide-to="3"></li>
+                            </ol>
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    <img th:src="@{/assets/frontend/layout/img/promo/promo_slide_1.jpeg}" class="img-responsive" />
+                                </div>
+                                <div class="item">
+                                    <img th:src="@{/assets/frontend/layout/img/promo/promo_slide_2.jpeg}" class="img-responsive" />
+                                </div>
+                                <div class="item">
+                                    <img th:src="@{/assets/frontend/layout/img/promo/promo_slide_3.jpeg}" class="img-responsive" />
+                                </div>
+                                <div class="item">
+                                    <img th:src="@{/assets/frontend/layout/img/promo/promo_slide_4.jpeg}" class="img-responsive" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END PROMO -->
             </div>
         </th:block>
         <th:block layout:fragment="page-scripts">

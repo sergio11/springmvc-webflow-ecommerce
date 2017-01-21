@@ -17,8 +17,12 @@ public class HomeController {
     
     @GetMapping(value={"/home", "/"})
     public String index(Model model){
-        // get new arrivals
+        // add new arrivals products
         model.addAttribute("arrivals", productService.getNewArrivals());
+        // add featured products
+        model.addAttribute("featured", productService.getNewArrivals());
+        // add bestsellers products
+        model.addAttribute("bestsellers", productService.getNewArrivals());
         return "frontend/index";
     }
 }

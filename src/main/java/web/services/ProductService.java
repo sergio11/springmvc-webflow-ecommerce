@@ -12,6 +12,8 @@ import web.models.search.SearchProduct;
  */
 public interface ProductService {
     List<Product> getNewArrivals();
+    List<Product> getThreeFeaturedProducts();
+    List<Product> getTwoBestsellersProducts();
     List<Review> getApprovedReviews(Long productId);
     Page<Product> search(String query);
     Page<Product> search(SearchProduct searchProduct);
