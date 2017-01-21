@@ -1,6 +1,7 @@
 package web.frontend.flows.actions;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.webflow.action.AbstractAction;
 import org.springframework.webflow.execution.Event;
@@ -27,12 +28,13 @@ public class SaveOrderAction extends AbstractAction {
     protected Event doExecute(RequestContext context) throws Exception {
         try {
             Order order = (Order) context.getFlowScope().get("order");
-            User user = (User) context.getFlowScope().get("currentUser");
+            User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             order.setCustomer(user);
             userRepository.save(user);
             orderRepository.save(order);
             return success();
         }catch(Exception ex){
+            ex.printStackTrace();
             return error();
         }
     }
