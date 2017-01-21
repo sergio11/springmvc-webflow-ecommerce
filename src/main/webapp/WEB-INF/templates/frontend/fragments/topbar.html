@@ -41,7 +41,7 @@ xmlns:th="http://www.thymeleaf.org">
                             <li><a href="#" sec:authorize="isAuthenticated()" th:text="#{topbar.myaccount}">My Account</a></li>
                             <li><a href="#" th:text="#{topbar.checkout}">Checkout</a></li>
                             <li><a href="#" th:href="@{/login}" sec:authorize="!isAuthenticated()" th:text="#{topbar.login}">Log In</a></li>
-                            <li>
+                            <li sec:authorize="isAuthenticated()">
                                 <form th:action="@{/logout}" method="post" id="logoutForm" style="display: none;">
                                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                                 </form>

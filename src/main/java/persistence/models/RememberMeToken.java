@@ -1,5 +1,6 @@
 package persistence.models;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -11,7 +12,7 @@ import org.springframework.security.web.authentication.rememberme.PersistentReme
  */
 @Entity
 @Table(name = "REMEMBER_TOKENS")
-public class RememberMeToken {
+public class RememberMeToken implements Serializable {
     
     @Id
     private String series;

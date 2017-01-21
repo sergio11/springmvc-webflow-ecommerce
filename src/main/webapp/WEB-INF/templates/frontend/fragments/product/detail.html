@@ -10,7 +10,7 @@
        
         <th:block th:fragment="simple-card(product)">
             <div class="product-item" 
-                 th:if="${product.productLines != null && not #lists.isEmpty(product.productLines)}"  
+                 th:if="${product != null && product.productLines != null && not #lists.isEmpty(product.productLines)}"  
                  th:with="productLine = ${product.productLines[0]}">
                 <div class="pi-img-wrapper">
                     <img th:src="@{/images/products/{image}(image=${productLine.image})}"  class="img-responsive" th:alt="${productLine.description}" />

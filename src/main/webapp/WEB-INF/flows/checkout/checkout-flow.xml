@@ -10,7 +10,7 @@
     
     <!-- Check if cart is empty -->
     <decision-state id="checkEmptyCartState">
-        <if test="cartService.isEmpty()" then="finishCheckout" else="createOrderState" />
+        <if test="cartService.isEmpty()" then="finishCheckoutState" else="createOrderState" />
     </decision-state>
     
     <!-- subflow for create order -->

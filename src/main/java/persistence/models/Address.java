@@ -1,5 +1,6 @@
 package persistence.models;
 
+import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,19 +12,22 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * @author sergio
  */
 @Entity
 @Table(name="ADDRESS")
-public class Address {
+public class Address implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message="{address.street.notnull}")
     @Column(nullable = false, length = 40)
     private String street;
+    @NotBlank(message="{address.city.notnull}")
     @Column(nullable = false, length = 20)
     private String city;
     @Column(nullable = false, length = 20)
@@ -90,4 +94,11 @@ public class Address {
     public void setBillToOrders(Set<Order> billToOrders) {
         this.billToOrders = billToOrders;
     }
+
+    @Override
+    public String toString() {
+        return "Address{" + "id=" + id + ", street=" + street + ", city=" + city + ", zipCode=" + zipCode + ", country=" + country + '}';
+    }
+    
+    
 }

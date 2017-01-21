@@ -60,13 +60,15 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getThreeFeaturedProducts() {
-        Page<Product> pageProducts = productRepository.findFeaturedProducts(new PageRequest(0, 3));
-        return pageProducts.getContent();
+        return null;
+        /*Page<Product> pageProducts = productRepository.findFeaturedProducts(new PageRequest(0, 3));
+        return pageProducts.getContent();*/
     }
 
     @Override
     public List<Product> getTwoBestsellersProducts() {
-        Page<Product> pageProducts = productRepository.findBestsellersProducts(new PageRequest(0, 2));
-        return pageProducts.getContent();
+        return null;
+        /*Page<Product> pageProducts = productRepository.findBestsellersProducts(new PageRequest(0, 2));
+        return pageProducts.getContent();*/
     }
 }

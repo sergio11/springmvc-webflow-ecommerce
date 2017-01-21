@@ -3,6 +3,7 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
+    <!-- Rol required for execute this flow -->
     <secured attributes="ROLE_CONSUMER" />
     
     <var name="address" class="persistence.models.Address"  />
@@ -16,23 +17,29 @@
     
     <!-- Check if user has any address -->
     <decision-state id="checkUserAddressesState">
-        <if test="userService.hasAddresses(currentUser.name)" then="finishCheckoutState" else="createAddressState" />
+        <if test="userService.hasAddresses(currentUser.name)" 
+            then="finishCheckoutState" 
+            else="createAddressState" />
     </decision-state>
     
     <!-- View state for create address -->
-    <view-state id="createAddressState" view="frontend/checkout/address" model="address">
+    <view-state id="createAddressState" view="frontend/checkout/address">
         <on-render>
-		<evaluate 
-                    expression="countryService.getAll()"
-                    result="viewScope.countries"/>
-	</on-render>
-        <transition on="createAddress" to="saveAddressState" />
+            <evaluate 
+                expression="countryService.getAll()"
+                result="viewScope.countries"/>
+            <evaluate expression="addressFormAction.setupForm"/>
+        </on-render>
+        <transition on="createAddress" to="saveAddressState">
+             <evaluate expression="addressFormAction.bindAndValidate"/>
+        </transition>
     </view-state>
     
     <!-- Create Address for Curret user -->
     <action-state id="saveAddressState">
-        <evaluate expression="addressAction"/>
+        <evaluate expression="saveAddressAction"/>
         <transition on="success" to="backToPrevState" />
+        <transition on="error" to="createAddressState" />
     </action-state>
     
     <decision-state id="backToPrevState">
@@ -43,7 +50,7 @@
     <view-state id="shipToState" view="frontend/checkout/shipTo">
         <on-render>
             <evaluate 
-                expression="userService.getAddresses(currentUser.id)"
+                expression="userService.getAddresses(currentUser.name)"
                 result="viewScope.addresses" />
 	</on-render>
         <transition on="addAddress" to="createAddressState">
@@ -58,7 +65,7 @@
     <view-state id="billToState" view="frontend/checkout/billTo">
         <on-render>
             <evaluate 
-                expression="userService.getAddresses(currentUser.id)"
+                expression="userService.getAddresses(currentUser.name)"
                 result="viewScope.addresses" />
 	</on-render>
         <transition on="addAddress" to="createAddressState">

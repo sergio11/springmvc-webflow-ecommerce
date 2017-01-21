@@ -1,6 +1,8 @@
 package web.services;
 
+import java.util.Set;
 import org.springframework.web.multipart.MultipartFile;
+import persistence.models.Address;
 import persistence.models.User;
 
 /**
@@ -11,4 +13,5 @@ public interface UserService {
     void create(User user);
     void create(User user, MultipartFile avatarFile);
     boolean hasAddresses(String username);
+    Set<Address> getAddresses(String username);
 }

@@ -84,7 +84,6 @@ public class ProductPopulator implements Serializable {
         line3.setProduct(product);
         line3.setStock(0);
         
-        
         products.add(product);
         
         Product product2 = new Product();

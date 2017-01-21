@@ -1,5 +1,6 @@
 package persistence.models;
 
+import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +15,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="COUNTRIES")
-public class Country {
+public class Country implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
