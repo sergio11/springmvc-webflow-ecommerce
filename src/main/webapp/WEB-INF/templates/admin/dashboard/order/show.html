@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    layout:decorator="admin/dashboard/layout">
+    <head>
+        <title th:text="#{admin.order.view.title(${order.id})}">Order View</title>
+    </head>
+    <body>
+    <th:block layout:fragment="content">
+        <!-- BEGIN PAGE HEADER-->
+        <h3 class="page-title">
+            <span th:text="#{admin.order.view.title(${order.id})}">Order View</span>
+            <small th:text="#{admin.order.view.subtitle}">view order details</small>
+        </h3>
+        <div class="page-bar">
+            <!--<th:block th:include="admin/fragments/header::breadcrumb(${ {{url:'admin/home', text:'breadcrumb.home'}} })"/>-->
+        </div>
+        <!-- END PAGE HEADER-->
+        <!-- BEGIN PAGE CONTENT-->
+        <div class="row">
+            <div class="col-md-12">
+                <th:block th:replace="admin/fragments/alerts::flash-message"></th:block>
+                <!-- Begin: life time stats -->
+                <div class="portlet">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-shopping-cart"></i>
+                            <span th:text="#{admin.order.view.date(${order.id}, ${#dates.format(order.purchasedOn, #messages.msg('common.date.format'))})}">Order #12313232</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                <div class="portlet yellow-crusta box">
+                                    <div class="portlet-title">
+                                        <div class="caption">
+                                            <span class="fa fa-cogs"></span>
+                                            <span th:text="#{admin.order.view.details.title}">Order Details</span>
+                                        </div>
+                                    </div>
+                                    <div class="portlet-body">
+                                        <div class="row static-info">
+                                            <div class="col-md-5 name" th:text="#{admin.order.view.details.id}">
+                                                Order #:
+                                            </div>
+                                            <div class="col-md-7 value" th:text="${order.id}">
+                                                12313232
+                                            </div>
+                                        </div>
+                                        <div class="row static-info">
+                                            <div class="col-md-5 name" th:text="#{admin.order.view.details.purchasedOn}">
+                                                Order Date & Time:
+                                            </div>
+                                            <div class="col-md-7 value" th:text="${#dates.format(order.purchasedOn, #messages.msg('common.date.format'))}">
+                                                Dec 27, 2013 7:16:25 PM
+                                            </div>
+                                        </div>
+                                        <div class="row static-info">
+                                            <div class="col-md-5 name" th:text="#{admin.order.view.details.status}">
+                                                Order Status:
+                                            </div>
+                                            <div class="col-md-7 value" th:text="${order.status}">
+                                            </div>
+                                        </div>
+                                        <div class="row static-info">
+                                            <div class="col-md-5 name">
+                                                Grand Total:
+                                            </div>
+                                            <div class="col-md-7 value">
+                                                $175.25
+                                            </div>
+                                        </div>
+                                        <div class="row static-info">
+                                            <div class="col-md-5 name">
+                                                Payment Information:
+                                            </div>
+                                            <div class="col-md-7 value">
+                                                Credit Card
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="portlet blue-hoki box">
+                                    <div class="portlet-title">
+                                        <div class="caption">
+                                            <span class="fa fa-cogs"></span>
+                                            <span th:text="#{admin.order.view.customer.title}">Customer Information</span>
+                                        </div>
+                                    </div>
+                                    <div class="portlet-body">
+                                        <div class="row static-info">
+                                            <div class="col-md-5 name" th:text="#{admin.order.view.customer.name}">
+                                                Customer Name:
+                                            </div>
+                                            <div class="col-md-7 value" th:text="${order.customer.fullName}">
+                                                Jhon Doe
+                                            </div>
+                                        </div>
+                                        <div class="row static-info">
+                                            <div class="col-md-5 name" th:text="#{admin.order.view.customer.email}">
+                                                Email:
+                                            </div>
+                                            <div class="col-md-7 value" th:text="${order.customer.email}"> 
+                                                jhon@doe.com
+                                            </div>
+                                        </div>
+                                        <div class="row static-info">
+                                            <div class="col-md-5 name" th:text="#{admin.order.view.customer.phone}">
+                                                Phone Number:
+                                            </div>
+                                            <div class="col-md-7 value">
+                                                12234389
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                <div class="portlet green-meadow box">
+                                    <div class="portlet-title">
+                                        <div class="caption">
+                                            <span class="fa fa-cogs"></span>
+                                            <span th:text="#{admin.order.view.billing.title}">Billing Address</span>
+                                        </div>
+                                    </div>
+                                    <div class="portlet-body">
+                                        <div class="row static-info">
+                                            <div class="col-md-12 value">
+                                                <address>
+                                                    <span th:text="${order.billTo.street}">Street</span> <br>
+                                                    <span th:text="${order.billTo.city}">City</span> <br>
+                                                    <span th:text="${order.billTo.zipCode}">zipCode</span> <br>
+                                                    <span th:text="${order.billTo.country.name}"> county</span>
+                                                </address>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="portlet red-sunglo box">
+                                    <div class="portlet-title">
+                                        <div class="caption">
+                                            <span class="fa fa-cogs"></span>
+                                            <span th:text="#{admin.order.view.shipping.title}">Shipping Address</span>
+                                        </div>
+                                    </div>
+                                    <div class="portlet-body">
+                                        <div class="row static-info">
+                                            <div class="col-md-12 value">
+                                                <address>
+                                                    <span th:text="${order.shipTo.street}">Street</span> <br>
+                                                    <span th:text="${order.shipTo.city}">City</span> <br>
+                                                    <span th:text="${order.shipTo.zipCode}">zipCode</span> <br>
+                                                    <span th:text="${order.shipTo.country.name}"> county</span>
+                                                </address>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                                <div class="portlet grey-cascade box">
+                                    <div class="portlet-title">
+                                        <div class="caption">
+                                            <span class="fa fa-cogs"></span>
+                                            <span th:text="#{admin.order.view.cart.title}">Shopping Cart</span>
+                                        </div>
+                                    </div>
+                                    <div class="portlet-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover table-bordered table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th th:text="#{admin.order.view.cart.th.id}">id</th>
+                                                        <th th:text="#{admin.order.view.cart.th.description}">Description</th>
+                                                        <th th:text="#{admin.order.view.cart.th.quantity}">Quantity</th>
+                                                        <th th:text="#{admin.order.view.cart.th.price}">Price</th>
+                                                        <th th:text="#{admin.order.view.cart.th.total}">Total</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr th:each="line: ${order.orderLines}">
+                                                        <td th:text="${line.id}">1</td>
+                                                        <td th:text="${line.productLine.description}">description</td>
+                                                        <td th:text="${line.quantity}">1</td>
+                                                        <td>
+                                                            <span th:text="${line.productLine.product.price}">47.00</span><span>&euro;</span>
+                                                        </td>
+                                                        <td>
+                                                            <span th:text="${line.totalPrice}">47.00</span><span>&euro;</span>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                            </div>
+                            <div class="col-md-6" th:with="subTotal = ${#aggregates.sum(order.orderLines.![totalPrice])}">
+                                <div class="well">
+                                    <div class="row static-info align-reverse">
+                                        <div class="col-md-8 name" th:text="#{common.shop.subtotal}">
+                                            Sub Total:
+                                        </div>
+                                        <div class="col-md-3 value">
+                                            <span th:text="${subTotal}">47.00</span><span>&euro;</span>
+                                        </div>
+                                    </div>
+                                    <div class="row static-info align-reverse">
+                                        <div class="col-md-8 name" th:text="#{common.shop.shipping.cost}">
+                                            Shipping:
+                                        </div>
+                                        <div class="col-md-3 value">
+                                            3.00<span>&euro;</span>
+                                        </div>
+                                    </div>
+                                    <div class="row static-info align-reverse">
+                                        <div class="col-md-8 name" th:text="#{common.shop.total}">
+                                            Total Paid:
+                                        </div>
+                                        <div class="col-md-3 value">
+                                            <span th:with="total=${subTotal + 3.00}" th:text="${total}">50.00</span>
+                                            <span>&euro;</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT-->
+    </th:block>
+</body>
+</html>
