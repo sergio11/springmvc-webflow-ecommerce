@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import persistence.models.Product;
 import persistence.models.Review;
+import web.models.product.ProductLineDetail;
 import web.models.search.SearchProduct;
 
 
@@ -18,4 +19,5 @@ public interface ProductService {
     Page<Product> search(String query);
     Page<Product> search(SearchProduct searchProduct);
     Page<Product> search(SearchProduct searchProduct, Integer page);
+    ProductLineDetail getProductLineDetail(Long id);
 }

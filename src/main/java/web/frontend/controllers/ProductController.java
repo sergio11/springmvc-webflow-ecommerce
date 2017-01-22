@@ -1,7 +1,6 @@
 package web.frontend.controllers;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
 import org.slf4j.Logger;
@@ -20,10 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import persistence.models.Product;
-import persistence.models.ProductLine;
-import persistence.models.Review;
-import persistence.repositories.ProductLineRepository;
-import web.frontend.exceptions.ProductLineNotFoundException;
 import web.models.search.SearchProduct;
 import web.services.ProductService;
 
@@ -41,20 +36,11 @@ public class ProductController {
     public static final String BINDING_SEARCH_PRODUCT = "org.springframework.validation.BindingResult." + SEARCH_PRODUCT;
     
     @Autowired
-    private ProductLineRepository productLineRepository;
-    
-    @Autowired
     private ProductService productService;
     
     @GetMapping("/detail/{line}")
     public String detail(@PathVariable Long line, Model model){
-        ProductLine productLine = productLineRepository.findOne(line);
-        if(productLine == null){
-            throw new ProductLineNotFoundException();
-        }
-        List<Review> reviews = productService.getApprovedReviews(productLine.getProduct().getId());
-        model.addAttribute("productLine", productLine);
-        model.addAttribute("reviews", reviews);
+        model.addAttribute("productLineDetail", productService.getProductLineDetail(line));
         return "frontend/product/detail";
     }
     

@@ -1,16 +1,22 @@
 package web.services.impl;
 
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import persistence.models.Product;
+import persistence.models.ProductLine;
 import persistence.models.Review;
 import persistence.models.ReviewStatusEnum;
+import persistence.repositories.ProductLineRepository;
 import persistence.repositories.ProductRepository;
 import persistence.repositories.ReviewRepository;
 import persistence.specifications.SearchProductSpecification;
+import web.frontend.exceptions.ProductLineNotFoundException;
+import web.models.product.ProductLineDetail;
 import web.models.search.SearchProduct;
 import web.services.ProductService;
 import web.utils.ProductUtils;
@@ -20,9 +26,14 @@ import web.utils.ProductUtils;
  */
 @Service
 public class ProductServiceImpl implements ProductService {
+    
+    private static Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 
     @Autowired
     private ProductRepository productRepository;
+    
+    @Autowired
+    private ProductLineRepository productLineRepository;
     
     @Autowired
     private ReviewRepository reviewRepository;
@@ -70,5 +81,19 @@ public class ProductServiceImpl implements ProductService {
         return null;
         /*Page<Product> pageProducts = productRepository.findBestsellersProducts(new PageRequest(0, 2));
         return pageProducts.getContent();*/
+    }
+
+    @Override
+    public ProductLineDetail getProductLineDetail(Long id) {
+        ProductLine productLine = productLineRepository.findOne(id);
+        if(productLine == null){
+            throw new ProductLineNotFoundException();
+        }
+        Long productId = productLine.getProduct().getId();
+        // Product Reviews
+        List<Review> reviews = reviewRepository.findByProductIdAndStatus(productId, ReviewStatusEnum.APPROVED);
+        // Product Rating Avg
+        Double ratingAvg = reviewRepository.getRatingAvgByProduct(productId);
+        return new ProductLineDetail(productLine, reviews, ratingAvg != null ? ratingAvg : 0.0);
     }
 }
