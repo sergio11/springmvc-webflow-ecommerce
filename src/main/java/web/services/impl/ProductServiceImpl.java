@@ -11,6 +11,7 @@ import persistence.models.Product;
 import persistence.models.ProductLine;
 import persistence.models.Review;
 import persistence.models.ReviewStatusEnum;
+import persistence.projection.ProductLineView;
 import persistence.repositories.ProductLineRepository;
 import persistence.repositories.ProductRepository;
 import persistence.repositories.ReviewRepository;
@@ -94,6 +95,8 @@ public class ProductServiceImpl implements ProductService {
         List<Review> reviews = reviewRepository.findByProductIdAndStatus(productId, ReviewStatusEnum.APPROVED);
         // Product Rating Avg
         Double ratingAvg = reviewRepository.getRatingAvgByProduct(productId);
-        return new ProductLineDetail(productLine, reviews, ratingAvg != null ? ratingAvg : 0.0);
+        // Other Product Lines avaliables
+        List<ProductLineView> otherLines = productLineRepository.findByIdNotAndStockGreaterThan(id, 0);
+        return new ProductLineDetail(productLine, reviews, ratingAvg != null ? ratingAvg : 0.0, otherLines);
     }
 }

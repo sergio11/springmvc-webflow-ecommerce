@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import persistence.models.ProductLine;
 import persistence.models.Review;
+import persistence.projection.ProductLineView;
 
 /**
  *
@@ -15,11 +16,13 @@ public class ProductLineDetail implements Serializable {
     private ProductLine productLine;
     private List<Review> reviews = new ArrayList();
     private Double ratingAvg;
+    private List<ProductLineView> otherLines;
 
-    public ProductLineDetail(ProductLine productLine, List<Review> reviews, Double ratingAvg) {
+    public ProductLineDetail(ProductLine productLine, List<Review> reviews, Double ratingAvg, List<ProductLineView> otherLines) {
         this.productLine = productLine;
         this.reviews = reviews;
         this.ratingAvg = ratingAvg;
+        this.otherLines = otherLines;
     }
 
     public ProductLine getProductLine() {
@@ -45,5 +48,12 @@ public class ProductLineDetail implements Serializable {
     public void setRatingAvg(Double ratingAvg) {
         this.ratingAvg = ratingAvg;
     }
-    
+
+    public List<ProductLineView> getOtherLines() {
+        return otherLines;
+    }
+
+    public void setOtherLines(List<ProductLineView> otherLines) {
+        this.otherLines = otherLines;
+    }
 }

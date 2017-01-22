@@ -23,8 +23,8 @@
                             <div class="product-main-image">
                                 <img th:src="@{/images/products/{image}(image=${productLineDetail.productLine.image})}" th:alt="${productLineDetail.productLine.description}" class="img-responsive" data-BigImgsrc="@{/images/products/{image}(image=${productLineDetail.productLine.image})}">
                             </div>
-                            <div class="product-other-images" th:with="all = ${productLineDetail.productLine.product.productLines}" th:if="${all > 1}">
-                                <a th:each="otherLine:${all}" th:if="${otherLine.id != productLine.id }" 
+                            <div class="product-other-images"  th:if="${not #lists.isEmpty(productLineDetail.otherLines)}">
+                                <a th:each="otherLine:${productLineDetail.otherLines}"
                                    th:href="@{/products/detail/{line}(line=${otherLine.id})}" class="fancybox-button" rel="photos-lib">
                                     <img th:alt="${otherLine.description}" th:src="@{/images/products/{image}(image=${otherLine.image})}" />
                                 </a>
