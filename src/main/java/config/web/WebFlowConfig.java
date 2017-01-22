@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
-import org.springframework.validation.Validator;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.webflow.config.AbstractFlowConfiguration;
 import org.springframework.webflow.definition.registry.FlowDefinitionRegistry;
@@ -30,7 +30,7 @@ public class WebFlowConfig extends AbstractFlowConfiguration {
     private ViewResolver viewResolver;
     
     @Autowired
-    private Validator validator;
+    private LocalValidatorFactoryBean validator;
     
     @Autowired
     private Environment env;

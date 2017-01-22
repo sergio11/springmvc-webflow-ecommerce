@@ -12,7 +12,7 @@ import persistence.models.ProductLine;
  */
 public class CartItem implements Serializable {
     
-    private Integer id;
+    private String id;
     @NotNull(message="{cart.item.productline.notnull}")
     private ProductLine productLine;
     @Min(value = 1, message = "{order.line.quantity.min}")
@@ -23,18 +23,18 @@ public class CartItem implements Serializable {
     
     public CartItem(){}
 
-    public CartItem(Integer cartItemId, ProductLine productLine, Integer quantity, Double totalPrice) {
+    public CartItem(String cartItemId, ProductLine productLine, Integer quantity, Double totalPrice) {
         this.id = cartItemId;
         this.productLine = productLine;
         this.quantity = quantity;
         this.totalPrice = totalPrice;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

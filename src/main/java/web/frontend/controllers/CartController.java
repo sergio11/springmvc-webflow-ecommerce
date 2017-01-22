@@ -1,6 +1,7 @@
 package web.frontend.controllers;
 
 import javax.validation.Valid;
+import org.apache.commons.lang.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,6 +78,7 @@ public class CartController {
             CartItem cartItem = cartService.getCartItemByProductLine(productLineId);
             if(cartItem == null){
                 cartItem = new CartItem();
+                cartItem.setId(RandomStringUtils.randomAlphanumeric(20));
                 ProductLine productLine = productLineRepository.findOne(productLineId);
                 cartItem.setProductLine(productLine);
             }
