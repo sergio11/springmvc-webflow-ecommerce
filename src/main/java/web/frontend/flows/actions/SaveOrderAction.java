@@ -3,10 +3,10 @@ package web.frontend.flows.actions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.webflow.action.AbstractAction;
 import org.springframework.webflow.execution.Event;
 import org.springframework.webflow.execution.RequestContext;
-import persistence.models.Address;
 import persistence.models.Order;
 import persistence.models.User;
 import persistence.repositories.OrderRepository;
@@ -25,6 +25,7 @@ public class SaveOrderAction extends AbstractAction {
     private OrderRepository orderRepository;
 
     @Override
+    @Transactional
     protected Event doExecute(RequestContext context) throws Exception {
         try {
             Order order = (Order) context.getFlowScope().get("order");

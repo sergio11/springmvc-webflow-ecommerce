@@ -40,6 +40,7 @@ public class OrderLine implements Serializable {
 
     public void setOrder(Order order) {
         this.order = order;
+        order.addOrderLine(this);
     }
 
     public ProductLine getProductLine() {
@@ -76,6 +77,6 @@ public class OrderLine implements Serializable {
 
     @Override
     public String toString() {
-        return "OrderLine{" + "order=" + order + ", productLine=" + productLine + ", quantity=" + quantity + ", totalPrice=" + totalPrice + ", discount=" + discount + '}';
+        return "OrderLine{" + "productLine=" + productLine + ", quantity=" + quantity + ", totalPrice=" + totalPrice + ", discount=" + discount + '}';
     }
 }

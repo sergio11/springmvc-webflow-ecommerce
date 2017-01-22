@@ -43,6 +43,7 @@
     <action-state id="saveOrderState">
         <evaluate expression="saveOrderAction"/>
         <transition on="success" to="thankCustomerState" />
+        <transition on="error" to="confirmState" />
     </action-state>
     
     <!-- This view state will show, when order was created succesfully -->

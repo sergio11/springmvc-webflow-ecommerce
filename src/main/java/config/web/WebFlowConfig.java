@@ -4,7 +4,9 @@ import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
+import org.springframework.validation.Validator;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.webflow.config.AbstractFlowConfiguration;
 import org.springframework.webflow.definition.registry.FlowDefinitionRegistry;
@@ -15,15 +17,20 @@ import org.springframework.webflow.mvc.servlet.FlowHandlerAdapter;
 import org.springframework.webflow.mvc.servlet.FlowHandlerMapping;
 import org.springframework.webflow.security.SecurityFlowExecutionListener;
 
+
 /**
  * Spring Web Config with Thymeleaf support
  * @author sergio
  */
 @Configuration
+@Import(value = { WebFlowActionsConfig.class })
 public class WebFlowConfig extends AbstractFlowConfiguration {
     
     @Autowired
     private ViewResolver viewResolver;
+    
+    @Autowired
+    private Validator validator;
     
     @Autowired
     private Environment env;
@@ -40,6 +47,7 @@ public class WebFlowConfig extends AbstractFlowConfiguration {
     public FlowBuilderServices flowBuilderServices() {
         return getFlowBuilderServicesBuilder()
                 .setViewFactoryCreator(mvcViewFactoryCreator())
+                .setValidator(validator)
                 .setDevelopmentMode(true)
                 .build();
     }

@@ -30,7 +30,7 @@ public class SaveAddressAction extends AbstractAction {
     @Override
     protected Event doExecute(RequestContext context) throws Exception {
         try {
-            Address address = (Address) context.getFlowScope().get("address");
+            Address address = (Address) context.getFlowScope().get("addressForm");
             User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             logger.info("Address" + address.toString());
             logger.info("User" + user.toString());

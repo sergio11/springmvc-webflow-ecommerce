@@ -22,7 +22,7 @@ import org.hibernate.validator.constraints.NotBlank;
 public class Address implements Serializable {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotBlank(message="{address.street.notnull}")
     @Column(nullable = false, length = 40)
@@ -32,7 +32,7 @@ public class Address implements Serializable {
     private String city;
     @Column(nullable = false, length = 20)
     private String zipCode;
-    @ManyToOne(optional = false, fetch = FetchType.EAGER, cascade = { CascadeType.REMOVE, CascadeType.MERGE })
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Country country;
     @OneToMany(mappedBy="shipTo")
     private Set<Order> shipToOrders;

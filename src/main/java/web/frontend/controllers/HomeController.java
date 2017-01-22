@@ -27,11 +27,11 @@ public class HomeController {
         logger.info("Arrivals : " + arrivals.size());
         logger.info("Arrivals : " + arrivals.get(0).toString());
         // add new arrivals products
-        model.addAttribute("arrivals", productService.getNewArrivals());
+        model.addAttribute("arrivals", arrivals);
         // add featured products
-        model.addAttribute("featured", productService.getNewArrivals());
+        model.addAttribute("featured", arrivals);
         // add bestsellers products
-        model.addAttribute("bestsellers", productService.getNewArrivals());
+        model.addAttribute("bestsellers", arrivals);
         return "frontend/index";
     }
 }

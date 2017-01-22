@@ -6,7 +6,6 @@
     <!-- Rol required for execute this flow -->
     <secured attributes="ROLE_CONSUMER" />
     
-    <var name="address" class="persistence.models.Address"  />
     <var name="comingFrom" class="java.lang.String"/>
     
     <input name="order" type="persistence.models.Order"/>
@@ -18,7 +17,7 @@
     <!-- Check if user has any address -->
     <decision-state id="checkUserAddressesState">
         <if test="userService.hasAddresses(currentUser.name)" 
-            then="finishCheckoutState" 
+            then="shipToState" 
             else="createAddressState" />
     </decision-state>
     
@@ -38,12 +37,14 @@
     <!-- Create Address for Curret user -->
     <action-state id="saveAddressState">
         <evaluate expression="saveAddressAction"/>
-        <transition on="success" to="backToPrevState" />
+        <transition on="success" to="backToPrevState">
+            <evaluate expression="addressFormAction.resetForm" />
+        </transition>
         <transition on="error" to="createAddressState" />
     </action-state>
     
     <decision-state id="backToPrevState">
-        <if test="comginFrom == 'shipToState'" then="shipToState" else="billToState"/>
+        <if test="comingFrom == 'shipToState'" then="shipToState" else="billToState"/>
     </decision-state>
     
     <!-- View state select address for ship to -->
@@ -71,13 +72,19 @@
         <transition on="addAddress" to="createAddressState">
             <set name="comingFrom" value="'billToState'"/>
         </transition>
-        <transition on="confirmBillToAddress" to="finishState">
+        <transition on="confirmBillToAddress" to="addProductsToOrderState">
             <evaluate expression="setBillAddressToOrder" />
         </transition>
     </view-state>
     
+    <!-- add all products to order -->
+    <action-state id="addProductsToOrderState">
+        <evaluate expression="addProductsToOrderAction"/>
+        <transition on="success" to="finishState" />
+    </action-state>
+    
     <!-- Finish State return order -->
-    <end-state id="finishState" >
+    <end-state id="finishState">
         <output name="order" value="flowScope.order" type="persistence.models.Order" />
     </end-state>
 </flow>
