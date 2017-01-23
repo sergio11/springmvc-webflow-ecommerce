@@ -1,6 +1,8 @@
 package web.frontend.flows.actions;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.binding.message.MessageBuilder;
+import org.springframework.binding.message.MessageContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,6 +37,14 @@ public class SaveOrderAction extends AbstractAction {
             orderRepository.save(order);
             return success();
         }catch(Exception ex){
+            MessageContext messageContext = context.getMessageContext();
+            MessageBuilder builder = new MessageBuilder();
+            messageContext.addMessage(
+                    builder
+                            .error()
+                            .source("frontend.checkout.save.order.failed")
+                            .build()
+            );
             ex.printStackTrace();
             return error();
         }

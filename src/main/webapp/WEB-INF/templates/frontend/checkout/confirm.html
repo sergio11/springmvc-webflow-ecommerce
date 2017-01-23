@@ -14,6 +14,7 @@
                     <h2 class="panel-title" th:text="#{frontend.checkout.confirm}">Confirm Order</h2>
                 </div>
                 <div class="panel-body row">
+                    <th:block th:replace="global/fragments/alerts::flow-messages"></th:block>
                     <div class="col-md-12 clearfix">
                         <div class="table-wrapper-responsive">
                             <table style="width: 100%;">

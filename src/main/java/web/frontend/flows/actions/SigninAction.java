@@ -3,6 +3,8 @@ package web.frontend.flows.actions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.binding.message.MessageBuilder;
+import org.springframework.binding.message.MessageContext;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -27,6 +29,8 @@ public class SigninAction extends AbstractAction {
 
     @Override
     protected Event doExecute(RequestContext context) throws Exception {
+        MessageContext messageContext = context.getMessageContext();
+        MessageBuilder builder = new MessageBuilder();
         try {
             SigninCredentials signinCredentials = (SigninCredentials) context.getFlowScope().get("signinCredentials");
             logger.info("Signin Credentials: " + signinCredentials.toString());
@@ -35,9 +39,21 @@ public class SigninAction extends AbstractAction {
                 SecurityContextHolder.getContext().setAuthentication(authenticate);
                 return success();
             } else {
+                messageContext.addMessage(
+                        builder
+                                .error()
+                                .code("frontend.checkout.signin.failed")
+                                .build()
+                );
                 return error();
             }
         } catch (AuthenticationException e) {
+            messageContext.addMessage(
+                    builder
+                            .error()
+                            .code("frontend.checkout.signin.failed")
+                            .build()
+            );
             logger.error(e.getMessage());
             return error();
         }

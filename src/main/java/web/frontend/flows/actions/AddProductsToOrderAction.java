@@ -3,6 +3,8 @@ package web.frontend.flows.actions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.binding.message.MessageBuilder;
+import org.springframework.binding.message.MessageContext;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.webflow.action.AbstractAction;
@@ -42,6 +44,10 @@ public class AddProductsToOrderAction extends AbstractAction {
             context.getFlowScope().put("order", order);
             return success();
         } catch (Exception e) {
+            MessageContext messageContext = context.getMessageContext();
+            MessageBuilder builder = new MessageBuilder();
+            messageContext.addMessage(
+                    builder.error().source("frontend.checkout.add.products.to.cart.failed").build());
             e.printStackTrace();
             return error();
         }
