@@ -3,11 +3,11 @@ package persistence.models;
 import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -18,13 +18,14 @@ import javax.validation.constraints.Min;
  */
 @Entity
 @Table(name = "ORDER_LINES")
-@IdClass(OrderLineId.class)
 public class OrderLine implements Serializable {
     
-    @Id
+    @EmbeddedId
+    private OrderLineId orderLineId;
+    @MapsId("orderId") 
     @ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     private Order order;
-    @Id
+    @MapsId("productLineId")
     @ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     private ProductLine productLine;
     @Min(value = 1, message = "{order.line.quantity.min}")
@@ -33,6 +34,7 @@ public class OrderLine implements Serializable {
     private Integer quantity;
     private Double totalPrice;
     private Integer discount;
+    
 
     public Order getOrder() {
         return order;

@@ -117,7 +117,7 @@ public class User implements Serializable, UserDetails {
     @OneToOne(optional = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Avatar avatar;
     
-    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE, CascadeType.REMOVE })
+    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     @JoinTable(
             name = "USER_ADDRESSES",
             joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"),
@@ -125,7 +125,7 @@ public class User implements Serializable, UserDetails {
     )
     private Set<Address> addresses = new HashSet();
     
-    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     private Set<Order> orders = new HashSet();
 
     public Long getId() {
@@ -245,8 +245,10 @@ public class User implements Serializable, UserDetails {
     }
     
     public void addAddress(Address address){
-        if(!addresses.contains(address))
+        if(!addresses.contains(address)){
             addresses.add(address);
+        }
+            
     }
 
     public Set<Order> getOrders() {

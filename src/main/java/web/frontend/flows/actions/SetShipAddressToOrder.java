@@ -42,7 +42,7 @@ public class SetShipAddressToOrder extends AbstractAction {
             messageContext.addMessage(
                     builder
                             .error()
-                            .source("frontend.checkout.set.ship.address.to.order.failed")
+                            .code("frontend.checkout.set.ship.address.to.order.failed")
                             .build()
             );
             e.printStackTrace();

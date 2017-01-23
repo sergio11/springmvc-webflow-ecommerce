@@ -11,7 +11,7 @@
         <div layout:fragment="content">
             <h1 th:text="#{frontend.checkout.created}">Order Created</h1>
             <h2 th:text="#{frontend.checkout.created.order.id(${order.id})}">Order Created</h2>
-            <a th:href="${flowExecutionUrl}&_eventId=finish" class="btn btn-primary" 
+            <a th:href="${ flowExecutionUrl + '&_eventId=finish' }" class="btn btn-primary" 
                th:text="#{common.btns.continue}">Continue</a>
         </div>
     </body>

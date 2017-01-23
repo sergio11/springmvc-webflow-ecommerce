@@ -42,7 +42,7 @@ public class SetBillAddressToOrder extends AbstractAction {
             messageContext.addMessage(
                     builder
                             .error()
-                            .source("frontend.checkout.set.bill.address.to.order.failed")
+                            .code("frontend.checkout.set.bill.address.to.order.failed")
                             .build()
             );
             e.printStackTrace();

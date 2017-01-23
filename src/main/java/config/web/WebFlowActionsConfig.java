@@ -1,7 +1,9 @@
 package config.web;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import persistence.models.Address;
 import web.frontend.flows.actions.AddressFormAction;
 
@@ -12,6 +14,9 @@ import web.frontend.flows.actions.AddressFormAction;
 @Configuration
 public class WebFlowActionsConfig {
     
+    @Autowired
+    private LocalValidatorFactoryBean validator;
+    
     /**
      * Bean for create Address on Flow Scope
      * @return AddressFormAction
@@ -21,6 +26,7 @@ public class WebFlowActionsConfig {
         AddressFormAction addressFormAction = new AddressFormAction();
         addressFormAction.setFormObjectClass(Address.class);
         addressFormAction.setFormObjectName("addressForm");
+        addressFormAction.setValidator(validator);
         return addressFormAction;
     }
     

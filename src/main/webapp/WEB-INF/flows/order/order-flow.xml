@@ -29,19 +29,14 @@
                 result="viewScope.countries"/>
             <evaluate expression="addressFormAction.setupForm"/>
         </on-render>
-        <transition on="createAddress" to="saveAddressState">
+        <transition on="createAddress" to="backToPrevState">
              <evaluate expression="addressFormAction.bindAndValidate"/>
+             <evaluate expression="saveAddressAction" />
         </transition>
-    </view-state>
-    
-    <!-- Create Address for Curret user -->
-    <action-state id="saveAddressState">
-        <evaluate expression="saveAddressAction"/>
-        <transition on="success" to="backToPrevState">
+        <on-exit>
             <evaluate expression="addressFormAction.resetForm" />
-        </transition>
-        <transition on="error" to="createAddressState" />
-    </action-state>
+        </on-exit>
+    </view-state>
     
     <decision-state id="backToPrevState">
         <if test="comingFrom == 'shipToState'" then="shipToState" else="billToState"/>

@@ -11,30 +11,35 @@ import org.springframework.webflow.execution.Event;
 import org.springframework.webflow.execution.RequestContext;
 import persistence.models.Order;
 import persistence.models.User;
-import persistence.repositories.OrderRepository;
 import persistence.repositories.UserRepository;
+import web.services.CartService;
 
 /**
  * @author sergio
  */
 @Component
 public class SaveOrderAction extends AbstractAction {
+    
+    @Autowired
+    private CartService cartService;
 
     @Autowired
     private UserRepository userRepository;
-    
-    @Autowired
-    private OrderRepository orderRepository;
 
     @Override
     @Transactional
     protected Event doExecute(RequestContext context) throws Exception {
         try {
             Order order = (Order) context.getFlowScope().get("order");
-            User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            String username = SecurityContextHolder.getContext().getAuthentication().getName();
+            User user = userRepository.findByUsername(username);
             order.setCustomer(user);
+            // update user information with new order
             userRepository.save(user);
-            orderRepository.save(order);
+            // remove all items from cart
+            cartService.removeAllItems();
+            // put the order on the flow again
+            context.getFlowScope().put("order", order);
             return success();
         }catch(Exception ex){
             MessageContext messageContext = context.getMessageContext();
@@ -42,7 +47,7 @@ public class SaveOrderAction extends AbstractAction {
             messageContext.addMessage(
                     builder
                             .error()
-                            .source("frontend.checkout.save.order.failed")
+                            .code("frontend.checkout.save.order.failed")
                             .build()
             );
             ex.printStackTrace();
