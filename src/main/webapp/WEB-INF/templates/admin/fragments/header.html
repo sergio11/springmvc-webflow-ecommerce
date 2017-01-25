@@ -107,7 +107,7 @@
         
         <th:block th:fragment="breadcrumb(path)">
             <ul class="page-breadcrumb">
-                <li th:each="item, iterStat:$(path)">
+                <li th:each="item, iterStat:${path}">
                     <i class="fa fa-home"></i>
                     <a href="#" th:href="@{${item.url}}" th:text="#{${item.text}}">item</a>
                     <i th:if="${!iterStat.last}" class="fa fa-angle-right"></i>
