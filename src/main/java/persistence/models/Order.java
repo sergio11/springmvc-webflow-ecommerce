@@ -1,10 +1,12 @@
 package persistence.models;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -18,6 +20,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
+import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 
 /**
  * @author sergio
@@ -27,25 +30,31 @@ import javax.validation.constraints.DecimalMin;
 public class Order implements Serializable {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonView(DataTablesOutput.View.class)
     private Long id;
     @ManyToOne(fetch = FetchType.EAGER)
+    @JsonView(DataTablesOutput.View.class)
     private User customer;
     @Column(nullable = false)
+    @JsonView(DataTablesOutput.View.class)
     private Date purchasedOn = new Date();
     @Column(nullable = false, precision=5, scale=2)
     @DecimalMax(value="999.99", inclusive=true, message="{order.baseprice.max}")
     @DecimalMin(value="00.00", message="{order.baseprice.min}")
+    @JsonView(DataTablesOutput.View.class)
     private Double basePrice;
     @Column(nullable = false, precision=5, scale=2)
+    @JsonView(DataTablesOutput.View.class)
     private Double purchasedPrice;
     @Enumerated(EnumType.STRING)
+    @JsonView(DataTablesOutput.View.class)
     private OrderStatusEnum status;
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     private Set<OrderLine> orderLines = new HashSet();
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Address shipTo;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Address billTo;
     
 

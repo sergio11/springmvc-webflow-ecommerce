@@ -1,8 +1,9 @@
 package persistence.models;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -39,7 +40,7 @@ public class ProductLine implements Serializable {
     @ManyToOne(optional=false, fetch = FetchType.EAGER)
     private Product product;
     @OneToMany(mappedBy = "productLine")
-    private List<OrderLine> orderLines = new ArrayList();
+    private Set<OrderLine> orderLines = new HashSet();
     
     public Long getId() {
         return id;
@@ -82,12 +83,19 @@ public class ProductLine implements Serializable {
         product.addProductLine(this);
     }
 
-    public List<OrderLine> getOrderLines() {
+    public Set<OrderLine> getOrderLines() {
         return orderLines;
     }
 
-    public void setOrderLines(List<OrderLine> orderLines) {
+    public void setOrderLines(Set<OrderLine> orderLines) {
         this.orderLines = orderLines;
+    }
+    
+    public void addOrderLine(OrderLine orderLine) {
+        if(!orderLines.contains(orderLine)){
+            orderLines.add(orderLine);
+            orderLine.setProductLine(this);
+        }
     }
 
     @Override

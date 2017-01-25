@@ -23,10 +23,10 @@ public class OrderLine implements Serializable {
     @EmbeddedId
     private OrderLineId orderLineId;
     @MapsId("orderId") 
-    @ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.EAGER, cascade = CascadeType.MERGE)
     private Order order;
     @MapsId("productLineId")
-    @ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.EAGER, cascade = CascadeType.MERGE)
     private ProductLine productLine;
     @Min(value = 1, message = "{order.line.quantity.min}")
     @Max(value = 999, message = "{order.line.quantity.max}")
@@ -35,7 +35,25 @@ public class OrderLine implements Serializable {
     private Double totalPrice;
     private Integer discount;
     
+    public OrderLine(){}
 
+    public OrderLine(Order order, ProductLine productLine, Integer quantity, Double totalPrice, Integer discount) {
+        this.orderLineId = new OrderLineId(order.getId(), productLine.getId());
+        this.order = order;
+        this.productLine = productLine;
+        this.quantity = quantity;
+        this.totalPrice = totalPrice;
+        this.discount = discount;
+    }
+
+    public OrderLineId getOrderLineId() {
+        return orderLineId;
+    }
+
+    public void setOrderLineId(OrderLineId orderLineId) {
+        this.orderLineId = orderLineId;
+    }
+    
     public Order getOrder() {
         return order;
     }
@@ -51,6 +69,7 @@ public class OrderLine implements Serializable {
 
     public void setProductLine(ProductLine productLine) {
         this.productLine = productLine;
+        productLine.addOrderLine(this);
     }
 
     public Integer getQuantity() {

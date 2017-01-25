@@ -14,10 +14,12 @@ import org.springframework.context.event.EventListener;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import persistence.models.Address;
 import persistence.models.Authority;
 import persistence.models.AuthorityEnum;
 import persistence.models.User;
 import persistence.repositories.AuthorityRepository;
+import persistence.repositories.CountryRepository;
 
 /**
  *
@@ -31,8 +33,10 @@ public class SecurityPopulator implements Serializable {
 
     @Autowired
     private AuthorityRepository autorityRepository;
+    @Autowired
+    private CountryRepository countryRepository;
     
-    @Order(1)
+    @Order(2)
     @EventListener(ContextRefreshedEvent.class)
     @Transactional
     public void contextRefreshedEvent() {
@@ -40,7 +44,7 @@ public class SecurityPopulator implements Serializable {
         
         Set<Authority> authorities = new HashSet();
         List<User> users = new ArrayList();
-        
+       
         User user1 = new User();
         user1.setUsername("sergio11");
         user1.setPasswordClear("bisite00");
@@ -49,6 +53,14 @@ public class SecurityPopulator implements Serializable {
         user1.setEmail("sss4esob@gmail.com");
         user1.setFullName("Sergio Sánchez Sánchez");
         users.add(user1);
+        
+        Address address = new Address();
+        address.setCity("Salamanca");
+        address.setStreet("Avd de los Maristas 12");
+        address.setCountry(countryRepository.findByCode("AD"));
+        address.setZipCode("05005");
+        
+        user1.addAddress(address);
         
         Authority authorityAdmin = new Authority();
         authorityAdmin.setType(AuthorityEnum.ROLE_ADMIN);

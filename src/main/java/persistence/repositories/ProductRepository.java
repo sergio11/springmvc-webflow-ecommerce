@@ -10,6 +10,7 @@ import persistence.models.Product;
  * @author sergio
  */
 public interface ProductRepository extends DataTablesRepository<Product, Long> {
+    Product findByName(String name);
     List<Product> findFirst10ByOrderByCreateAtDesc();
     Page<Product> findByNameIgnoreCaseContaining(String name, Pageable pageable);
     /*@Query(value = "SELECT p FROM Product p LEFT JOIN p.reviews r GROUP BY p ORDER BY AVG(r.rating) DESC")

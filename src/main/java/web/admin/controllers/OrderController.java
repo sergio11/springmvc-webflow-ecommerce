@@ -6,8 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import persistence.models.Order;
 import persistence.repositories.OrderRepository;
+import web.admin.exceptions.OrderNotFoundException;
 
 /**
  * @author sergio
@@ -26,5 +29,14 @@ public class OrderController {
         Long ordersCount = orderRepository.count();
         model.addAttribute("ordersCount",  ordersCount);
         return "admin/dashboard/order/all";
+    }
+    
+    @GetMapping("/{id}")
+    public String show(@PathVariable Long id, Model model) {
+        Order order = orderRepository.findOne(id);
+        if(order == null)
+            throw new OrderNotFoundException();
+        model.addAttribute("order", order);
+        return "admin/dashboard/order/show";
     }
 }

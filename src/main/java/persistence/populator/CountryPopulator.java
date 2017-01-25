@@ -27,7 +27,7 @@ public class CountryPopulator implements Serializable {
     @Autowired
     private CountryRepository countryRepository;
     
-    @Order(3)
+    @Order(1)
     @EventListener(ContextRefreshedEvent.class)
     @Transactional
     public void contextRefreshedEvent() {

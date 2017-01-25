@@ -3,7 +3,6 @@ package persistence.populator;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +23,7 @@ import persistence.models.User;
 import persistence.repositories.ProductRepository;
 import persistence.repositories.UserRepository;
 
+
 /**
  * @author sergio
  */
@@ -38,7 +38,7 @@ public class ProductPopulator implements Serializable {
     @Autowired
     private UserRepository userRepository;
     
-    @Order(2)
+    @Order(3)
     @EventListener(ContextRefreshedEvent.class)
     @Transactional
     public void contextRefreshedEvent() {
