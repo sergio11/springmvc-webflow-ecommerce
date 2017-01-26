@@ -7,6 +7,51 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
+        
+        <!-- Product Categories Fragment -->
+        <th:block th:fragment="categories">
+            <div class="header-navigation-content">
+                <div class="row">
+                    <div class="col-md-4 header-navigation-col" th:each="category: ${categories}">
+                        <h4 th:text="${categories.name}">Category</h4>
+                        <ul>
+                            <li th:each="subcategory: ${category.subcategories}">
+                                <a th:text="${subcategory.name}">Subcategory</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </th:block>
+        
+        <!-- arrivals -->
+        <th:block th:fragment="arrivals">
+            <div class="header-navigation-content">
+                <div class="row">
+                    <div class="col-md-3 col-sm-4 col-xs-6" 
+                        th:each="product: ${newproducts}"
+                        th:include="frontend/fragments/product/detail::simple-card">
+                    </div>
+                </div>
+            </div>
+        </th:block>
+        
+        <!-- Menu Search -->
+        <th:block th:fragment="menu-search">
+            <span class="sep"></span>
+            <i class="fa fa-search search-btn"></i>
+            <div class="search-box">
+                <form th:action="@{/products/search}">
+                    <div class="input-group">
+                        <input type="search" name="query" class="form-control" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="submit" th:text="#{common.btns.search}">Search</button>
+                        </span>
+                    </div>
+                </form>
+            </div> 
+        </th:block>
+        
         <!-- BEGIN HEADER -->
         <div th:fragment="header" class="header">
             <div class="container">
@@ -50,112 +95,28 @@
                             <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="javascript:;" th:text="#{navigation.woman.title}">Woman</a>
                             <!-- BEGIN DROPDOWN MENU -->
                             <ul class="dropdown-menu">
-                                
+                                <li th:include="this::categories"></li>
                             </ul>
                             <!-- END DROPDOWN MENU -->
                         </li>
                         <li class="dropdown dropdown-megamenu">
                             <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="javascript:;" th:text="#{navigation.man.title}">Man</a>
                             <ul class="dropdown-menu">
-                                <li>
-                                    <div class="header-navigation-content">
-                                        <div class="row">
-                                            <div class="col-md-4 header-navigation-col">
-                                                <h4 th:text="#{navigation.sneakers.title}">Sneakers</h4>
-                                                <ul>
-                                                    <li><a href="shop-product-list.html">Astro Trainers</a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-md-4 header-navigation-col">
-                                                <h4 th:text="#{navigation.clothes.title}">Clothes</h4>
-                                                <ul>
-                                                    <li><a href="shop-product-list.html">Base Layer</a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-md-4 header-navigation-col">
-                                                <h4 th:text="#{navigation.accessories.title}">Accessories</h4>
-                                                <ul>
-                                                    <li><a href="shop-product-list.html">Belts</a></li>
-                                                    <li><a href="shop-product-list.html">Caps</a></li>
-                                                    <li><a href="shop-product-list.html">Gloves, Hats and Scarves</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
+                                <li th:include="this::categories"></li>
                             </ul>
                         </li>
-                        <li><a href="shop-item.html">Kids</a></li>
                         <li class="dropdown dropdown100 nav-catalogue">
-                            <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="javascript:;">
-                                New
-
-                            </a>
+                            <a class="dropdown-toggle" 
+                               data-toggle="dropdown" 
+                               data-target="#" 
+                               href="javascript:;" 
+                               th:text="#{navigation.new.title}">New</a>
                             <ul class="dropdown-menu">
-                                <li>
-                                    <div class="header-navigation-content">
-                                        <div class="row">
-                                            <div class="col-md-3 col-sm-4 col-xs-6">
-                                                <div class="product-item">
-                                                    <div class="pi-img-wrapper">
-                                                        <a href="shop-item.html"><img src="../../assets/frontend/pages/img/products/model4.jpg" class="img-responsive" alt="Berry Lace Dress"></a>
-                                                    </div>
-                                                    <h3><a href="shop-item.html">Berry Lace Dress</a></h3>
-                                                    <div class="pi-price">$29.00</div>
-                                                    <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3 col-sm-4 col-xs-6">
-                                                <div class="product-item">
-                                                    <div class="pi-img-wrapper">
-                                                        <a href="shop-item.html"><img src="../../assets/frontend/pages/img/products/model3.jpg" class="img-responsive" alt="Berry Lace Dress"></a>
-                                                    </div>
-                                                    <h3><a href="shop-item.html">Berry Lace Dress</a></h3>
-                                                    <div class="pi-price">$29.00</div>
-                                                    <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3 col-sm-4 col-xs-6">
-                                                <div class="product-item">
-                                                    <div class="pi-img-wrapper">
-                                                        <a href="shop-item.html"><img src="../../assets/frontend/pages/img/products/model7.jpg" class="img-responsive" alt="Berry Lace Dress"></a>
-                                                    </div>
-                                                    <h3><a href="shop-item.html">Berry Lace Dress</a></h3>
-                                                    <div class="pi-price">$29.00</div>
-                                                    <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3 col-sm-4 col-xs-6">
-                                                <div class="product-item">
-                                                    <div class="pi-img-wrapper">
-                                                        <a href="shop-item.html"><img src="../../assets/frontend/pages/img/products/model4.jpg" class="img-responsive" alt="Berry Lace Dress"></a>
-                                                    </div>
-                                                    <h3><a href="shop-item.html">Berry Lace Dress</a></h3>
-                                                    <div class="pi-price">$29.00</div>
-                                                    <a href="javascript:;" class="btn btn-default add2cart">Add to cart</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
+                                <li th:include="this::arrivals"></li>
                             </ul>
                         </li>
-                        
                         <!-- BEGIN TOP SEARCH -->
-                        <li class="menu-search">
-                            <span class="sep"></span>
-                            <i class="fa fa-search search-btn"></i>
-                            <div class="search-box">
-                                <form th:action="@{/products/search}">
-                                    <div class="input-group">
-                                        <input type="search" name="query" class="form-control" />
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-primary" type="submit" th:text="#{common.btns.search}">Search</button>
-                                        </span>
-                                    </div>
-                                </form>
-                            </div> 
-                        </li>
+                        <li class="menu-search" th:include="this::menu-search"></li>
                         <!-- END TOP SEARCH -->
                     </ul>
                 </div>

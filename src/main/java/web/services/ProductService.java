@@ -13,6 +13,7 @@ import web.models.search.SearchProduct;
  */
 public interface ProductService {
     List<Product> getNewArrivals();
+    List<Product> getNewProducts();
     List<Product> getThreeFeaturedProducts();
     List<Product> getTwoBestsellersProducts();
     List<Review> getApprovedReviews(Long productId);

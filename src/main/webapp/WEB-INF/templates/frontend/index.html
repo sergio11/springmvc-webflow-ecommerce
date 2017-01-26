@@ -31,9 +31,9 @@
                 <div class="col-md-12 sale-product">
                     <h2 th:text="#{frontend.arrivals.title}">New Arrivals</h2>
                     <div class="owl-carousel owl-carousel5" th:if="${not #lists.isEmpty(arrivals)}">
-                        <div 
-                        	th:each="product:${arrivals}" 
-                        	th:include="frontend/fragments/product/detail::simple-card">
+                        <div
+                            th:each="product: ${arrivals}" 
+                            th:include="frontend/fragments/product/detail::simple-card">
                         </div> 
                     </div>
                 </div>

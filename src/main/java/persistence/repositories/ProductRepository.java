@@ -14,6 +14,7 @@ import persistence.models.Product;
 public interface ProductRepository extends DataTablesRepository<Product, Long> {
     Product findByName(String name);
     List<Product> findFirst10ByOrderByCreateAtDesc();
+    List<Product> findFirst3ByOrderByCreateAtDesc();
     Page<Product> findByNameIgnoreCaseContaining(String name, Pageable pageable);
     @Query(value = "SELECT p FROM Product p WHERE EXISTS (SELECT p.id, AVG(r.rating) AS average FROM Product p JOIN p.reviews r GROUP BY p.id)")
     Page<Product> findFeaturedProducts(Pageable pageable);

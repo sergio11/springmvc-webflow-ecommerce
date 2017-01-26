@@ -98,4 +98,9 @@ public class ProductServiceImpl implements ProductService {
         List<ProductLineView> otherLines = productLineRepository.findByIdNotAndStockGreaterThan(id, 0);
         return new ProductLineDetail(productLine, reviews, ratingAvg != null ? ratingAvg : 0.0, otherLines);
     }
+
+    @Override
+    public List<Product> getNewProducts() {
+        return productRepository.findFirst3ByOrderByCreateAtDesc();
+    }
 }

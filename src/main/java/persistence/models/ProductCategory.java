@@ -31,10 +31,10 @@ public class ProductCategory implements Serializable {
     @Column(nullable = false, unique = true)
     private String name;
     
-    @ManyToOne(optional = true)
+    @ManyToOne(optional = true, fetch = FetchType.EAGER)
     private ProductCategory parent;
     
-    @OneToMany(mappedBy="parent")
+    @OneToMany(mappedBy="parent", fetch = FetchType.EAGER)
     private Set<ProductCategory> subcategories = new HashSet();
     
     @OneToMany(mappedBy = "category", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)

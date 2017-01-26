@@ -18,6 +18,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import persistence.models.Authority;
 import web.admin.converters.StringAuthorityConverter;
+import web.interceptors.LoadNewProductsHandlerInterceptor;
+import web.interceptors.LoadProductCategoriesHandlerInterceptor;
+
 
 /**
  * @author sergio
@@ -30,6 +33,12 @@ public class WebConfig extends WebMvcConfigurerAdapter{
     
     @Autowired
     private LocaleChangeInterceptor localeChangeInterceptor;
+    
+    @Autowired
+    private LoadProductCategoriesHandlerInterceptor loadProductCategoriesHandlerInterceptor;
+    
+    @Autowired
+    private LoadNewProductsHandlerInterceptor loadNewProductsHandlerInterceptor;
     
     @Autowired
     private StringAuthorityConverter stringAuthorityConverter;
@@ -63,6 +72,8 @@ public class WebConfig extends WebMvcConfigurerAdapter{
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localeChangeInterceptor);
         registry.addInterceptor(new CacheControlHandlerInterceptor());
+        registry.addInterceptor(loadProductCategoriesHandlerInterceptor);
+        registry.addInterceptor(loadNewProductsHandlerInterceptor);
     }
     
     @Bean(name="multipartResolver")
