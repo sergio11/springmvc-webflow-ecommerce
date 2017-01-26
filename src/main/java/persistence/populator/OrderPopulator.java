@@ -43,7 +43,7 @@ public class OrderPopulator implements Serializable {
     @Autowired
     private UserRepository userRepository;
     
-    @Order(4)
+    @Order(5)
     @EventListener(ContextRefreshedEvent.class)
     public void contextRefreshedEvent() {
         logger.info("SETUP ORDER INIT DATA");

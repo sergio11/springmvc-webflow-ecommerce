@@ -20,6 +20,7 @@ import persistence.models.ProductStatusEnum;
 import persistence.models.Review;
 import persistence.models.ReviewStatusEnum;
 import persistence.models.User;
+import persistence.repositories.ProductCategoryRepository;
 import persistence.repositories.ProductRepository;
 import persistence.repositories.UserRepository;
 
@@ -35,10 +36,14 @@ public class ProductPopulator implements Serializable {
 
     @Autowired
     private ProductRepository productRepository;
+    
     @Autowired
     private UserRepository userRepository;
     
-    @Order(3)
+    @Autowired
+    private ProductCategoryRepository productCategoryRepository;
+    
+    @Order(4)
     @EventListener(ContextRefreshedEvent.class)
     @Transactional
     public void contextRefreshedEvent() {
@@ -57,6 +62,7 @@ public class ProductPopulator implements Serializable {
         product.setShortDescription("Las zapatillas de running Nike Air Max 2017 para hombre, diseñadas a la perfección con la sujeción y la transpirabilidad .");
         product.setDescription("Las zapatillas de running Nike Air Max 2017 para hombre, diseñadas a la perfección con la sujeción y la transpirabilidad adecuadas donde más lo necesitas, cuentan con una parte superior Flymesh que se combina con la suave amortiguación de la unidad Max Air de longitud completa.");
         product.setStatus(ProductStatusEnum.PUBLISHED);
+        product.setCategory(productCategoryRepository.findBySlug("running"));
         
         Review review = new Review();
         review.setProduct(product);
@@ -94,6 +100,7 @@ public class ProductPopulator implements Serializable {
         product2.setShortDescription("Las ligeras zapatillas de entrenamiento Nike Metcon DSX Flyknit para hombre son perfectas para tus entrenamientos más exigentes.");
         product2.setDescription("Las ligeras zapatillas de entrenamiento Nike Metcon DSX Flyknit para hombre son perfectas para tus entrenamientos más exigentes, desde ejercicios de pared a escalada de cuerdas o sprints y levantamiento de pesas.");
         product2.setStatus(ProductStatusEnum.NOT_PUBLISHED);
+        product.setCategory(productCategoryRepository.findBySlug("football"));
         
         ProductLine line4 = new ProductLine();
         line4.setDescription("Amarillo Voltio");
