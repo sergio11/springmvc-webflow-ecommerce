@@ -72,7 +72,7 @@ public class ProductController {
     @GetMapping("/search-result")
     public String result(Model model){
         model.addAttribute("bestsellers", new ArrayList<Product>());
-        return "frontend/product/search_result";
+        return "frontend/product/list/search_result";
     }
     
     @GetMapping( value = { "/search-result/page/", "/search-result/page", "/search-result/page/{page}" } )
@@ -83,6 +83,17 @@ public class ProductController {
         model.addAttribute("bestsellers", new ArrayList<Product>());
         Page<Product> productPage = productService.search(searchProduct, page.isPresent() ? page.get() : 0);
         model.addAttribute("productPage", productPage);
-        return "frontend/product/search_result";
+        return "frontend/product/list/search_result";
+    }
+    
+    @GetMapping( value = { "/categories/{category}", "/categories/{category}/", "/categories/{category}/{page}" })
+    public String result(
+            @PathVariable String category,
+            @PathVariable Optional<Integer> page,
+            Model model) {
+        Page<Product> productPage = productService.getByCategory(category, page.isPresent() ? page.get() : 0);
+        model.addAttribute(SEARCH_PRODUCT, new SearchProduct());
+        model.addAttribute("productPage", productPage);
+        return "frontend/product/list/categories";
     }
 }

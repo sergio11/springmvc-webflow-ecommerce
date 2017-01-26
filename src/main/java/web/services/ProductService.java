@@ -21,4 +21,5 @@ public interface ProductService {
     Page<Product> search(SearchProduct searchProduct);
     Page<Product> search(SearchProduct searchProduct, Integer page);
     ProductLineDetail getProductLineDetail(Long id);
+    Page<Product> getByCategory(String slug, Integer page);
 }

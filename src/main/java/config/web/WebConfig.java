@@ -21,7 +21,6 @@ import web.admin.converters.StringAuthorityConverter;
 import web.interceptors.LoadNewProductsHandlerInterceptor;
 import web.interceptors.LoadProductCategoriesHandlerInterceptor;
 
-
 /**
  * @author sergio
  */

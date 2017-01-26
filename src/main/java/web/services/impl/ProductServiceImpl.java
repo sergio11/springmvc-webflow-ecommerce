@@ -103,4 +103,9 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> getNewProducts() {
         return productRepository.findFirst3ByOrderByCreateAtDesc();
     }
+
+    @Override
+    public Page<Product> getByCategory(String slug, Integer page) {
+        return productRepository.findByCategorySlug(slug, new PageRequest(page, 20));
+    }
 }

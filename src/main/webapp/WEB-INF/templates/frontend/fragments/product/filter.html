@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        
+        <th:block th:fragment="category-price-filter">
+            <div class="sidebar-filter margin-bottom-25">
+                <h2 th:text="#{frontend.search.result.categories}">Search categories</h2>
+                <h3 th:text="#{frontend.search.result.form.availability.label}">Availability</h3>
+                <div class="checkbox-list">
+                    <label>
+                        <input type="checkbox" th:field="*{avaliability}" 
+                               th:value="${T(persistence.models.StockAvailabilityEnum).AVALIABLE}">
+                            <span th:text="#{frontend.search.result.form.not.avaliable(3)}">Not Available (3)</span>    
+                    </label>
+                    <label>
+                        <input type="checkbox" th:field="*{avaliability}" 
+                               th:value="${T(persistence.models.StockAvailabilityEnum).NOT_AVALIABLE}">
+                            <span th:text="#{frontend.search.result.form.avaliable(34)}">In Stock (26)</span> 
+                    </label>
+                </div>
+                <h3 th:text="#{frontend.search.result.form.price.label}">Price</h3>
+                <p>
+                    <label th:text="#{frontend.search.result.form.price.range.label}">Range</label>
+                    <span id="amount" 
+                          style="border:0; color:#f6931f; font-weight:bold;"></span>
+                    <input type="hidden" id="priceMin" th:field="*{priceMin}" />
+                    <input type="hidden" id="priceMax" th:field="*{priceMax}" />
+                </p>
+                <div id="slider-range"></div>
+            </div>
+        </th:block>
+        
+        
+        
+    </body>
+</html>

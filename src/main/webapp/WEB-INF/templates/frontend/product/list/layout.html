@@ -21,54 +21,14 @@
                 <form th:action="@{/products/search}" method="post" id="searchProducts" th:object="${searchProduct}">
                     <!-- BEGIN SIDEBAR -->
                     <div class="sidebar col-md-3 col-sm-5">
-                        <div class="sidebar-filter margin-bottom-25">
-                            <h2 th:text="#{frontend.search.result.categories}">Search categories</h2>
-                            <h3 th:text="#{frontend.search.result.form.availability.label}">Availability</h3>
-                            <div class="checkbox-list">
-                                <label>
-                                    <input type="checkbox" th:field="*{avaliability}" 
-                                           th:value="${T(persistence.models.StockAvailabilityEnum).AVALIABLE}">
-                                        <span th:text="#{frontend.search.result.form.not.avaliable(3)}">Not Available (3)</span>    
-                                </label>
-                                <label>
-                                    <input type="checkbox" th:field="*{avaliability}" 
-                                           th:value="${T(persistence.models.StockAvailabilityEnum).NOT_AVALIABLE}">
-                                        <span th:text="#{frontend.search.result.form.avaliable(34)}">In Stock (26)</span> 
-                                </label>
-                            </div>
-                            <h3 th:text="#{frontend.search.result.form.price.label}">Price</h3>
-                            <p>
-                                <label th:text="#{frontend.search.result.form.price.range.label}">Range</label>
-                                <span id="amount" 
-                                       style="border:0; color:#f6931f; font-weight:bold;"></span>
-                                <input type="hidden" id="priceMin" th:field="*{priceMin}" />
-                                <input type="hidden" id="priceMax" th:field="*{priceMax}" />
-                            </p>
-                            <div id="slider-range"></div>
-                        </div>
-
+                        <th:block th:include="frontend/fragments/product/filter::category-price-filter" />
                         <div class="sidebar-products clearfix" 
                              th:include="frontend/fragments/product/lists::bestsellers(${bestsellers})"></div>
                     </div>
                     <!-- END SIDEBAR -->
                     <!-- BEGIN CONTENT -->
                     <div class="col-md-9 col-sm-7">
-                        <div class="content-search margin-bottom-20">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <h1>Search result for <em th:text="${searchProduct.query}">shoes</em></h1>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="input-group">
-                                        <input type="search" th:field="*{query}" 
-                                               th:placeholder="#{frontend.search.result.form.query.placeholder}" class="form-control" />
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-primary" type="submit" th:text="#{common.btns.search}">Search</button>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <th:block layout:fragment="product-list-header"></th:block>
                         <div class="row list-view-sorting clearfix">
                             <div class="col-md-2 col-sm-2 list-view">
                                 <a href="javascript:;"><i class="fa fa-th-large"></i></a>
@@ -106,7 +66,7 @@
                                 <div class="col-md-4 col-sm-6 col-xs-12"
                                      th:if="${not #lists.isEmpty(results)}"
                                      th:each="product:${results}"
-                                     th:include="frontend/fragments/product/detail::simple-card(${product})"></div>
+                                     th:include="frontend/fragments/product/detail::simple-card"></div>
                             </div>
                             <!-- END PRODUCT LIST -->
                             <!-- BEGIN PAGINATOR -->

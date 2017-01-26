@@ -13,10 +13,10 @@
             <div class="header-navigation-content">
                 <div class="row">
                     <div class="col-md-4 header-navigation-col" th:each="category: ${categories}">
-                        <h4 th:text="${categories.name}">Category</h4>
+                        <h4 th:text="${category.name}">Category</h4>
                         <ul>
                             <li th:each="subcategory: ${category.subcategories}">
-                                <a th:text="${subcategory.name}">Subcategory</a>
+                                <a th:href="@{/products/categories/{category}(category = ${subcategory.slug})}" th:text="${subcategory.name}">Subcategory</a>
                             </li>
                         </ul>
                     </div>
@@ -55,7 +55,7 @@
         <!-- BEGIN HEADER -->
         <div th:fragment="header" class="header">
             <div class="container">
-                <a class="site-logo" href="shop-index.html">
+                <a class="site-logo" th:href="@{/home}">
                     <img src="@{/assets/frontend/layout/img/logos/logo-shop-red.png}" alt="Metronic Shop UI">
                 </a>
                 <a href="javascript:void(0);" class="mobi-toggler"><i class="fa fa-bars"></i></a>

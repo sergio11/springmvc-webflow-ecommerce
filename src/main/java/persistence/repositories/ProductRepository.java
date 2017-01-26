@@ -16,6 +16,7 @@ public interface ProductRepository extends DataTablesRepository<Product, Long> {
     List<Product> findFirst10ByOrderByCreateAtDesc();
     List<Product> findFirst3ByOrderByCreateAtDesc();
     Page<Product> findByNameIgnoreCaseContaining(String name, Pageable pageable);
+    Page<Product> findByCategorySlug(String slug, Pageable pageable);
     @Query(value = "SELECT p FROM Product p WHERE EXISTS (SELECT p.id, AVG(r.rating) AS average FROM Product p JOIN p.reviews r GROUP BY p.id)")
     Page<Product> findFeaturedProducts(Pageable pageable);
     /*@Query(value = " SELECT p FROM Product p "
