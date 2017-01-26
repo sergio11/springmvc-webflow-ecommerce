@@ -31,9 +31,10 @@
                 <div class="col-md-12 sale-product">
                     <h2 th:text="#{frontend.arrivals.title}">New Arrivals</h2>
                     <div class="owl-carousel owl-carousel5" th:if="${not #lists.isEmpty(arrivals)}">
-                        <div th:each="productArrival:${arrivals}" 
-                             th:include="frontend/fragments/product/detail::simple-card(${productArrival})">
-                        </div>
+                        <div 
+                        	th:each="product:${arrivals}" 
+                        	th:include="frontend/fragments/product/detail::simple-card">
+                        </div> 
                     </div>
                 </div>
             </div>
@@ -44,8 +45,8 @@
                 <div class="col-md-9 col-sm-8">
                     <h2 th:text="#{frontend.featured.title}">Featured Products</h2>
                     <div class="owl-carousel owl-carousel3" th:if="${not #lists.isEmpty(featured)}"> 
-                        <div th:each="featuredProduct:${featured}" 
-                             th:include="frontend/fragments/product/detail::simple-card(${featuredProduct})"></div>
+                        <div th:each="product:${featured}" 
+                             th:include="frontend/fragments/product/detail::simple-card"></div>
                     </div> 
                 </div>
                 <!-- END FEATURED PRODUCTS -->
@@ -57,8 +58,8 @@
                 <div class="col-md-6 two-items-bottom-items">
                     <h2 th:text="#{frontend.bestsellers.title}">Best Sellers</h2>
                     <div class="owl-carousel owl-carousel2" th:if="${not #lists.isEmpty(bestsellers)}">
-                        <div th:each="productBestseller:${bestsellers}" 
-                             th:include="frontend/fragments/product/detail::simple-card(${productBestseller})"></div>
+                        <div th:each="product:${bestsellers}" 
+                             th:replace="frontend/fragments/product/detail::simple-card"></div>
                     </div>
                 </div>
                 <!-- END TWO PRODUCTS -->

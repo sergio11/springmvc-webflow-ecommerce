@@ -18,6 +18,7 @@ import persistence.models.OrderStatusEnum;
 import persistence.models.Product;
 import persistence.models.User;
 import persistence.repositories.OrderRepository;
+import persistence.repositories.ProductLineRepository;
 import persistence.repositories.ProductRepository;
 import persistence.repositories.UserRepository;
 import persistence.models.Address;
@@ -28,12 +29,13 @@ import persistence.models.ProductLine;
  */
 @Component
 @Profile("development")
+@Transactional
 public class OrderPopulator implements Serializable {
     
     private static Logger logger = LoggerFactory.getLogger(OrderPopulator.class);
 
     @Autowired
-    private ProductRepository productRepository;
+    private ProductLineRepository productLineRepository;
     
     @Autowired 
     private OrderRepository orderRepository;
@@ -43,7 +45,6 @@ public class OrderPopulator implements Serializable {
     
     @Order(4)
     @EventListener(ContextRefreshedEvent.class)
-    @Transactional
     public void contextRefreshedEvent() {
         logger.info("SETUP ORDER INIT DATA");
        
@@ -61,11 +62,15 @@ public class OrderPopulator implements Serializable {
         order1.setBillTo(address);
         order1.setShipTo(address);
         
-        Product product = productRepository.findByName("Nike Air Max 2017");
-        ProductLine line = product.getProductLines().get(0);
-        logger.info("Product Line: " + line.toString());
-        OrderLine orderLine = new OrderLine(order1, line, 2, product.getPrice() * 2, null);
+        List<ProductLine> lines = productLineRepository.findByProductName("Nike Air Max 2017");
+        ProductLine line = lines.get(0);
+        
+        OrderLine orderLine = new OrderLine(order1, line, 2, line.getProduct().getPrice() * 2, null);
         order1.addOrderLine(orderLine);
+        line.addOrderLine(orderLine);
+        
+        logger.info("Order : " + order1.toString());
+        
         orders.add(order1);
         
         try{

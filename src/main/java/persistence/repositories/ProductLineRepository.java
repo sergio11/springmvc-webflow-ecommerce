@@ -11,4 +11,6 @@ import persistence.projection.ProductLineView;
  */
 public interface ProductLineRepository extends JpaRepository<ProductLine, Long> {
     List<ProductLineView> findByIdNotAndStockGreaterThan(Long id, Integer stock);
+    List<ProductLine> findByProductId(Long id);
+    List<ProductLine> findByProductName(String name);
 }

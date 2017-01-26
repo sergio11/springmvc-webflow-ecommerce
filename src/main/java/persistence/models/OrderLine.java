@@ -23,10 +23,10 @@ public class OrderLine implements Serializable {
     @EmbeddedId
     private OrderLineId orderLineId;
     @MapsId("orderId") 
-    @ManyToOne(fetch=FetchType.EAGER, cascade = CascadeType.MERGE)
+    @ManyToOne(fetch=FetchType.EAGER)
     private Order order;
     @MapsId("productLineId")
-    @ManyToOne(fetch=FetchType.EAGER, cascade = CascadeType.MERGE)
+    @ManyToOne(fetch=FetchType.EAGER, cascade = { CascadeType.REFRESH, CascadeType.MERGE })
     private ProductLine productLine;
     @Min(value = 1, message = "{order.line.quantity.min}")
     @Max(value = 999, message = "{order.line.quantity.max}")

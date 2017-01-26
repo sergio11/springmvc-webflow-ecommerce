@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,7 +28,7 @@ import org.hibernate.validator.constraints.NotBlank;
 public class ProductLine implements Serializable {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(nullable = false, unique = true)
     private String image;
@@ -39,7 +41,7 @@ public class ProductLine implements Serializable {
     private String description;
     @ManyToOne(optional=false, fetch = FetchType.EAGER)
     private Product product;
-    @OneToMany(mappedBy = "productLine")
+    @OneToMany(mappedBy = "productLine", fetch = FetchType.EAGER)
     private Set<OrderLine> orderLines = new HashSet();
     
     public Long getId() {

@@ -1,13 +1,12 @@
 package web.frontend.controllers;
 
-import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import persistence.models.Product;
+
 import web.services.ProductService;
 
 /**
@@ -23,15 +22,12 @@ public class HomeController {
     
     @GetMapping(value={"/home", "/"})
     public String index(Model model){
-        List<Product> arrivals = productService.getNewArrivals();
-        logger.info("Arrivals : " + arrivals.size());
-        logger.info("Arrivals : " + arrivals.get(0).toString());
         // add new arrivals products
-        model.addAttribute("arrivals", arrivals);
+        model.addAttribute("arrivals", productService.getNewArrivals());
         // add featured products
-        model.addAttribute("featured", arrivals);
+        model.addAttribute("featured", productService.getThreeFeaturedProducts());
         // add bestsellers products
-        model.addAttribute("bestsellers", arrivals);
+        //model.addAttribute("bestsellers", arrivals);
         return "frontend/index";
     }
 }
