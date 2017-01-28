@@ -20,6 +20,7 @@ public interface ProductService {
     Page<Product> search(String query);
     Page<Product> search(SearchProduct searchProduct);
     Page<Product> search(SearchProduct searchProduct, Integer page);
+    Page<Product> search(SearchProduct searchProduct, Integer page, String category);
     ProductLineDetail getProductLineDetail(Long id);
     Page<Product> getByCategory(String slug, Integer page);
     Long getNewFeedbacks();

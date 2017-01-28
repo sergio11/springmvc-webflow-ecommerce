@@ -15,6 +15,7 @@ import persistence.projection.ProductLineView;
 import persistence.repositories.ProductLineRepository;
 import persistence.repositories.ProductRepository;
 import persistence.repositories.ReviewRepository;
+import persistence.specifications.SearchProductByCategorySpecification;
 import persistence.specifications.SearchProductSpecification;
 import web.frontend.exceptions.ProductLineNotFoundException;
 import web.models.product.ProductLineDetail;
@@ -112,5 +113,13 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Long getNewFeedbacks() {
         return reviewRepository.countByStatus(ReviewStatusEnum.PENDING);
+    }
+
+    @Override
+    public Page<Product> search(SearchProduct searchProduct, Integer page, String category) {
+        return productRepository.findAll(
+                new SearchProductByCategorySpecification(searchProduct, category), 
+                new PageRequest(page, searchProduct.getLimit(),
+                ProductUtils.getProductOrder(searchProduct.getSort())));
     }
 }

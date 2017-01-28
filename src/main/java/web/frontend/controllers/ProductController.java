@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import persistence.models.Product;
+import web.frontend.exceptions.SearchSpecificationNotFoundException;
 import web.models.search.SearchProduct;
 import web.services.ProductService;
 
@@ -73,7 +74,11 @@ public class ProductController {
     }
     
     @GetMapping( value = { "/search-result" })
-    public String result(Model model) {
+    public String result(
+            @ModelAttribute(PRODUCT_PAGE_RESULTS) Optional<Page<Product>> pageResults,
+            Model model) {
+        if(!pageResults.isPresent())
+            throw new SearchSpecificationNotFoundException();
         model.addAttribute("bestsellers", new ArrayList<Product>());
         return "frontend/product/list/search_result";
     }
@@ -92,19 +97,37 @@ public class ProductController {
             searchProductModel = searchProduct.get();
         }
         Page<Product> productPage = productService.search(searchProductModel, page);
+        
         model.addAttribute("bestsellers", new ArrayList<Product>());
         model.addAttribute(PRODUCT_PAGE_RESULTS, productPage);
         return "frontend/product/list/search_result";
     }
     
-    
     @GetMapping( value = { "/categories/{category}", "/categories/{category}/", "/categories/{category}/{page}" })
     public String result(
+            @ModelAttribute(SEARCH_PRODUCT) Optional<SearchProduct> searchProduct,
             @PathVariable String category,
             @PathVariable Optional<Integer> page,
             Model model) {
-        Page<Product> productPage = productService.getByCategory(category, page.isPresent() ? page.get() : 0);
-        model.addAttribute(SEARCH_PRODUCT, new SearchProduct());
+        SearchProduct searchProductModel = null;
+        if(!searchProduct.isPresent()) {
+            searchProductModel = new SearchProduct();
+            model.addAttribute(SEARCH_PRODUCT, searchProduct);
+        } else {
+            searchProductModel = searchProduct.get();
+        }
+        Page<Product> productPage = productService.search(searchProductModel, page.isPresent() ? page.get() : 0, category);
+        model.addAttribute(PRODUCT_PAGE_RESULTS, productPage);
+        return "frontend/product/list/categories";
+    }
+    
+    @PostMapping( value = { "/categories/{category}", "/categories/{category}/" })
+    public String result(
+        @ModelAttribute(SEARCH_PRODUCT) SearchProduct searchProduct,
+        @PathVariable String category,
+        Model model
+    ) {
+        Page<Product> productPage = productService.search(searchProduct, 0, category);
         model.addAttribute(PRODUCT_PAGE_RESULTS, productPage);
         return "frontend/product/list/categories";
     }

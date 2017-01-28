@@ -18,7 +18,7 @@
         <div layout:fragment="content">
             <!-- BEGIN SIDEBAR & CONTENT -->
             <div class="row margin-bottom-40">
-                <form th:action="@{/products/search}" method="post" id="searchProducts" th:object="${searchProduct}">
+                <form th:action="@{${searchProductsBasePath}}" method="post" id="searchProducts" th:object="${searchProduct}">
                     <!-- BEGIN SIDEBAR -->
                     <div class="sidebar col-md-3 col-sm-5">
                         <th:block layout:fragment="sidebar-header"></th:block>

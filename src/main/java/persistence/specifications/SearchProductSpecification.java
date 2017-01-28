@@ -43,7 +43,7 @@ public class SearchProductSpecification implements Specification<Product> {
         return andTogether(predicates, cb);
     }
 
-    private Predicate andTogether(List<Predicate> predicates, CriteriaBuilder cb) {
+    protected Predicate andTogether(List<Predicate> predicates, CriteriaBuilder cb) {
         return cb.and(predicates.toArray(new Predicate[0]));
     }
 }

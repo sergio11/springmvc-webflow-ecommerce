@@ -3,13 +3,16 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       layout:decorator="frontend/product/list/layout"
-      th:with="paginatorBasePath = '/products/categories/' + ${category}">
+      th:with="paginatorBasePath = '/products/categories/' + ${category}, searchProductsBasePath = '/products/categories/' + ${category}">
     <head>
         <title th:text="#{frontend.product.list.title}">Products List</title>
     </head>
     <body>
         <th:block layout:fragment="sidebar-header">
             <th:block th:replace="frontend/fragments/sidebar::categories" />
+        </th:block>
+        <th:block layout:fragment="product-list-header">
+            <button class="btn btn-primary pull-right" type="submit" th:text="#{common.btns.search}">Search</button>
         </th:block>
     </body>
 </html>
