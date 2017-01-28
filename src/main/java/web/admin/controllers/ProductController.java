@@ -28,7 +28,6 @@ import persistence.models.ReviewStatusEnum;
 import persistence.repositories.ReviewRepository;
 
 /**
- *
  * @author sergio
  */
 @Controller("AdminProductController")

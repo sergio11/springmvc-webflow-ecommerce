@@ -21,6 +21,7 @@
                 <form th:action="@{/products/search}" method="post" id="searchProducts" th:object="${searchProduct}">
                     <!-- BEGIN SIDEBAR -->
                     <div class="sidebar col-md-3 col-sm-5">
+                        <th:block layout:fragment="sidebar-header"></th:block>
                         <th:block th:include="frontend/fragments/product/filter::category-price-filter" />
                         <div class="sidebar-products clearfix" 
                              th:include="frontend/fragments/product/lists::bestsellers(${bestsellers})"></div>

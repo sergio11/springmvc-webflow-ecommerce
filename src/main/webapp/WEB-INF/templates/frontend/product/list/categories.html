@@ -8,6 +8,8 @@
         <title th:text="#{frontend.product.list.title}">Products List</title>
     </head>
     <body>
-        
+        <th:block layout:fragment="sidebar-header">
+            <th:block th:replace="frontend/fragments/sidebar::categories" />
+        </th:block>
     </body>
 </html>

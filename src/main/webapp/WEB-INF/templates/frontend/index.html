@@ -40,7 +40,9 @@
             </div>
             <!-- BEGIN SIDEBAR & CONTENT -->
             <div class="row margin-bottom-40 ">
-                <th:block th:replace="frontend/fragments/sidebar::categories" />
+                <div class="sidebar col-md-3 col-sm-4">
+                    <th:block th:replace="frontend/fragments/sidebar::categories" />
+                </div>
                 <!-- BEGIN FEATURED PRODUCTS -->
                 <div class="col-md-9 col-sm-8">
                     <h2 th:text="#{frontend.featured.title}">Featured Products</h2>
