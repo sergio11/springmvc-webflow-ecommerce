@@ -40,6 +40,11 @@ public class ProductController {
     @Autowired
     private ProductService productService;
     
+    @ModelAttribute(SEARCH_PRODUCT)
+    public SearchProduct getUserObject() {
+        return new SearchProduct();
+    }
+    
     @GetMapping("/detail/{line}")
     public String detail(@PathVariable Long line, Model model){
         model.addAttribute("productLineDetail", productService.getProductLineDetail(line));
@@ -48,12 +53,11 @@ public class ProductController {
     
     @GetMapping("/search")
     public String search(
+            @ModelAttribute(SEARCH_PRODUCT) SearchProduct searchProduct,
             @RequestParam(value="query", required = true) String query, 
             RedirectAttributes model){
-        SearchProduct searchProduct = new SearchProduct();
         searchProduct.setQuery(query);
         Page<Product> productPage = productService.search(query);
-        model.addFlashAttribute(SEARCH_PRODUCT, searchProduct);
         model.addFlashAttribute(PRODUCT_PAGE_RESULTS, productPage);
         return "redirect:/products/search-result";
     }
@@ -85,19 +89,11 @@ public class ProductController {
     
     @GetMapping( value = { "/search-result/{page}" } )
     public String result(
-            @ModelAttribute(SEARCH_PRODUCT) Optional<SearchProduct> searchProduct,
+            @ModelAttribute(SEARCH_PRODUCT) SearchProduct searchProduct,
             @PathVariable Integer page,
             Model model) {
-        
-        SearchProduct searchProductModel = null;
-        if(!searchProduct.isPresent()) {
-            searchProductModel = new SearchProduct();
-            model.addAttribute(SEARCH_PRODUCT, searchProduct);
-        } else {
-            searchProductModel = searchProduct.get();
-        }
-        Page<Product> productPage = productService.search(searchProductModel, page);
-        
+       
+        Page<Product> productPage = productService.search(searchProduct, page);
         model.addAttribute("bestsellers", new ArrayList<Product>());
         model.addAttribute(PRODUCT_PAGE_RESULTS, productPage);
         return "frontend/product/list/search_result";
@@ -105,18 +101,12 @@ public class ProductController {
     
     @GetMapping( value = { "/categories/{category}", "/categories/{category}/", "/categories/{category}/{page}" })
     public String result(
-            @ModelAttribute(SEARCH_PRODUCT) Optional<SearchProduct> searchProduct,
+            @ModelAttribute(SEARCH_PRODUCT) SearchProduct searchProduct,
             @PathVariable String category,
             @PathVariable Optional<Integer> page,
             Model model) {
-        SearchProduct searchProductModel = null;
-        if(!searchProduct.isPresent()) {
-            searchProductModel = new SearchProduct();
-            model.addAttribute(SEARCH_PRODUCT, searchProduct);
-        } else {
-            searchProductModel = searchProduct.get();
-        }
-        Page<Product> productPage = productService.search(searchProductModel, page.isPresent() ? page.get() : 0, category);
+        logger.info("Search Product: " + searchProduct.toString());
+        Page<Product> productPage = productService.search(searchProduct, page.isPresent() ? page.get() : 0, category);
         model.addAttribute(PRODUCT_PAGE_RESULTS, productPage);
         return "frontend/product/list/categories";
     }

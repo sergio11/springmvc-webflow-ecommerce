@@ -12,7 +12,7 @@ public class SearchProduct implements Serializable {
     private StockAvailabilityEnum avaliability;
     private Double priceMin;
     private Double priceMax;
-    private ProductSortEnum sort;
+    private ProductSortEnum sort = ProductSortEnum.DEFAULT;
     private Integer limit = 20;
 
     public String getQuery() {
@@ -62,4 +62,11 @@ public class SearchProduct implements Serializable {
     public void setLimit(Integer limit) {
         this.limit = limit;
     }
+
+    @Override
+    public String toString() {
+        return "SearchProduct{" + "query=" + query + ", avaliability=" + avaliability + ", priceMin=" + priceMin + ", priceMax=" + priceMax + ", sort=" + sort + ", limit=" + limit + '}';
+    }
+    
+    
 }

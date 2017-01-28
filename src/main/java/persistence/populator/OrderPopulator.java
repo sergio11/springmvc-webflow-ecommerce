@@ -64,8 +64,8 @@ public class OrderPopulator implements Serializable {
         
         List<ProductLine> lines = productLineRepository.findByProductName("Nike Air Max 2017");
         ProductLine line = lines.get(0);
-        
         OrderLine orderLine = new OrderLine(order1, line, 2, line.getProduct().getPrice() * 2, null);
+        
         order1.addOrderLine(orderLine);
         line.addOrderLine(orderLine);
         
@@ -75,6 +75,7 @@ public class OrderPopulator implements Serializable {
         
         try{
             orderRepository.deleteAll();
+            productLineRepository.save(line);
             orderRepository.save(orders);
         } catch(Exception e){
             logger.error(e.getMessage());
