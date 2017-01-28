@@ -75,7 +75,7 @@ public class ProductServiceImpl implements ProductService {
         Page<Product> pageProducts = productRepository.findFeaturedProducts(new PageRequest(0, 3));
         return pageProducts.getContent();
     }
-
+    
     @Override
     public List<Product> getTwoBestsellersProducts() {
         return null;
@@ -107,5 +107,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Page<Product> getByCategory(String slug, Integer page) {
         return productRepository.findByCategorySlug(slug, new PageRequest(page, 20));
+    }
+
+    @Override
+    public Long getNewFeedbacks() {
+        return reviewRepository.countByStatus(ReviewStatusEnum.PENDING);
     }
 }

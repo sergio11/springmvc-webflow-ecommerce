@@ -27,7 +27,7 @@ public class HomeController {
         // add featured products
         model.addAttribute("featured", productService.getThreeFeaturedProducts());
         // add bestsellers products
-        //model.addAttribute("bestsellers", arrivals);
+        model.addAttribute("bestsellers", productService.getTwoBestsellersProducts());
         return "frontend/index";
     }
 }

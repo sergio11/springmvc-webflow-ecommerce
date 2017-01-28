@@ -39,7 +39,7 @@ xmlns:th="http://www.thymeleaf.org">
                     <div class="col-md-6 col-sm-6 additional-nav">
                         <ul class="list-unstyled list-inline pull-right">
                             <li><a href="#" sec:authorize="isAuthenticated()" th:text="#{topbar.myaccount}">My Account</a></li>
-                            <li><a href="#" th:text="#{topbar.checkout}">Checkout</a></li>
+                            <li><a href="#" th:text="#{topbar.checkout}" th:if="${ not @cartService.isEmpty() }">Checkout</a></li>
                             <li><a href="#" th:href="@{/login}" sec:authorize="!isAuthenticated()" th:text="#{topbar.login}">Log In</a></li>
                             <li sec:authorize="isAuthenticated()">
                                 <form th:action="@{/logout}" method="post" id="logoutForm" style="display: none;">

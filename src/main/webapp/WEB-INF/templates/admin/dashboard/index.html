@@ -10,16 +10,7 @@
         <div layout:fragment="content">
             <!-- BEGIN PAGE HEADER-->
             <div class="page-bar">
-                <ul class="page-breadcrumb">
-                    <li>
-                        <i class="fa fa-home"></i>
-                        <a href="index.html">Home</a>
-                        <i class="fa fa-angle-right"></i>
-                    </li>
-                    <li>
-                        <a href="#">Dashboard</a>
-                    </li>
-                </ul>
+                <th:block th:include="admin/fragments/header::breadcrumb(${ {{url:'admin/home',text:'breadcrumb.home'}} })"/>
                 <div class="page-toolbar">
                     <div id="dashboard-report-range" class="pull-right tooltips btn btn-sm btn-default" data-container="body" data-placement="bottom" data-original-title="Change dashboard date range">
                         <i class="icon-calendar"></i>&nbsp; <span class="thin uppercase visible-lg-inline-block"></span>&nbsp; <i class="fa fa-angle-down"></i>
@@ -39,7 +30,7 @@
                             <i class="fa fa-comments"></i>
                         </div>
                         <div class="details">
-                            <div class="number">1349</div>
+                            <div class="number" th:text="${feedbacks}">1349</div>
                             <div class="desc" th:text="#{admin.home.stats.feedbacks}">New Feedbacks</div>
                         </div>
                         <a class="more" href="javascript:;">
@@ -53,7 +44,10 @@
                             <i class="fa fa-bar-chart-o"></i>
                         </div>
                         <div class="details">
-                            <div class="number">12,5M$</div>
+                            <div class="number">
+                                <span th:text="${totalProfit}">0</span>
+                                <span>&euro;</span>
+                            </div>
                             <div class="desc" th:text="#{admin.home.stats.profit}">Total Profit</div>
                         </div>
                         <a class="more" href="javascript:;">
@@ -67,7 +61,7 @@
                             <i class="fa fa-shopping-cart"></i>
                         </div>
                         <div class="details">
-                            <div class="number">0</div>
+                            <div class="number" th:text="${newOrders}">0</div>
                             <div class="desc" th:text="#{admin.home.stats.orders}">New Orders</div>
                         </div>
                         <a class="more" href="javascript:;">
