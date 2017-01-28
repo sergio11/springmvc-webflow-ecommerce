@@ -17,7 +17,10 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import persistence.models.Authority;
+import persistence.models.ProductCategory;
+import web.admin.converters.ProductCategoryStringConverter;
 import web.admin.converters.StringAuthorityConverter;
+import web.admin.converters.StringProductCategoryConverter;
 import web.interceptors.LoadNewProductsHandlerInterceptor;
 import web.interceptors.LoadProductCategoriesHandlerInterceptor;
 
@@ -41,6 +44,9 @@ public class WebConfig extends WebMvcConfigurerAdapter{
     
     @Autowired
     private StringAuthorityConverter stringAuthorityConverter;
+    
+    @Autowired
+    private StringProductCategoryConverter stringProductCategoryConverter;
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
@@ -83,5 +89,7 @@ public class WebConfig extends WebMvcConfigurerAdapter{
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(String.class, Authority.class, stringAuthorityConverter);
+        registry.addConverter(String.class, ProductCategory.class, stringProductCategoryConverter);
+        registry.addConverter(ProductCategory.class, String.class, new ProductCategoryStringConverter());
     }
 }

@@ -102,4 +102,9 @@ public class ProductCategory implements Serializable {
             product.setCategory(this);
         }
     }
+
+    @Override
+    public String toString() {
+        return "ProductCategory{" + "id=" + id + ", slug=" + slug + ", name=" + name + '}';
+    }
 }

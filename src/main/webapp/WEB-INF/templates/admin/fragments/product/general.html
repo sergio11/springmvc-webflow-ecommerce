@@ -28,6 +28,31 @@
             </div>
             <div class="form-group">
                 <label class="col-md-2 control-label">
+                    <span th:text="#{admin.product.form.category.label}">Categories</span>:<span class="required">*</span>
+                </label>
+                <div class="col-md-10">
+                    <div class="form-control height-auto">
+                        <div class="scroller" style="height:275px;" data-always-visible="1">
+                            <ul class="list-unstyled">
+                                <li th:each="category: ${categories}">
+                                    <span th:text="${category.name}">Category Name</span>
+                                    <ul class="list-unstyled">
+                                        <li th:each="subcategory: ${category.subcategories}">
+                                            <label>
+                                                <input type="radio" th:field="*{category}" th:value="${subcategory.id}" />
+                                                <span th:text="${subcategory.name}">Footwear</span>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <span class="help-block" th:text="#{admin.product.form.category.help}"> select one or more categories </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">
                     <span th:text="#{admin.product.form.short.description.label}">Short Description</span>:<span class="required">*</span>
                 </label>
                 <div class="col-md-10">
