@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        
+        <!-- Paginator bar fragment -->
+        <th:block th:fragment="paginator(basePath)">
+            <div class="row">
+                <div class="col-md-4 col-sm-4 items-info" 
+                     th:text="#{frontend.search.result.total(${pageResults.getNumber()}, ${pageResults.getTotalPages()})}">Items 1 to 9 of 10 total</div>
+                <div class="col-md-8 col-sm-8">
+                    <ul class="pagination pull-right">
+                        <li th:if="${pageResults.hasPrevious()}">
+                            <a th:href="@{${basePath} + '/{page}'(page = ${pageResults.getNumber() - 1})}">&laquo;</a>
+                        </li>
+                        <li th:each="numPage:${pageResults.getTotalPages()}">
+                            <a th:href="@{${basePath} + '/{page}'(page = ${numPage})}">
+                                <span th:if="${numPage == pageResults.getNumber()}" th:text="${numPage}">2</span>
+                            </a>
+                        </li>
+                        <li th:if="${pageResults.hasNext()}">
+                            <a th:href="@{${basePath} + '/{page}'(page = ${pageResults.getNumber() + 1})}">&raquo;</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </th:block>
+        
+    </body>
+</html>

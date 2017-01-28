@@ -34,6 +34,7 @@ public class ProductController {
     
     public static final String SEARCH_PRODUCT = "searchProduct";
     public static final String BINDING_SEARCH_PRODUCT = "org.springframework.validation.BindingResult." + SEARCH_PRODUCT;
+    public static final String PRODUCT_PAGE_RESULTS = "pageResults";
     
     @Autowired
     private ProductService productService;
@@ -45,12 +46,14 @@ public class ProductController {
     }
     
     @GetMapping("/search")
-    public String search(@RequestParam(value="query", required = true) String query, RedirectAttributes model){
+    public String search(
+            @RequestParam(value="query", required = true) String query, 
+            RedirectAttributes model){
         SearchProduct searchProduct = new SearchProduct();
         searchProduct.setQuery(query);
         Page<Product> productPage = productService.search(query);
         model.addFlashAttribute(SEARCH_PRODUCT, searchProduct);
-        model.addFlashAttribute("productPage", productPage);
+        model.addFlashAttribute(PRODUCT_PAGE_RESULTS, productPage);
         return "redirect:/products/search-result";
     }
     
@@ -65,26 +68,35 @@ public class ProductController {
             return url;
         }
         Page<Product> productPage = productService.search(searchProduct);
-        model.addFlashAttribute("productPage", productPage);
+        model.addFlashAttribute(PRODUCT_PAGE_RESULTS, productPage);
         return url;
     }
     
-    @GetMapping("/search-result")
-    public String result(Model model){
+    @GetMapping( value = { "/search-result" })
+    public String result(Model model) {
         model.addAttribute("bestsellers", new ArrayList<Product>());
         return "frontend/product/list/search_result";
     }
     
-    @GetMapping( value = { "/search-result/page/", "/search-result/page", "/search-result/page/{page}" } )
+    @GetMapping( value = { "/search-result/{page}" } )
     public String result(
-            @ModelAttribute(SEARCH_PRODUCT) SearchProduct searchProduct,
-            @PathVariable Optional<Integer> page,
+            @ModelAttribute(SEARCH_PRODUCT) Optional<SearchProduct> searchProduct,
+            @PathVariable Integer page,
             Model model) {
+        
+        SearchProduct searchProductModel = null;
+        if(!searchProduct.isPresent()) {
+            searchProductModel = new SearchProduct();
+            model.addAttribute(SEARCH_PRODUCT, searchProduct);
+        } else {
+            searchProductModel = searchProduct.get();
+        }
+        Page<Product> productPage = productService.search(searchProductModel, page);
         model.addAttribute("bestsellers", new ArrayList<Product>());
-        Page<Product> productPage = productService.search(searchProduct, page.isPresent() ? page.get() : 0);
-        model.addAttribute("productPage", productPage);
+        model.addAttribute(PRODUCT_PAGE_RESULTS, productPage);
         return "frontend/product/list/search_result";
     }
+    
     
     @GetMapping( value = { "/categories/{category}", "/categories/{category}/", "/categories/{category}/{page}" })
     public String result(
@@ -93,7 +105,7 @@ public class ProductController {
             Model model) {
         Page<Product> productPage = productService.getByCategory(category, page.isPresent() ? page.get() : 0);
         model.addAttribute(SEARCH_PRODUCT, new SearchProduct());
-        model.addAttribute("productPage", productPage);
+        model.addAttribute(PRODUCT_PAGE_RESULTS, productPage);
         return "frontend/product/list/categories";
     }
 }

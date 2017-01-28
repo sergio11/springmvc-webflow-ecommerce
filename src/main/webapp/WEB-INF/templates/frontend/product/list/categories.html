@@ -2,10 +2,12 @@
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      layout:decorator="frontend/product/list/layout">
+      layout:decorator="frontend/product/list/layout"
+      th:with="paginatorBasePath = '/products/categories/' + ${category}">
     <head>
         <title th:text="#{frontend.product.list.title}">Products List</title>
     </head>
     <body>
+        
     </body>
 </html>

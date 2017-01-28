@@ -54,10 +54,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="alert alert-info" th:if="${productPage == null}">
+                        <div class="alert alert-info" th:if="${pageResults == null}">
                             <p th:text="#{frontend.search.result.not.filter}">No filter specified</p>
                         </div>
-                        <th:block th:if="${productPage != null}" th:with="results = ${productPage.content}">
+                        <th:block th:if="${pageResults != null}" th:with="results = ${pageResults.content}">
                             <!-- BEGIN PRODUCT LIST -->
                             <div class="row product-list">
                                 <div class="alert alert-info" th:if="${#lists.isEmpty(results)}">
@@ -70,25 +70,7 @@
                             </div>
                             <!-- END PRODUCT LIST -->
                             <!-- BEGIN PAGINATOR -->
-                            <div class="row">
-                                <div class="col-md-4 col-sm-4 items-info" 
-                                     th:text="#{frontend.search.result.total(${productPage.getNumber()}, ${productPage.getTotalPages()})}">Items 1 to 9 of 10 total</div>
-                                <div class="col-md-8 col-sm-8">
-                                    <ul class="pagination pull-right">
-                                        <li th:if="${productPage.hasPrevious()}">
-                                            <a th:href="@{/search-result/page/{page}(page = ${productPage.getNumber() - 1})}">&laquo;</a>
-                                        </li>
-                                        <li th:each="numPage:${productPage.getTotalPages()}">
-                                            <a th:href="@{/search-result/page/{page}(page = ${numPage})}">
-                                                <span th:if="${numPage == productPage.getNumber()}" th:text="${numPage}">2</span>
-                                            </a>
-                                        </li>
-                                        <li th:if="${productPage.hasNext()}">
-                                            <a th:href="@{/search-result/page/{page}(page = ${productPage.getNumber() + 1})}">&raquo;</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                            <th:block th:include="frontend/fragments/global::paginator(${paginatorBasePath})" />
                             <!-- END PAGINATOR -->
                         </th:block>
                     </div>

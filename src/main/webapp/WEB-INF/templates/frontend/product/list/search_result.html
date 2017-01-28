@@ -2,7 +2,8 @@
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      layout:decorator="frontend/product/list/layout">
+      layout:decorator="frontend/product/list/layout"
+      th:with="paginatorBasePath = '/products/search-result">
     <head>
         <title th:text="#{frontend.search.result.title}">Products Result Search</title>
     </head>
