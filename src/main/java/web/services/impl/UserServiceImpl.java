@@ -1,7 +1,9 @@
 package web.services.impl;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import persistence.models.Address;
 import persistence.models.User;
-import persistence.repositories.AddressRepository;
+import persistence.repositories.OrderRepository;
 import persistence.repositories.UserRepository;
 import web.events.user.ChangePasswordEvent;
 import web.models.upload.RequestUploadAvatarFile;
@@ -31,6 +33,8 @@ public class UserServiceImpl implements UserService {
     
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private OrderRepository orderRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
@@ -76,5 +80,21 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByUsername(username);
         logger.info("Address count: " +  user.getAddresses().size());
         return user.getAddresses();
+    }
+
+    @Override
+    public Long getTotalPurchases(Long id) {
+        return orderRepository.countByCustomerId(id);
+    }
+
+    @Override
+    public Double getTotalSpent(Long id) {
+        return orderRepository.getTotalSpentByUser(id);
+    }
+
+    @Override
+    public Double getTotalSpentThisMonth(Long id) {
+        Calendar c = GregorianCalendar.getInstance();
+        return orderRepository.getTotalSpentByUserAndMonth(id, c.get(Calendar.MONTH));
     }
 }

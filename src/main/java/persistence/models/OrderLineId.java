@@ -16,6 +16,8 @@ public class OrderLineId implements Serializable {
     private Long orderId;
     @Column(name = "product_line_id")
     private Long productLineId;
+    
+    public OrderLineId(){}
 
     public OrderLineId(Long orderId, Long productLineId) {
         this.orderId = orderId;

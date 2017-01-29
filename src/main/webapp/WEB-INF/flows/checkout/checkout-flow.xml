@@ -47,7 +47,7 @@
     </action-state>
     
     <!-- This view state will show, when order was created succesfully -->
-    <view-state id="thankCustomerState" view="frontend/checkout/thankCustomer" model="order">
+    <view-state id="thankCustomerState" view="frontend/checkout/thankCustomer">
         <transition on="finish" to="finishCheckoutState" />
     </view-state>
 

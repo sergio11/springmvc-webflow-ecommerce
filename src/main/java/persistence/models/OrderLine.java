@@ -21,7 +21,7 @@ import javax.validation.constraints.Min;
 public class OrderLine implements Serializable {
     
     @EmbeddedId
-    private OrderLineId orderLineId;
+    private OrderLineId orderLineId = new OrderLineId();
     @MapsId("orderId") 
     @ManyToOne(fetch=FetchType.EAGER)
     private Order order;

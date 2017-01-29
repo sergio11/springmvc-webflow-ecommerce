@@ -48,7 +48,7 @@ public class Order implements Serializable {
     private Double purchasedPrice;
     @Enumerated(EnumType.STRING)
     @JsonView(DataTablesOutput.View.class)
-    private OrderStatusEnum status;
+    private OrderStatusEnum status = OrderStatusEnum.PENDING;
     @OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     private Set<OrderLine> orderLines = new HashSet();
     @ManyToOne(optional = false, fetch = FetchType.EAGER)

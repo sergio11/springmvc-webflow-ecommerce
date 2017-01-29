@@ -179,7 +179,6 @@
                                             <table class="table table-hover table-bordered table-striped">
                                                 <thead>
                                                     <tr>
-                                                        <th th:text="#{admin.order.view.cart.th.id}">id</th>
                                                         <th th:text="#{admin.order.view.cart.th.description}">Description</th>
                                                         <th th:text="#{admin.order.view.cart.th.quantity}">Quantity</th>
                                                         <th th:text="#{admin.order.view.cart.th.price}">Price</th>
@@ -188,7 +187,6 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr th:each="line: ${order.orderLines}">
-                                                        <td th:text="${line.id}">1</td>
                                                         <td th:text="${line.productLine.description}">description</td>
                                                         <td th:text="${line.quantity}">1</td>
                                                         <td>

@@ -49,7 +49,7 @@
         
         <!-- A fragment with wrapper form for basic personal information fragment -->
         <th:block th:fragment="form-basic(url)">
-            <form role="form" th:action="@{${url}}" method="post" th:object="${user}">
+            <form role="form" class="form form-horizontal" th:action="@{${url}}" method="post" th:object="${user}">
                 <th:block th:replace="admin/fragments/alerts::form-errors"></th:block>
                 <th:block th:include="this::basic" th:remove="tag"/>
                 <div class="margiv-top-10">
@@ -61,7 +61,7 @@
                 
         <!-- A fragment with wrapper form for remove user -->
         <th:block th:fragment="form-remove(remove, back)">
-            <form role="form" th:action="@{${remove}}" method="post" th:object="${user}">
+            <form role="form" class="form form-horizontal" th:action="@{${remove}}" method="post" th:object="${user}">
                 <th:block th:include="this::basic" th:remove="tag"/>
                 <div class="margiv-top-10">
                     <input type="submit" class="btn red-haze" value="Remove" th:value="#{common.btns.remove}"/>

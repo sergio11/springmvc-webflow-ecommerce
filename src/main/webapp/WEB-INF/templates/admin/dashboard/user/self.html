@@ -16,20 +16,7 @@
                 <small sec:authentication="principal.fullName">Sergio Sánchez</small>
             </h3>
             <div class="page-bar">
-                <ul class="page-breadcrumb">
-                    <li>
-                        <i class="fa fa-home"></i>
-                        <a href="index.html">Home</a>
-                        <i class="fa fa-angle-right"></i>
-                    </li>
-                    <li>
-                        <a href="#">Pages</a>
-                        <i class="fa fa-angle-right"></i>
-                    </li>
-                    <li>
-                        <a href="#">User Account</a>
-                    </li>
-                </ul>
+                <th:block th:include="admin/fragments/header::breadcrumb(${ {{url:'admin/home',text:'breadcrumb.home'},{url:'admin/users/self',text:'breadcrumb.self'}} })"/>
             </div>
             <!-- BEGIN PAGE CONTENT-->
             <div class="row margin-top-20">
@@ -59,8 +46,8 @@
                             <!-- STAT -->
                             <div class="row list-separated profile-stat">
                                 <div class="col-md-4 col-sm-4 col-xs-6">
-                                    <div class="uppercase profile-stat-title">
-                                        37
+                                    <div class="uppercase profile-stat-title" th:text="${purchases}">
+                                        0
                                     </div>
                                     <div class="uppercase profile-stat-text" th:text="#{admin.user.account.stat.total.purchases}">
                                         Total Purchases
@@ -68,15 +55,15 @@
                                 </div>
                                 <div class="col-md-4 col-sm-4 col-xs-6">
                                     <div class="uppercase profile-stat-title">
-                                        51
+                                        <span th:text="${totalSpentByMonth}">0</span><span>&euro;</span>
                                     </div>
                                     <div class="uppercase profile-stat-text" th:text="#{admin.user.account.stat.total.spent.this.month}">
                                         Total Spent this Month
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-sm-4 col-xs-6">
-                                    <div class="uppercase profile-stat-title">
-                                        61
+                                    <div class="uppercase profile-stat-title" >
+                                        <span th:text="${totalSpent}">0</span><span>&euro;</span>
                                     </div>
                                     <div class="uppercase profile-stat-text" th:text="#{admin.user.account.stat.total.spent}">
                                         Total Spent

@@ -14,4 +14,7 @@ public interface UserService {
     void create(User user, MultipartFile avatarFile);
     boolean hasAddresses(String username);
     Set<Address> getAddresses(String username);
+    Long getTotalPurchases(Long id);
+    Double getTotalSpent(Long id);
+    Double getTotalSpentThisMonth(Long id);
 }

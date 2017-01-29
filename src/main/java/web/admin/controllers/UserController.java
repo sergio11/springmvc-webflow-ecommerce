@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import persistence.models.User;
 import persistence.repositories.UserRepository;
+import security.CurrentUser;
 import web.admin.exceptions.UserNotFoundException;
 import web.services.UserService;
 
@@ -51,6 +52,14 @@ public class UserController {
     @GetMapping("/all")
     public String all(Model model){
         return "admin/dashboard/user/all";
+    }
+    
+    @GetMapping("/self")
+    public String self(@CurrentUser User currentUser, Model model){
+        model.addAttribute("purchases", userService.getTotalPurchases(currentUser.getId()));
+        model.addAttribute("totalSpent", userService.getTotalSpent(currentUser.getId()));
+        model.addAttribute("totalSpentByMonth", userService.getTotalSpentThisMonth(currentUser.getId()));
+        return "admin/dashboard/user/self";
     }
     
     @GetMapping("/create")

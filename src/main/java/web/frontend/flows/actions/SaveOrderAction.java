@@ -18,6 +18,7 @@ import web.services.CartService;
  * @author sergio
  */
 @Component
+@Transactional
 public class SaveOrderAction extends AbstractAction {
     
     @Autowired
@@ -27,7 +28,6 @@ public class SaveOrderAction extends AbstractAction {
     private UserRepository userRepository;
 
     @Override
-    @Transactional
     protected Event doExecute(RequestContext context) throws Exception {
         try {
             Order order = (Order) context.getFlowScope().get("order");
