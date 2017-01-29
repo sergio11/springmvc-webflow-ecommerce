@@ -41,7 +41,7 @@ public class ProductLine implements Serializable {
     private String description;
     @ManyToOne(optional=false, fetch = FetchType.EAGER)
     private Product product;
-    @OneToMany(mappedBy = "productLine", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "productLine", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<OrderLine> orderLines = new HashSet();
     
     public Long getId() {

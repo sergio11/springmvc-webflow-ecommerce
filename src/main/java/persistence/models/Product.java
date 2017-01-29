@@ -30,6 +30,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
+import org.springframework.format.annotation.DateTimeFormat;
 import persistence.constraints.AfterTomorrow;
 import persistence.constraints.ValidateDateRange;
 
@@ -72,9 +73,11 @@ public class Product implements Serializable {
 
     @NotNull(message="{product.availableFrom.notnull}")
     @AfterTomorrow(message = "{product.availableFrom.future}")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     @Column(nullable = false)
     private Date availableFrom;
     
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     @Column(nullable = true)
     private Date availableTo;
     
@@ -85,6 +88,7 @@ public class Product implements Serializable {
     private Set<Review> reviews = new HashSet();
     
     @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     @Column(nullable = false)
     @JsonView(DataTablesOutput.View.class)
     private Date createAt = new Date();

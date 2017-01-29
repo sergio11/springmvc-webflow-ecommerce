@@ -3,6 +3,7 @@ package persistence.populator;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +24,6 @@ import persistence.models.User;
 import persistence.repositories.ProductCategoryRepository;
 import persistence.repositories.ProductRepository;
 import persistence.repositories.UserRepository;
-
 
 /**
  * @author sergio
@@ -51,9 +51,8 @@ public class ProductPopulator implements Serializable {
        
         List<Product> products = new ArrayList();
         
-        Calendar c = Calendar.getInstance();
+        Calendar c = GregorianCalendar.getInstance();
         c.add(Calendar.DATE, 3);
-        
         Product product = new Product();
         product.setName("Nike Air Max 2017");
         product.setConsumerType(ConsumerTypeEnum.MAN);
@@ -63,6 +62,8 @@ public class ProductPopulator implements Serializable {
         product.setDescription("Las zapatillas de running Nike Air Max 2017 para hombre, diseñadas a la perfección con la sujeción y la transpirabilidad adecuadas donde más lo necesitas, cuentan con una parte superior Flymesh que se combina con la suave amortiguación de la unidad Max Air de longitud completa.");
         product.setStatus(ProductStatusEnum.PUBLISHED);
         product.setCategory(productCategoryRepository.findBySlug("running"));
+        
+        logger.info("Product To Save: " + product.toString());
         
         Review review = new Review();
         review.setProduct(product);

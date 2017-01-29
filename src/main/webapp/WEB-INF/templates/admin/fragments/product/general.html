@@ -65,8 +65,8 @@
                     <span th:text="#{admin.product.form.avaliabledate.label}">Available Date</span>:<span class="required">*</span>
                 </label>
                 <div class="col-md-10">
-                    <div class="input-group input-large date-picker input-daterange" data-date="10/11/2012" data-date-format="mm/dd/yyyy">
-                        <input type="text" class="form-control" th:field="*{availableFrom}">
+                    <div class="input-group input-large date-picker input-daterange">
+                        <input type="text" class="form-control" th:field="*{availableFrom}" >
                         <span class="input-group-addon">to</span>
                         <input type="text" class="form-control" th:field="*{availableTo}">
                     </div>

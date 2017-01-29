@@ -75,7 +75,6 @@ public class OrderPopulator implements Serializable {
         
         try{
             orderRepository.deleteAll();
-            productLineRepository.save(line);
             orderRepository.save(orders);
         } catch(Exception e){
             logger.error(e.getMessage());

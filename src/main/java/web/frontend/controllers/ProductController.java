@@ -32,7 +32,6 @@ import web.services.ProductService;
 public class ProductController {
     
     private static Logger logger = LoggerFactory.getLogger(web.admin.controllers.ProductController.class);
-    
     public static final String SEARCH_PRODUCT = "searchProduct";
     public static final String BINDING_SEARCH_PRODUCT = "org.springframework.validation.BindingResult." + SEARCH_PRODUCT;
     public static final String PRODUCT_PAGE_RESULTS = "pageResults";
@@ -41,7 +40,7 @@ public class ProductController {
     private ProductService productService;
     
     @ModelAttribute(SEARCH_PRODUCT)
-    public SearchProduct getUserObject() {
+    protected SearchProduct getSearchProduct() {
         return new SearchProduct();
     }
     
@@ -92,7 +91,6 @@ public class ProductController {
             @ModelAttribute(SEARCH_PRODUCT) SearchProduct searchProduct,
             @PathVariable Integer page,
             Model model) {
-       
         Page<Product> productPage = productService.search(searchProduct, page);
         model.addAttribute("bestsellers", new ArrayList<Product>());
         model.addAttribute(PRODUCT_PAGE_RESULTS, productPage);
@@ -105,7 +103,6 @@ public class ProductController {
             @PathVariable String category,
             @PathVariable Optional<Integer> page,
             Model model) {
-        logger.info("Search Product: " + searchProduct.toString());
         Page<Product> productPage = productService.search(searchProduct, page.isPresent() ? page.get() : 0, category);
         model.addAttribute(PRODUCT_PAGE_RESULTS, productPage);
         return "frontend/product/list/categories";

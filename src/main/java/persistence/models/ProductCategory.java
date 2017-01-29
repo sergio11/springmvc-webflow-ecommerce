@@ -37,7 +37,7 @@ public class ProductCategory implements Serializable {
     @OneToMany(mappedBy="parent", fetch = FetchType.EAGER)
     private Set<ProductCategory> subcategories = new HashSet();
     
-    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
     private Set<Product> products = new HashSet();
 
     public Long getId() {
