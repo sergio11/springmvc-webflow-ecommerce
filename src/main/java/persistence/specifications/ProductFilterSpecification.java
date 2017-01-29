@@ -42,6 +42,14 @@ public class ProductFilterSpecification implements Specification<Product> {
         if (filterProduct.getName() != null && !filterProduct.getName().isEmpty()) {
             predicates.add(cb.like(cb.lower(root.get(Product_.name)), "%" + filterProduct.getName().toLowerCase() + "%"));
         }
+        // filter by create from
+        if(filterProduct.getCreatedFrom() != null) {
+            predicates.add(cb.greaterThanOrEqualTo(root.get(Product_.createAt), filterProduct.getCreatedFrom()));
+        }
+        // filter by create to
+        if(filterProduct.getCreateTo() != null) {
+            predicates.add(cb.lessThanOrEqualTo(root.get(Product_.createAt), filterProduct.getCreateTo()));
+        }
         // filter by status
         if (filterProduct.getStatus() != null) {
             predicates.add(cb.equal(root.get(Product_.status), filterProduct.getStatus()));
