@@ -33,6 +33,7 @@
              <evaluate expression="addressFormAction.bindAndValidate"/>
              <evaluate expression="saveAddressAction" />
         </transition>
+        <transition on="cancelCreate" to="backToPrevState" />
         <on-exit>
             <evaluate expression="addressFormAction.resetForm" />
         </on-exit>

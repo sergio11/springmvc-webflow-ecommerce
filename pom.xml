@@ -210,21 +210,6 @@
             <scope>runtime</scope>
         </dependency>
         <!-- Flash messages -->
-        <dependency>
-            <groupId>es.sandbox.ui.messages</groupId>
-            <artifactId>flash-messages-core</artifactId>
-            <version>${flash-messages.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>es.sandbox.ui.messages</groupId>
-            <artifactId>flash-messages-spring</artifactId>
-            <version>${flash-messages.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>es.sandbox.ui.messages</groupId>
-            <artifactId>flash-messages-thymeleaf</artifactId>
-            <version>${flash-messages.version}</version>
-        </dependency>
     </dependencies>
 
     <build>

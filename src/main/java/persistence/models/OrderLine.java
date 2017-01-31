@@ -26,7 +26,7 @@ public class OrderLine implements Serializable {
     @ManyToOne(fetch=FetchType.EAGER)
     private Order order;
     @MapsId("productLineId")
-    @ManyToOne(fetch=FetchType.EAGER, cascade = { CascadeType.MERGE })
+    @ManyToOne(fetch=FetchType.EAGER)
     private ProductLine productLine;
     @Min(value = 1, message = "{order.line.quantity.min}")
     @Max(value = 999, message = "{order.line.quantity.max}")

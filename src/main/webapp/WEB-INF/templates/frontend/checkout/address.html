@@ -54,6 +54,8 @@
                         <div class="col-md-12">
                             <input type="hidden" name="_flowExecutionKey" th:value="${flowExecutionKey}" />
                             <button class="btn btn-primary  pull-right" name="_eventId_createAddress" type="submit" th:text="#{common.btns.save}">Create</button>
+                            <a class="btn btn-default pull-right margin-right-20" th:href="${flowExecutionUrl + '&_eventId=cancelCreate' }"
+                               th:text="#{frontend.checkout.address.cancel}">Cancel</a>
                         </div>
                     </form>
                 </div>

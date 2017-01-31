@@ -1,5 +1,7 @@
 package web.frontend.flows.actions;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.binding.message.MessageBuilder;
 import org.springframework.binding.message.MessageContext;
@@ -20,6 +22,8 @@ import web.services.CartService;
 @Component
 @Transactional
 public class SaveOrderAction extends AbstractAction {
+	
+	private static Logger logger = LoggerFactory.getLogger(SaveOrderAction.class);
     
     @Autowired
     private CartService cartService;
@@ -34,12 +38,13 @@ public class SaveOrderAction extends AbstractAction {
             String username = SecurityContextHolder.getContext().getAuthentication().getName();
             User user = userRepository.findByUsername(username);
             order.setCustomer(user);
+           
             // update user information with new order
             userRepository.save(user);
             // remove all items from cart
             cartService.removeAllItems();
             // put the order on the flow again
-            context.getFlowScope().put("order", order);
+            //context.getFlowScope().put("order", order);
             return success();
         }catch(Exception ex){
             MessageContext messageContext = context.getMessageContext();
