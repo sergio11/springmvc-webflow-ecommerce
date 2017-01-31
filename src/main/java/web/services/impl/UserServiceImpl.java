@@ -95,6 +95,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public Double getTotalSpentThisMonth(Long id) {
         Calendar c = GregorianCalendar.getInstance();
-        return orderRepository.getTotalSpentByUserAndMonth(id, c.get(Calendar.MONTH));
+        return orderRepository.getTotalSpentByUserAndMonth(id, c.get(Calendar.MONTH) + 1);
     }
 }

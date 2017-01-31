@@ -1,6 +1,5 @@
 package persistence.repositories;
 
-import java.util.Date;
 import org.springframework.data.jpa.datatables.repository.DataTablesRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
