@@ -29,7 +29,7 @@ import web.interceptors.LoadProductCategoriesHandlerInterceptor;
  */
 @Configuration
 @EnableWebMvc
-@Import(value = { ViewConfig.class, i18nConfig.class, WebFlowConfig.class })
+@Import(value = { ViewConfig.class, i18nConfig.class, WebFlowConfig.class, JasperConfig.class })
 @ComponentScan(value = "web")
 public class WebConfig extends WebMvcConfigurerAdapter{
     

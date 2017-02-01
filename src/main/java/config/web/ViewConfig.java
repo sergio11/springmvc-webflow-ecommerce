@@ -51,6 +51,7 @@ public class ViewConfig implements ApplicationContextAware {
         engine.addDialect(new SpringSecurityDialect());
         return engine;
     }
+    
 
     /**
      * Implementation of the Spring MVC ViewResolver interface.

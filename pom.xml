@@ -281,7 +281,7 @@
 				</executions>
 				<configuration>
 					<sourceDirectory>src/main/resources/jrxml</sourceDirectory>
-					<outputDirectory>${project.build.directory}/jasper</outputDirectory>
+					<outputDirectory>${project.build.directory}/jasperreports</outputDirectory>
 				</configuration>
 			</plugin>
         </plugins>
