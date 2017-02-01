@@ -8,7 +8,7 @@ import org.springframework.web.servlet.view.jasperreports.JasperReportsMultiForm
 import org.springframework.web.servlet.view.jasperreports.JasperReportsViewResolver;
 
 @Configuration
-public final class JasperConfig {
+public class JasperConfig {
 	
 	@Autowired
 	private Environment env;

@@ -5,9 +5,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
 import persistence.models.Order;
 import persistence.repositories.OrderRepository;
 import web.admin.exceptions.OrderNotFoundException;
@@ -39,4 +42,14 @@ public class OrderController {
         model.addAttribute("order", order);
         return "admin/dashboard/order/show";
     }
+    
+    
+    @GetMapping("/report/{1}")
+	public ModelAndView report(ModelMap modelMap, ModelAndView modelAndView) {
+		//modelMap.put("datasource", getWidgets());
+		modelMap.put("format", "pdf");
+		modelAndView = new ModelAndView("rpt_order_detail", modelMap);
+		return modelAndView;
+	}
+    
 }
