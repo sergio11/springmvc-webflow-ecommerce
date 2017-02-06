@@ -1,5 +1,7 @@
 package config.persistence;
 
+import java.util.Map;
+
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import org.springframework.context.annotation.Bean;
@@ -23,11 +25,12 @@ public class PersistenceConfig {
     
     @Bean(name = "entityManagerFactory")
     public LocalContainerEntityManagerFactoryBean provideEntityManagerFactory(
-            DataSource datasource, JpaVendorAdapter jpaVendorAdapter) {
+            DataSource datasource, JpaVendorAdapter jpaVendorAdapter, Map<String, Object> jpaProperties) {
         LocalContainerEntityManagerFactoryBean emfb = new LocalContainerEntityManagerFactoryBean();
         emfb.setDataSource(datasource);
         emfb.setJpaVendorAdapter(jpaVendorAdapter);
         emfb.setPackagesToScan(PACKAGE_TO_SCAN_MODELS);
+        emfb.setJpaPropertyMap(jpaProperties);
         return emfb;
     }
     
