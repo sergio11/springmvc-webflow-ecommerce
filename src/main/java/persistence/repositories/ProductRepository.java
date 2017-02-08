@@ -11,7 +11,7 @@ import persistence.models.Product;
 /**
  * @author sergio
  */
-public interface ProductRepository extends DataTablesRepository<Product, Long> {
+public interface ProductRepository extends DataTablesRepository<Product, Long>, SearchableRepository<Product> {
     Product findByName(String name);
     List<Product> findFirst10ByOrderByCreateAtDesc();
     List<Product> findFirst3ByOrderByCreateAtDesc();

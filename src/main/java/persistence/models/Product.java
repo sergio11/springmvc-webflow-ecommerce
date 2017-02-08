@@ -28,6 +28,18 @@ import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.apache.lucene.analysis.core.LowerCaseFilterFactory;
+import org.apache.lucene.analysis.snowball.SnowballPorterFilterFactory;
+import org.apache.lucene.analysis.standard.StandardTokenizerFactory;
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.AnalyzerDef;
+import org.hibernate.search.annotations.DocumentId;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Parameter;
+import org.hibernate.search.annotations.TokenFilterDef;
+import org.hibernate.search.annotations.TokenizerDef;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -39,12 +51,24 @@ import persistence.constraints.ValidateDateRange;
  * @author sergio
  */
 @Entity
+@Indexed
 @Table(name = "PRODUCTS")
 @Inheritance(strategy = InheritanceType.JOINED)
 @ValidateDateRange(start="availableFrom", end="availableTo", message="{product.daterange.invalid}")
+@AnalyzerDef(name = "customanalyzer",
+tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class),
+filters = {
+  @TokenFilterDef(factory = LowerCaseFilterFactory.class),
+  @TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {
+    @Parameter(name = "language", value = "Spanish")
+  })
+})
 public class Product implements Serializable {
-    
-    @Id
+   
+	private static final long serialVersionUID = 1L;
+
+	@Id
+    @DocumentId
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonView(DataTablesOutput.View.class)
     private Long id;
@@ -53,6 +77,8 @@ public class Product implements Serializable {
     @Size(min=5, max=80, message="{product.name.size}")
     @Column(nullable = false, unique = true, length = 80)
     @JsonView(DataTablesOutput.View.class)
+    @Field
+    @Analyzer(definition = "customanalyzer")
     private String name;
     
     @Column(nullable = false, precision=5, scale=2)
@@ -64,11 +90,15 @@ public class Product implements Serializable {
     @NotBlank(message="{product.description.notnull}")
     @Size(min=30, max=300, message="{product.description.size}")
     @Column(nullable = false, length = 300)
+    @Field
+    @Analyzer(definition = "customanalyzer")
     private String description;
     
     @NotBlank(message="{product.shortDescription.notnull}")
     @Size(min=30, max=200, message="{product.shortDescription.size}")
     @Column(nullable = false, length = 200)
+    @Field
+    @Analyzer(definition = "customanalyzer")
     private String shortDescription;
 
     @NotNull(message="{product.availableFrom.notnull}")

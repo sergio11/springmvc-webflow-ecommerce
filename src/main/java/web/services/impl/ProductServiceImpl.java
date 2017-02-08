@@ -52,7 +52,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Page<Product> search(String query) {
-        return productRepository.findByNameIgnoreCaseContaining(query, new PageRequest(0, 20));
+        return productRepository.search(query, new PageRequest(0, 20));
     }
 
     @Override
