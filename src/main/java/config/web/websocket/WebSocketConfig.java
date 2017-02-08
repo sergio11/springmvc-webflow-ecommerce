@@ -13,26 +13,26 @@ import web.interceptors.SessionConnectInterceptor;
 @Configuration
 @EnableWebSocketMessageBroker
 public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
-	
-	@Override
+
+    @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
         config.enableSimpleBroker("/topic");
         config.setApplicationDestinationPrefixes("/app");
     }
 
-	@Override
-	public void registerStompEndpoints(StompEndpointRegistry registry) {
-		registry.addEndpoint("/order/new").withSockJS();
-	}
-	
-	@Override
-	public void configureClientInboundChannel(ChannelRegistration registration) {
-		registration.setInterceptors(provideSessionConnectInterceptor());
-	}
+    @Override
+    public void registerStompEndpoints(StompEndpointRegistry registry) {
+        registry.addEndpoint("/order/new").withSockJS();
+    }
 
-	@Bean
-	public SessionConnectInterceptor provideSessionConnectInterceptor() {
-		return new SessionConnectInterceptor();
-	}
+    @Override
+    public void configureClientInboundChannel(ChannelRegistration registration) {
+        registration.setInterceptors(provideSessionConnectInterceptor());
+    }
+
+    @Bean
+    public SessionConnectInterceptor provideSessionConnectInterceptor() {
+        return new SessionConnectInterceptor();
+    }
 
 }
