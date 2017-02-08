@@ -2,6 +2,8 @@ package web.admin.controllers;
 
 
 import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.slf4j.Logger;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,13 +21,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import persistence.models.Product;
 import persistence.repositories.ProductRepository;
 import web.admin.exceptions.ProductNotFoundException;
 import org.springframework.web.bind.annotation.RequestParam;
 import persistence.models.ProductLine;
 import persistence.models.ReviewStatusEnum;
+import persistence.projection.ProductReport;
 import persistence.repositories.ReviewRepository;
 
 /**
@@ -52,6 +59,16 @@ public class ProductController {
         model.addAttribute("products",  new ArrayList<Product>());
         return "admin/dashboard/product/all";
     }
+    
+    @GetMapping("/report")
+    public ModelAndView report(ModelMap modelMap, ModelAndView modelAndView) {
+    	List<ProductReport> products = productsRepository.findAllProductForReport();
+    	JRBeanCollectionDataSource dataset = new JRBeanCollectionDataSource(products);
+    	modelMap.put("format", "pdf");
+		modelMap.put("ProductsItemSource", dataset);
+		modelAndView = new ModelAndView("rpt_all_products", modelMap);
+		return modelAndView;
+	} 
     
     @GetMapping("/create")
     public String create(Model model){
