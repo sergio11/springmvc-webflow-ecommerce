@@ -1,7 +1,6 @@
 package config.persistence;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -45,10 +44,10 @@ public class VendorAdapterConfig {
     
     @Profile("development")
     @Bean(name = "jpaProperties")
-    public Map<String, Object> provideJpaProperties() {
-    	Map<String, Object> jpaProperties = new HashMap<String, Object>();
-    	jpaProperties.put("hibernate.search.default.directory_provider", "filesystem");
-    	jpaProperties.put("hibernate.search.default.indexBase", env.getProperty("hibernate.dev.search.default.indexBase", String.class));
-    	return jpaProperties;
+    public Properties provideJpaProperties() {
+    	Properties props = new Properties();
+    	props.put("hibernate.search.default.directory_provider", "filesystem");
+    	props.put("hibernate.search.default.indexBase", env.getProperty("hibernate.dev.search.default.indexBase", String.class));
+    	return props;
     } 
 }

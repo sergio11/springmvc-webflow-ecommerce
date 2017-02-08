@@ -13,9 +13,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Order;
-
+import persistence.models.Product_;
 import persistence.models.Product;
-import persistence.specifications.SearchCriteria;
 import web.models.search.ProductSortEnum;
 
 public class ProductRepositoryImpl extends AbstractSearchableJpaRepository<Product> {
