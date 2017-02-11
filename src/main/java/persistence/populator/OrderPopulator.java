@@ -12,14 +12,11 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 import persistence.models.OrderLine;
 import persistence.models.OrderStatusEnum;
-import persistence.models.Product;
 import persistence.models.User;
 import persistence.repositories.OrderRepository;
 import persistence.repositories.ProductLineRepository;
-import persistence.repositories.ProductRepository;
 import persistence.repositories.UserRepository;
 import persistence.models.Address;
 import persistence.models.ProductLine;
@@ -29,7 +26,6 @@ import persistence.models.ProductLine;
  */
 @Component
 @Profile("development")
-@Transactional
 public class OrderPopulator implements Serializable {
     
     private static Logger logger = LoggerFactory.getLogger(OrderPopulator.class);
@@ -75,7 +71,7 @@ public class OrderPopulator implements Serializable {
         
         try{
             orderRepository.deleteAll();
-            orderRepository.save(orders);
+            //orderRepository.save(orders);
         } catch(Exception e){
             logger.error(e.getMessage());
         }

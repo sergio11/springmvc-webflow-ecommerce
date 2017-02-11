@@ -12,10 +12,12 @@ import org.hibernate.search.query.dsl.sort.SortFieldContext;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 import persistence.models.Product;
 import persistence.models.Product_;
 import web.models.search.ProductSortEnum;
 
+@Transactional(readOnly = true)
 public class ProductRepositoryImpl extends AbstractSearchableJpaRepository<Product> {
 
     private Sort getQuerySort(QueryBuilder builder, ProductSortEnum productSort) {
@@ -43,11 +45,12 @@ public class ProductRepositoryImpl extends AbstractSearchableJpaRepository<Produ
 
     }
 
-    private FullTextQuery getFullTextQuery(String query) {
-
-        FullTextEntityManager manager = this.getFullTextEntityManager();
-
-        QueryBuilder builder = manager.getSearchFactory().buildQueryBuilder()
+    @Override
+    public Page<Product> search(String query, Pageable pageable) {
+        
+        FullTextEntityManager fullTextEntityManager = getFullTextEntityManager();
+       
+        QueryBuilder builder = fullTextEntityManager.getSearchFactory().buildQueryBuilder()
                 .forEntity(Product.class).get();
 
         Query lucene = builder.keyword()
@@ -55,12 +58,8 @@ public class ProductRepositoryImpl extends AbstractSearchableJpaRepository<Produ
                 .matching(query)
                 .createQuery();
 
-        return manager.createFullTextQuery(lucene, Product.class);
-    }
-
-    @Override
-    public Page<Product> search(String query, Pageable pageable) {
-        FullTextQuery q = getFullTextQuery(query);
+        FullTextQuery  q =  fullTextEntityManager.createFullTextQuery(lucene, Product.class);
+        
         q.setProjection(FullTextQuery.THIS, FullTextQuery.SCORE);
 
         long total = q.getResultSize();

@@ -14,10 +14,16 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @Import(value = { DataSourceConfig.class, VendorAdapterConfig.class, BeanValidationConfiguration.class })
-@EnableJpaRepositories(repositoryFactoryBeanClass = DataTablesRepositoryFactoryBean.class, basePackages = "persistence.repositories")
+@EnableTransactionManagement
+@EnableJpaRepositories(
+        repositoryFactoryBeanClass = DataTablesRepositoryFactoryBean.class,
+        transactionManagerRef = "transactionManager",
+        basePackages = "persistence.repositories"
+)
 @ComponentScan(value = "persistence.populator" )
 public class PersistenceConfig {
 

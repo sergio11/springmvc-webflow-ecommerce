@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <th:block th:fragment="stats">
+            <div class="portlet light ">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="icon-share font-red-sunglo"></i>
+                        <span class="caption-subject font-red-sunglo bold uppercase" th:text="#{admin.home.portlet.regional.stats.title}">Regional Stats</span>
+                    </div>
+                    <div class="actions">
+                        <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                            <i class="icon-cloud-upload"></i>
+                        </a>
+                        <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                            <i class="icon-wrench"></i>
+                        </a>
+                        <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="javascript:;">
+                        </a>
+                        <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                            <i class="icon-trash"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div id="region_statistics_loading">
+                        <img th:src="@{/assets/admin/layout/img/loading.gif}" alt="loading"/>
+                    </div>
+                    <div id="region_statistics_content" class="display-none">
+                        <div class="btn-toolbar margin-bottom-10">
+                            <div class="btn-group btn-group-circle" data-toggle="buttons">
+                                <a href="#" class="btn grey-salsa btn-sm active" 
+                                   th:text="#{admin.home.portlet.regional.stats.users}">Users</a>
+                                <a href="#" class="btn grey-salsa btn-sm"
+                                   th:text="#{admin.home.portlet.regional.stats.orders}">Orders </a>
+                            </div>
+                            <div class="btn-group pull-right">
+                                <a href="" class="btn btn-circle grey-salsa btn-sm dropdown-toggle" 
+                                   data-toggle="dropdown" 
+                                   data-hover="dropdown" 
+                                   data-close-others="true">
+                                    <span th:text="#{admin.home.portlet.regional.stats.select}">Select Region</span>
+                                    <span class="fa fa-angle-down"></span>
+                                </a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li>
+                                        <a href="javascript:;" id="regional_stat_world"
+                                           th:text="#{admin.home.portlet.regional.stats.country.world}">World</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" id="regional_stat_usa" 
+                                           th:text="#{admin.home.portlet.regional.stats.country.usa}">USA </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" id="regional_stat_europe"
+                                           th:text="#{admin.home.portlet.regional.stats.country.europe}">Europe</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" id="regional_stat_russia" 
+                                           th:text="#{admin.home.portlet.regional.stats.country.russia}">Russia </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:;" id="regional_stat_germany" 
+                                           th:text="#{admin.home.portlet.regional.stats.country.germany}">Germany</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="vmap_world" class="vmaps display-none">
+                        </div>
+                        <div id="vmap_usa" class="vmaps display-none">
+                        </div>
+                        <div id="vmap_europe" class="vmaps display-none">
+                        </div>
+                        <div id="vmap_russia" class="vmaps display-none">
+                        </div>
+                        <div id="vmap_germany" class="vmaps display-none">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </th:block>
+    </body>
+</html>

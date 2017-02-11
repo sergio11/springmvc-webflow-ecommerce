@@ -1,6 +1,7 @@
 package web.admin.controllers.rest;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import java.util.List;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import persistence.models.Order;
+import persistence.projection.OrdersByCountry;
 import persistence.repositories.OrderRepository;
 import persistence.specifications.OrderFilterSpecification;
 import web.models.datatables.DataTableOrderInput;
@@ -30,6 +32,11 @@ public class OrderRestController {
     @GetMapping("/data")
     public DataTablesOutput<Order> all(final @Valid DataTableOrderInput input) {
         return orderRepository.findAll(input, new OrderFilterSpecification(input.getFilter()));
+    }
+    
+    @GetMapping("/byCountry")
+    public List<OrdersByCountry> ordersByCountry() {
+        return orderRepository.getOrdersByCountry();
     }
     
 }

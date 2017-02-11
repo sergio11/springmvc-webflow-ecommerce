@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -124,6 +125,9 @@ public class User implements Serializable, UserDetails {
             inverseJoinColumns = @JoinColumn(name = "ADDRESS_ID", referencedColumnName = "ID")
     )
     private Set<Address> addresses = new HashSet();
+    
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Country country;
     
     @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     private Set<Order> orders = new HashSet();
@@ -247,10 +251,17 @@ public class User implements Serializable, UserDetails {
     public void addAddress(Address address){
         if(!addresses.contains(address)){
             addresses.add(address);
-        }
-            
+        }  
     }
 
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+    
     public Set<Order> getOrders() {
         return orders;
     }
