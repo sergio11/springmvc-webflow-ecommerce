@@ -58,24 +58,14 @@
 		<queryString>
 			<![CDATA[]]>
 		</queryString>
-		<field name="id" class="java.lang.Long">
-			<fieldDescription><![CDATA[Product Id]]></fieldDescription>
-		</field>
-		<field name="name" class="java.lang.String">
-			<fieldDescription><![CDATA[Product Name]]></fieldDescription>
-		</field>
-		<field name="price" class="java.lang.Double">
-			<fieldDescription><![CDATA[Product Price]]></fieldDescription>
-		</field>
-		<field name="createAt" class="java.sql.Date">
-			<fieldDescription><![CDATA[Product Create At]]></fieldDescription>
-		</field>
-		<field name="status" class="java.lang.String">
-			<fieldDescription><![CDATA[Product Status]]></fieldDescription>
-		</field>
+		<field name="id" class="java.lang.Long"></field>
+		<field name="name" class="java.lang.String"></field>
+		<field name="price" class="java.lang.Double"></field>
+		<field name="createAt" class="java.sql.Timestamp"></field>
+		<field name="status" class="java.lang.String"></field>
 	</subDataset>
 
-	<parameter name="ProductsItemSource" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<parameter name="ProductsItemSource" class="java.util.List"/>
         <parameter name="logo" class="java.io.InputStream"/>
 	<queryString>
 		<![CDATA[]]>
@@ -158,7 +148,7 @@
 				</reportElement>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="tableDataset" uuid="76f7c136-1d73-4f79-be45-bd10a2cc8451">
-						<dataSourceExpression><![CDATA[$P{ProductsItemSource}]]></dataSourceExpression>
+						<dataSourceExpression><![CDATA[ new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{ProductsItemSource}) ]]></dataSourceExpression>
 					</datasetRun>
 					<jr:column width="90" uuid="e5feb660-ddc0-4a95-b785-9f583a259a60">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>

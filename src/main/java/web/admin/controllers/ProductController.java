@@ -1,6 +1,7 @@
 package web.admin.controllers;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -22,7 +23,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.validation.annotation.Validated;
 import persistence.models.Product;
 import persistence.repositories.ProductRepository;
@@ -72,10 +72,9 @@ public class ProductController {
             throw new ProductsNotFoundException();
         }
         logger.info("Product to report: " + products.size());
-        JRBeanCollectionDataSource dataset = new JRBeanCollectionDataSource(products);
-        modelMap.put("logo", ClassLoader.getSystemResourceAsStream("invoice_logo.png"));
+        modelMap.put("logo", ClassLoader.getSystemClassLoader().getResourceAsStream("jasperreports/images/invoice_logo.png"));
         modelMap.put("format", format);
-        modelMap.put("ProductsItemSource", dataset);
+        modelMap.put("ProductsItemSource", products);
         modelAndView = new ModelAndView("rpt_all_products", modelMap);
         return modelAndView;
     }

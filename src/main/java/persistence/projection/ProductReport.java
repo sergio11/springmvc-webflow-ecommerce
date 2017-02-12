@@ -1,13 +1,13 @@
 package persistence.projection;
 
 import java.util.Date;
-
-import persistence.models.ProductStatusEnum;
+import org.springframework.beans.factory.annotation.Value;
 
 public interface ProductReport {
 	Long getId();
 	String getName();
 	Double getPrice();
 	Date getCreateAt();
-	ProductStatusEnum getStatus();
+        @Value("#{target.status.name()}")
+	String getStatus();
 }
