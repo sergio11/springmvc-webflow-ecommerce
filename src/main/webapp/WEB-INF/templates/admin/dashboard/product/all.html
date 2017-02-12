@@ -40,12 +40,10 @@
                                     </a>
                                     <ul class="dropdown-menu pull-right">
                                         <li>
-                                            <a href="javascript:;">
-                                                Export to Excel </a>
+                                            <a th:href="@{/admin/products/report?format=pdf}" th:text="#{common.export.to.pdf}">Export to PDF</a>
                                         </li>
                                         <li>
-                                            <a href="javascript:;">
-                                                Export to CSV </a>
+                                            <a th:href="@{/admin/products/report?format=excel}" th:text="#{common.export.to.excel}"> Export to Excel </a>
                                         </li>
                                         <li>
                                             <a href="javascript:;">

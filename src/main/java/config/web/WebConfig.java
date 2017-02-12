@@ -7,6 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -90,5 +91,10 @@ public class WebConfig extends WebMvcConfigurerAdapter{
         registry.addConverter(String.class, Authority.class, stringAuthorityConverter);
         registry.addConverter(String.class, ProductCategory.class, stringProductCategoryConverter);
         registry.addConverter(ProductCategory.class, String.class, new ProductCategoryStringConverter());
+    }
+    
+    @Bean
+    public MethodValidationPostProcessor methodValidationPostProcessor() {
+        return new MethodValidationPostProcessor();
     }
 }

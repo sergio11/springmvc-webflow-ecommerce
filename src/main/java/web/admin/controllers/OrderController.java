@@ -45,11 +45,11 @@ public class OrderController {
     
     
     @GetMapping("/report/{1}")
-	public ModelAndView report(ModelMap modelMap, ModelAndView modelAndView) {
-		//modelMap.put("datasource", getWidgets());
-		modelMap.put("format", "pdf");
-		modelAndView = new ModelAndView("rpt_order_detail", modelMap);
-		return modelAndView;
-	}
+    public ModelAndView report(ModelMap modelMap, ModelAndView modelAndView) {
+        //modelMap.put("datasource", getWidgets());
+        modelMap.put("format", "pdf");
+        modelAndView = new ModelAndView("rpt_order_detail", modelMap);
+        return modelAndView;
+    }
     
 }
