@@ -1,13 +1,19 @@
 package config.mahout;
 
 import javax.sql.DataSource;
+import org.apache.mahout.cf.taste.common.TasteException;
 import org.apache.mahout.cf.taste.impl.model.jdbc.MySQLJDBCDataModel;
+import org.apache.mahout.cf.taste.impl.model.jdbc.SQL92BooleanPrefJDBCDataModel;
+import org.apache.mahout.cf.taste.impl.model.jdbc.MySQLBooleanPrefJDBCDataModel;
+import org.apache.mahout.cf.taste.impl.model.jdbc.ReloadFromJDBCDataModel;
 import org.apache.mahout.cf.taste.impl.model.jdbc.SQL92JDBCDataModel;
 import org.apache.mahout.cf.taste.model.DataModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import persistence.models.TasteBoolPreferences;
 
 /**
  * @author sergio
@@ -19,14 +25,38 @@ public class DataModelConfig {
     private DataSource datasource;
     
     @Profile("development")
-    @Bean(name = "JDBCDataModel")
-    public DataModel provideSQL92JDBCDataModel(){
-        return new SQL92JDBCDataModel(datasource);
+    @Qualifier("DataModel")
+    @Bean(name = "SQL92JDBCDataModel")
+    public DataModel provideSQL92JDBCDataModel() throws TasteException{
+        return new ReloadFromJDBCDataModel(new SQL92JDBCDataModel(datasource));
+    }
+    
+    @Profile("development")
+    @Qualifier("BooleanPrefDataModel")
+    @Bean(name = "AbstractBooleanPrefJDBCDataModel")
+    public DataModel provideSQL92BooleanPrefJDBCDataModel() throws TasteException{
+        return new ReloadFromJDBCDataModel( new SQL92BooleanPrefJDBCDataModel(datasource, 
+                TasteBoolPreferences.TABLE_NAME, 
+                TasteBoolPreferences.COLUMN_USER_ID, 
+                TasteBoolPreferences.COLUMN_ITEM_ID,
+                TasteBoolPreferences.COLUMN_TIMESTAMP));
     }
     
     @Profile("production")
+    @Qualifier("DataModel")
     @Bean(name = "JDBCDataModel")
-    public DataModel provideMySQLJDBCDataModel(){
-        return new MySQLJDBCDataModel(datasource);
+    public DataModel provideMySQLJDBCDataModel() throws TasteException{
+        return new ReloadFromJDBCDataModel(new MySQLJDBCDataModel(datasource));
+    }
+    
+    @Profile("production")
+    @Qualifier("BooleanPrefDataModel")
+    @Bean(name = "AbstractBooleanPrefJDBCDataModel")
+    public DataModel provideMySQLBooleanPrefJDBCDataModel() throws TasteException {
+        return new ReloadFromJDBCDataModel(new MySQLBooleanPrefJDBCDataModel(datasource,
+                TasteBoolPreferences.TABLE_NAME,
+                TasteBoolPreferences.COLUMN_USER_ID,
+                TasteBoolPreferences.COLUMN_ITEM_ID,
+                TasteBoolPreferences.COLUMN_TIMESTAMP));
     }
 }
