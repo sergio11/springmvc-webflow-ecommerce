@@ -35,17 +35,17 @@ public class TasteBoolPreferences implements Serializable {
     private User user;
     @MapsId("itemId")
     @ManyToOne(fetch=FetchType.EAGER)
-    private Product product;
+    private Product item;
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date timestamp;
     
     public TasteBoolPreferences(){}
 
-    public TasteBoolPreferences(User user, Product product) {
-        this.tastePreferencesId = new TastePreferencesId(user.getId(), product.getId());
+    public TasteBoolPreferences(User user, Product item) {
+        this.tastePreferencesId = new TastePreferencesId(user.getId(), item.getId());
         this.user = user;
-        this.product = product;
+        this.item = item;
     }
     
     public TastePreferencesId getTastePreferencesId() {
@@ -64,12 +64,12 @@ public class TasteBoolPreferences implements Serializable {
         this.user = user;
     }
 
-    public Product getProduct() {
-        return product;
+    public Product getItem() {
+        return item;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setItem(Product item) {
+        this.item = item;
     }
 
     public Date getTimestamp() {
