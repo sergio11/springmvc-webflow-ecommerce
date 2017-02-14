@@ -26,7 +26,7 @@
         <mahout.integration.version>0.9</mahout.integration.version>
     </properties>
     
-    
+
     <dependencies>
         <dependency>
             <groupId>javax</groupId>

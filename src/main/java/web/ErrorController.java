@@ -27,6 +27,7 @@ public class ErrorController {
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String invalidData(final ConstraintViolationException ex){
+        logger.info("ConstraintViolationException");
         String referer = request.getHeader("Referer");
         return "redirect:"+referer;
     }

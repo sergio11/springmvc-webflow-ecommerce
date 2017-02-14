@@ -2,6 +2,8 @@ package persistence.populator;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -17,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import persistence.models.Address;
 import persistence.models.Authority;
 import persistence.models.AuthorityEnum;
+import persistence.models.Gender;
 import persistence.models.User;
 import persistence.repositories.AuthorityRepository;
 import persistence.repositories.CountryRepository;
@@ -45,6 +48,11 @@ public class SecurityPopulator implements Serializable {
         Set<Authority> authorities = new HashSet();
         List<User> users = new ArrayList();
        
+        Calendar c = GregorianCalendar.getInstance();
+        c.add(Calendar.DATE, 15);
+        c.add(Calendar.MONTH, 12);
+        c.add(Calendar.YEAR, 1992);
+        
         User user1 = new User();
         user1.setUsername("sergio11");
         user1.setPasswordClear("bisite00");
@@ -52,6 +60,8 @@ public class SecurityPopulator implements Serializable {
         user1.setPassword("$2a$10$0eCQpFRdw8i6jJzjj/IuNuKpJYnLaO5Yp9xSJ3itcfPmQNXVhmNyu");
         user1.setEmail("sss4esob@gmail.com");
         user1.setFullName("Sergio Sánchez Sánchez");
+        user1.setGender(Gender.MAN);
+        user1.setBirthday(c.getTime());
         users.add(user1);
         
         Address address = new Address();

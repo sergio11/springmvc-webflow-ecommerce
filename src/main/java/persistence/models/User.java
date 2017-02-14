@@ -2,6 +2,7 @@ package persistence.models;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -9,6 +10,8 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,6 +29,7 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import persistence.constraints.EmailUnique;
@@ -131,6 +135,14 @@ public class User implements Serializable, UserDetails {
     
     @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     private Set<Order> orders = new HashSet();
+    
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Gender gender = Gender.MAN;
+    
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @Column(nullable = false)
+    private Date birthday = new Date();
 
     public Long getId() {
         return id;
@@ -213,7 +225,6 @@ public class User implements Serializable, UserDetails {
             this.authorities.add(authority);
             authority.addUser(this);
         }
-        
     }
 
     public Boolean getEnabled() {
@@ -275,6 +286,43 @@ public class User implements Serializable, UserDetails {
             orders.add(order);
             order.setCustomer(this);
         }
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+    
+    public Integer getAge() {
+        Calendar today = Calendar.getInstance();
+        Calendar birthDate = Calendar.getInstance();
+        int age = 0;
+        birthDate.setTime(birthday);
+        if (birthDate.after(today)) {
+            throw new IllegalArgumentException("Can't be born in the future");
+        }
+        age = today.get(Calendar.YEAR) - birthDate.get(Calendar.YEAR);
+        // If birth date is greater than todays date (after 2 days adjustment of leap year) then decrement age one year   
+        if ((birthDate.get(Calendar.DAY_OF_YEAR) - today.get(Calendar.DAY_OF_YEAR) > 3)
+                || (birthDate.get(Calendar.MONTH) > today.get(Calendar.MONTH))) {
+            age--;
+            // If birth date and todays date are of same month and birth day of month is greater than todays day of month then decrement age
+        } else if ((birthDate.get(Calendar.MONTH) == today.get(Calendar.MONTH))
+                && (birthDate.get(Calendar.DAY_OF_MONTH) > today.get(Calendar.DAY_OF_MONTH))) {
+            age--;
+        }
+        return age;
     }
     
     @Override
