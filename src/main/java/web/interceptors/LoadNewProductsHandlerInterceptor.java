@@ -15,13 +15,13 @@ import web.services.ProductService;
  */
 @Component
 public class LoadNewProductsHandlerInterceptor extends HandlerInterceptorAdapter {
-    
+
     @Autowired
     private ProductService productService;
-    
+
     // The name under which the categories are localled
     public static final String ATTRIBUTE_NAME = "newproducts";
-    
+
     @Override
     public void postHandle(HttpServletRequest request,
             HttpServletResponse response,

@@ -15,13 +15,13 @@ import persistence.repositories.ProductCategoryRepository;
  */
 @Component
 public class LoadProductCategoriesHandlerInterceptor extends HandlerInterceptorAdapter {
-    
+
     @Autowired
     private ProductCategoryRepository productCategoryRepository;
-    
+
     // The name under which the categories are localled
     public static final String ATTRIBUTE_NAME = "categories";
-    
+
     @Override
     public void postHandle(HttpServletRequest request,
             HttpServletResponse response,
