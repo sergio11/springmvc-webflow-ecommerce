@@ -2,33 +2,34 @@ package config.mahout;
 
 import org.apache.mahout.cf.taste.common.TasteException;
 import org.apache.mahout.cf.taste.impl.model.PlusAnonymousUserDataModel;
+import org.apache.mahout.cf.taste.impl.neighborhood.NearestNUserNeighborhood;
+import org.apache.mahout.cf.taste.impl.recommender.CachingRecommender;
+import org.apache.mahout.cf.taste.impl.recommender.GenericUserBasedRecommender;
+import org.apache.mahout.cf.taste.impl.similarity.TanimotoCoefficientSimilarity;
 import org.apache.mahout.cf.taste.model.DataModel;
+import org.apache.mahout.cf.taste.neighborhood.UserNeighborhood;
+import org.apache.mahout.cf.taste.recommender.Recommender;
+import org.apache.mahout.cf.taste.similarity.UserSimilarity;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import persistence.repositories.ProductRepository;
-import persistence.repositories.UserRepository;
-import web.recommendation.recommender.CollaborativeFilteringRecommender;
-import web.recommendation.recommender.AnonymousRecommenderDecorator;
+
 /**
  * @author sergio
  */
 @Configuration
 public class RecommenderConfig {
     
-    @Bean(name = "CollaborativeFilteringRecommender")
-    private CollaborativeFilteringRecommender provideCollaborativeFilteringRecommender(
-            @Qualifier("DataModel") DataModel dataModel,
-            UserRepository userRepository,
-            ProductRepository productRepository) throws TasteException{
-        return new CollaborativeFilteringRecommender(dataModel, userRepository, productRepository);
-    }
-    
-    @Bean(name = "CollaborativeFilteringWithAnonymousRecommender")
-    private AnonymousRecommenderDecorator provideCollaborativeFilteringWithAnonymousRecommender(
-             @Qualifier("BooleanPrefDataModel") DataModel dataModel,
-            UserRepository userRepository,
-            ProductRepository productRepository) throws TasteException{
-        return new AnonymousRecommenderDecorator(new PlusAnonymousUserDataModel(dataModel), userRepository, productRepository);
+    @Bean(name = "AnonymousViewHistoryRecommender")
+    @Qualifier("AnonymousViewHistoryRecommender")
+    private Recommender provideAnonymousViewHistoryRecommender(
+            @Qualifier("BooleanPrefDataModel") DataModel dataModel) throws TasteException {
+        PlusAnonymousUserDataModel plusAnonymouDataModel = new PlusAnonymousUserDataModel(dataModel);
+        UserSimilarity userSimilarity = new TanimotoCoefficientSimilarity(plusAnonymouDataModel);
+        UserNeighborhood neighborhood = new NearestNUserNeighborhood(3,
+                userSimilarity, plusAnonymouDataModel);
+        Recommender recommender = new GenericUserBasedRecommender(plusAnonymouDataModel,
+                neighborhood, userSimilarity);
+        return new CachingRecommender(recommender);
     }
 }
