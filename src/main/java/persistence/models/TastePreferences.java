@@ -26,16 +26,16 @@ public class TastePreferences implements Serializable {
     private User user;
     @MapsId("itemId")
     @ManyToOne(fetch=FetchType.EAGER)
-    private Product item;
+    private ProductLine item;
     @Column(nullable = false)
     private Float preference;
     
     public TastePreferences(){}
 
-    public TastePreferences(User user, Product item, Float preference) {
+    public TastePreferences(User user, ProductLine item, Float preference) {
         this.tastePreferencesId = new TastePreferencesId(user.getId(), item.getId());
-        this.user = user;
-        this.item = item;
+        setUser(user);
+        setItem(item);
         this.preference = preference;
     }
     
@@ -53,14 +53,16 @@ public class TastePreferences implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+        user.addTastePreferences(this);
     }
 
-    public Product getItem() {
+    public ProductLine getItem() {
         return item;
     }
 
-    public void setItem(Product item) {
+    public void setItem(ProductLine item) {
         this.item = item;
+        item.addTastePreferences(this);
     }
 
     public Float getPreference() {

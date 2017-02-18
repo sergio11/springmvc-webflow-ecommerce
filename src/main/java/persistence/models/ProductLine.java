@@ -2,9 +2,7 @@ package persistence.models;
 
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -45,6 +43,8 @@ public class ProductLine implements Serializable {
     private Set<OrderLine> orderLines = new HashSet();
     @OneToMany(mappedBy = "item", fetch = FetchType.EAGER)
     private Set<TasteBoolPreference> tasteBoolPreferences = new HashSet<TasteBoolPreference>();
+    @OneToMany(mappedBy = "item", fetch = FetchType.EAGER)
+    private Set<TastePreferences> tastePreferences = new HashSet<TastePreferences>();
     
     public Long getId() {
         return id;
@@ -114,6 +114,21 @@ public class ProductLine implements Serializable {
         if(!tasteBoolPreferences.contains(tasteBoolPreference)) {
             tasteBoolPreferences.add(tasteBoolPreference);
             tasteBoolPreference.setItem(this);
+        }
+    }
+
+    public Set<TastePreferences> getTastePreferences() {
+        return tastePreferences;
+    }
+
+    public void setTastePreferences(Set<TastePreferences> tastePreferences) {
+        this.tastePreferences = tastePreferences;
+    }
+    
+    public void addTastePreferences(TastePreferences tastePreference){
+        if(!tastePreferences.contains(tastePreference)) {
+            tastePreferences.add(tastePreference);
+            tastePreference.setItem(this);
         }
     }
     

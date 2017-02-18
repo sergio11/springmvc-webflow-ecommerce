@@ -146,6 +146,9 @@ public class User implements Serializable, UserDetails {
     
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private Set<TasteBoolPreference> tasteBoolPreferences = new HashSet<TasteBoolPreference>();
+    
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private Set<TastePreferences> tastePreferences = new HashSet<TastePreferences>();
 
     public Long getId() {
         return id;
@@ -340,6 +343,21 @@ public class User implements Serializable, UserDetails {
         if(!tasteBoolPreferences.contains(tasteBoolPreference)) {
             tasteBoolPreferences.add(tasteBoolPreference);
             tasteBoolPreference.setUser(this);
+        }
+    }
+
+    public Set<TastePreferences> getTastePreferences() {
+        return tastePreferences;
+    }
+
+    public void setTastePreferences(Set<TastePreferences> tastePreferences) {
+        this.tastePreferences = tastePreferences;
+    }
+    
+    public void addTastePreferences(TastePreferences tastePreference){
+        if(!this.tastePreferences.contains(tastePreference)) {
+            tastePreferences.add(tastePreference);
+            tastePreference.setUser(this);
         }
     }
     
