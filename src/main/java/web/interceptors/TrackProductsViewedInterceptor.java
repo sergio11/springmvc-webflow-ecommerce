@@ -42,7 +42,9 @@ public class TrackProductsViewedInterceptor extends HandlerInterceptorAdapter {
        
         if(!userService.isAuthenticated()) {
             logger.info("For Anonymous User");
-            recommenderService.addAnonymousPref(productLine);
+            recommenderService.addProductViewedToAnonymousUserHistory(productLine);
+        } else {
+            recommenderService.addProductViewedToUserHistory(userService.getCurrentUserId(), productLine);
         }
     }
 }

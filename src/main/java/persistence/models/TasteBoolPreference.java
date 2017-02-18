@@ -20,8 +20,8 @@ import org.springframework.format.annotation.DateTimeFormat;
  * @author sergio
  */
 @Entity
-@Table(name = TasteBoolPreferences.TABLE_NAME)
-public class TasteBoolPreferences implements Serializable {
+@Table(name = TasteBoolPreference.TABLE_NAME)
+public class TasteBoolPreference implements Serializable {
     
     public static final String TABLE_NAME = "taste_bool_preferences";
     public static final String COLUMN_USER_ID = "user_id";
@@ -35,14 +35,14 @@ public class TasteBoolPreferences implements Serializable {
     private User user;
     @MapsId("itemId")
     @ManyToOne(fetch=FetchType.EAGER)
-    private Product item;
+    private ProductLine item;
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date timestamp;
     
-    public TasteBoolPreferences(){}
+    public TasteBoolPreference(){}
 
-    public TasteBoolPreferences(User user, Product item) {
+    public TasteBoolPreference(User user, ProductLine item) {
         this.tastePreferencesId = new TastePreferencesId(user.getId(), item.getId());
         this.user = user;
         this.item = item;
@@ -64,11 +64,11 @@ public class TasteBoolPreferences implements Serializable {
         this.user = user;
     }
 
-    public Product getItem() {
+    public ProductLine getItem() {
         return item;
     }
 
-    public void setItem(Product item) {
+    public void setItem(ProductLine item) {
         this.item = item;
     }
 

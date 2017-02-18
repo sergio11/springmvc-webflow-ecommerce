@@ -2,7 +2,6 @@ package web.services.impl;
 
 import java.io.IOException;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Set;
 import org.slf4j.Logger;
@@ -113,4 +112,12 @@ public class UserServiceImpl implements UserService {
         }
         return authentication.isAuthenticated();
     }
+
+    @Override
+    public Long getCurrentUserId() {
+       User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+       return user != null ? user.getId() : null;
+    }
+    
+    
 }

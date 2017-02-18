@@ -13,14 +13,18 @@ import org.apache.mahout.cf.taste.recommender.RecommendedItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import persistence.models.ProductLine;
 import persistence.models.User;
+import persistence.models.TasteBoolPreference;
 import persistence.repositories.ProductRepository;
+import persistence.repositories.TasteBoolPreferencesRepository;
 import persistence.repositories.UserRepository;
 import web.admin.exceptions.UserNotFoundException;
 import web.frontend.exceptions.RecommendationException;
 import web.models.anonymous.AnonymousSession;
 import web.recommendation.rescorers.ConsumerTypeRescorer;
 import web.services.RecommenderService;
+import persistence.repositories.ProductLineRepository;
 
 /**
  * @author sergio
@@ -44,10 +48,24 @@ public class RecommenderServiceImpl implements RecommenderService {
     
     @Autowired
     private ProductRepository productRepository;
+    
+    @Autowired
+    private ProductLineRepository productLineRepository;
+    
+    @Autowired
+    private TasteBoolPreferencesRepository tasteBoolPreferencesRepository;
 
     @Override
-    public void addAnonymousPref(Long productId) {
+    public void addProductViewedToAnonymousUserHistory(Long productId) {
         anonymousSession.trackViewedProduct(productId);
+    }
+    
+    @Override
+    public void addProductViewedToUserHistory(Long userId, Long productId) {
+        User user = userRepository.findOne(userId);
+        ProductLine productLine = productLineRepository.findOne(productId);
+        TasteBoolPreference preference = new TasteBoolPreference(user, productLine);
+        tasteBoolPreferencesRepository.save(preference);
     }
 
     @Override

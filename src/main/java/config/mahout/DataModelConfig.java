@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import persistence.models.TasteBoolPreferences;
+import persistence.models.TasteBoolPreference;
 
 /**
  * @author sergio
@@ -36,10 +36,10 @@ public class DataModelConfig {
     @Bean(name = "AbstractBooleanPrefJDBCDataModel")
     public DataModel provideSQL92BooleanPrefJDBCDataModel() throws TasteException{
         return new ReloadFromJDBCDataModel( new SQL92BooleanPrefJDBCDataModel(datasource, 
-                TasteBoolPreferences.TABLE_NAME, 
-                TasteBoolPreferences.COLUMN_USER_ID, 
-                TasteBoolPreferences.COLUMN_ITEM_ID,
-                TasteBoolPreferences.COLUMN_TIMESTAMP));
+                TasteBoolPreference.TABLE_NAME, 
+                TasteBoolPreference.COLUMN_USER_ID, 
+                TasteBoolPreference.COLUMN_ITEM_ID,
+                TasteBoolPreference.COLUMN_TIMESTAMP));
     }
     
     @Profile("production")
@@ -54,9 +54,9 @@ public class DataModelConfig {
     @Bean(name = "AbstractBooleanPrefJDBCDataModel")
     public DataModel provideMySQLBooleanPrefJDBCDataModel() throws TasteException {
         return new ReloadFromJDBCDataModel(new MySQLBooleanPrefJDBCDataModel(datasource,
-                TasteBoolPreferences.TABLE_NAME,
-                TasteBoolPreferences.COLUMN_USER_ID,
-                TasteBoolPreferences.COLUMN_ITEM_ID,
-                TasteBoolPreferences.COLUMN_TIMESTAMP));
+                TasteBoolPreference.TABLE_NAME,
+                TasteBoolPreference.COLUMN_USER_ID,
+                TasteBoolPreference.COLUMN_ITEM_ID,
+                TasteBoolPreference.COLUMN_TIMESTAMP));
     }
 }
