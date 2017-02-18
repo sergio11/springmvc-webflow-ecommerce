@@ -2,6 +2,8 @@ package web.services.impl;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
+import config.qualifiers.AnonymousViewHistoryRecommender;
+import config.qualifiers.CollaborativeFilteringRecommender;
 import java.util.List;
 import java.util.Set;
 import org.apache.mahout.cf.taste.common.TasteException;
@@ -11,7 +13,6 @@ import org.apache.mahout.cf.taste.impl.model.PlusAnonymousUserDataModel;
 import org.apache.mahout.cf.taste.recommender.IDRescorer;
 import org.apache.mahout.cf.taste.recommender.RecommendedItem;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import persistence.models.ProductLine;
 import persistence.models.User;
@@ -36,11 +37,11 @@ public class RecommenderServiceImpl implements RecommenderService {
     private AnonymousSession anonymousSession;
 
     @Autowired
-    @Qualifier("AnonymousViewHistoryRecommender")
+    @AnonymousViewHistoryRecommender
     private Recommender anonymousViewHistoryRecommender;
 
     @Autowired
-    @Qualifier("CollaborativeFilteringRecommender")
+    @CollaborativeFilteringRecommender
     private Recommender collaborativeFilteringRecommender;
 
     @Autowired

@@ -72,7 +72,7 @@ public class TastePreferences implements Serializable {
     }
     
     @Embeddable
-    public class TastePreferencesId implements Serializable { 
+    public static class TastePreferencesId implements Serializable { 
         
         private static final long serialVersionUID = -2834827403836993112L;
 

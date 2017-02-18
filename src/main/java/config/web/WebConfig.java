@@ -79,7 +79,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         registry.addInterceptor(new CacheControlHandlerInterceptor());
         registry.addInterceptor(loadProductCategoriesHandlerInterceptor);
         registry.addInterceptor(loadNewProductsHandlerInterceptor);
-        registry.addInterceptor(trackProductsViewedInterceptor).addPathPatterns("/products/**");
+        registry.addInterceptor(trackProductsViewedInterceptor).addPathPatterns("/products/detail/**");
     }
     
     @Bean(name="multipartResolver")

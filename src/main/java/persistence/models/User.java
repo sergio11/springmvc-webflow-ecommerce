@@ -143,6 +143,9 @@ public class User implements Serializable, UserDetails {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     @Column(nullable = false)
     private Date birthday = new Date();
+    
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private Set<TasteBoolPreference> tasteBoolPreferences = new HashSet<TasteBoolPreference>();
 
     public Long getId() {
         return id;
@@ -323,6 +326,21 @@ public class User implements Serializable, UserDetails {
             age--;
         }
         return age;
+    }
+
+    public Set<TasteBoolPreference> getTasteBoolPreferences() {
+        return tasteBoolPreferences;
+    }
+
+    public void setTasteBoolPreferences(Set<TasteBoolPreference> tasteBoolPreferences) {
+        this.tasteBoolPreferences = tasteBoolPreferences;
+    }
+    
+    public void addTasteBoolPreference(TasteBoolPreference tasteBoolPreference){
+        if(!tasteBoolPreferences.contains(tasteBoolPreference)) {
+            tasteBoolPreferences.add(tasteBoolPreference);
+            tasteBoolPreference.setUser(this);
+        }
     }
     
     @Override

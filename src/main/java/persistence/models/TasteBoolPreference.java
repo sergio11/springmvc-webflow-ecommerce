@@ -3,6 +3,7 @@ package persistence.models;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
@@ -31,10 +32,10 @@ public class TasteBoolPreference implements Serializable {
     @EmbeddedId
     private TastePreferencesId tastePreferencesId = new TastePreferencesId();
     @MapsId("userId")
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne(fetch=FetchType.EAGER, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     private User user;
     @MapsId("itemId")
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne(fetch=FetchType.EAGER, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     private ProductLine item;
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
@@ -44,8 +45,8 @@ public class TasteBoolPreference implements Serializable {
 
     public TasteBoolPreference(User user, ProductLine item) {
         this.tastePreferencesId = new TastePreferencesId(user.getId(), item.getId());
-        this.user = user;
-        this.item = item;
+        setUser(user);
+        setItem(item);
     }
     
     public TastePreferencesId getTastePreferencesId() {
@@ -62,6 +63,7 @@ public class TasteBoolPreference implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+        user.addTasteBoolPreference(this);
     }
 
     public ProductLine getItem() {
@@ -70,6 +72,7 @@ public class TasteBoolPreference implements Serializable {
 
     public void setItem(ProductLine item) {
         this.item = item;
+        item.addTasteBoolPreference(this);
     }
 
     public Date getTimestamp() {
@@ -81,7 +84,7 @@ public class TasteBoolPreference implements Serializable {
     }
     
     @Embeddable
-    public class TastePreferencesId implements Serializable { 
+    public static class TastePreferencesId implements Serializable { 
         
         private static final long serialVersionUID = -2834827403836993112L;
 

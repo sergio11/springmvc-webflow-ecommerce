@@ -43,6 +43,8 @@ public class ProductLine implements Serializable {
     private Product product;
     @OneToMany(mappedBy = "productLine", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<OrderLine> orderLines = new HashSet();
+    @OneToMany(mappedBy = "item", fetch = FetchType.EAGER)
+    private Set<TasteBoolPreference> tasteBoolPreferences = new HashSet<TasteBoolPreference>();
     
     public Long getId() {
         return id;
@@ -100,6 +102,21 @@ public class ProductLine implements Serializable {
         }
     }
 
+    public Set<TasteBoolPreference> getTasteBoolPreferences() {
+        return tasteBoolPreferences;
+    }
+
+    public void setTasteBoolPreferences(Set<TasteBoolPreference> tasteBoolPreferences) {
+        this.tasteBoolPreferences = tasteBoolPreferences;
+    }
+    
+    public void addTasteBoolPreference(TasteBoolPreference tasteBoolPreference){
+        if(!tasteBoolPreferences.contains(tasteBoolPreference)) {
+            tasteBoolPreferences.add(tasteBoolPreference);
+            tasteBoolPreference.setItem(this);
+        }
+    }
+    
     @Override
     public String toString() {
         return "ProductLine{" + "id=" + id + ", image=" + image + ", stock=" + stock + ", description=" + description + '}';

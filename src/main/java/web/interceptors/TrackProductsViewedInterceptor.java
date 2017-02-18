@@ -31,20 +31,26 @@ public class TrackProductsViewedInterceptor extends HandlerInterceptorAdapter {
     public void postHandle(HttpServletRequest request,
             HttpServletResponse response,
             Object handler, ModelAndView modelAndView) throws Exception {
-       
-        final Map<String, String> pathVariables = 
-                (Map<String, String>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
         
-        // GET Product line from PathVariable
-        Long productLine = Long.valueOf(pathVariables.get(ProductController.PRODUCT_LINE_PATH_VARIABLE));
+        final Map<String, String> pathVariables
+                = (Map<String, String>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
         
-        logger.info("Track Product Line viewed with id: " + productLine);
-       
-        if(!userService.isAuthenticated()) {
-            logger.info("For Anonymous User");
-            recommenderService.addProductViewedToAnonymousUserHistory(productLine);
-        } else {
-            recommenderService.addProductViewedToUserHistory(userService.getCurrentUserId(), productLine);
+        try {
+            // GET Product line from PathVariable
+            Long productLine = Long.valueOf(pathVariables.get(ProductController.PRODUCT_LINE_PATH_VARIABLE));
+            
+            logger.info("Track Product Line viewed with id: " + productLine);
+            
+            if (!userService.isAuthenticated()) {
+                logger.info("For Anonymous User");
+                recommenderService.addProductViewedToAnonymousUserHistory(productLine);
+            } else {
+                logger.info("For Authenticated User");
+                recommenderService.addProductViewedToUserHistory(userService.getCurrentUserId(), productLine);
+            }
+        } catch (NumberFormatException ex) {
+            logger.info(ex.getMessage());
         }
+        
     }
 }
