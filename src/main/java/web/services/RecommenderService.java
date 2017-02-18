@@ -9,4 +9,5 @@ import java.util.List;
 public interface RecommenderService {
     void addAnonymousPref(Long productId);
     List<Long> recommendForAnonymousUser(int howMany);
+    List<Long> recommendForUser(Long user, int howMany);
 }

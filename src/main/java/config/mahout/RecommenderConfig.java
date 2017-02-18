@@ -5,6 +5,7 @@ import org.apache.mahout.cf.taste.impl.model.PlusAnonymousUserDataModel;
 import org.apache.mahout.cf.taste.impl.neighborhood.NearestNUserNeighborhood;
 import org.apache.mahout.cf.taste.impl.recommender.CachingRecommender;
 import org.apache.mahout.cf.taste.impl.recommender.GenericUserBasedRecommender;
+import org.apache.mahout.cf.taste.impl.similarity.EuclideanDistanceSimilarity;
 import org.apache.mahout.cf.taste.impl.similarity.TanimotoCoefficientSimilarity;
 import org.apache.mahout.cf.taste.model.DataModel;
 import org.apache.mahout.cf.taste.neighborhood.UserNeighborhood;
@@ -32,4 +33,15 @@ public class RecommenderConfig {
                 neighborhood, userSimilarity);
         return new CachingRecommender(recommender);
     }
+    
+    @Bean(name = "CollaborativeFilteringRecommender")
+    @Qualifier("CollaborativeFilteringRecommender")
+    private Recommender provideCollaborativeFilteringRecommender(
+        @Qualifier("DataModel") DataModel dataModel) throws TasteException {
+        UserSimilarity similarity = new EuclideanDistanceSimilarity(dataModel);
+        UserNeighborhood neighborhood = new NearestNUserNeighborhood(2, similarity, dataModel);
+        Recommender recommender = new GenericUserBasedRecommender(dataModel, neighborhood, similarity);
+        return new CachingRecommender(recommender);
+    }
+    
 }
