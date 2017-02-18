@@ -9,6 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -96,5 +99,18 @@ public class UserServiceImpl implements UserService {
     public Double getTotalSpentThisMonth(Long id) {
         Calendar c = GregorianCalendar.getInstance();
         return orderRepository.getTotalSpentByUserAndMonth(id, c.get(Calendar.MONTH) + 1);
+    }
+    
+    @Override
+    public boolean isAuthenticated() {
+        Authentication authentication =
+                        SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null) {
+            return false;
+        }
+        if (authentication instanceof AnonymousAuthenticationToken) {
+            return false;
+        }
+        return authentication.isAuthenticated();
     }
 }

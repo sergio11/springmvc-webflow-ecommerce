@@ -27,4 +27,7 @@ public class CommonBindingInitializer {
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
+    
+    
+    
 }

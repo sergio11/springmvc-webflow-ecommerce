@@ -11,11 +11,11 @@ import persistence.repositories.UserRepository;
 /**
  * @author sergio
  */
-public class CollaborativeFilteringWithAnonymousRecommender extends CollaborativeFilteringRecommender {
+public class AnonymousRecommenderDecorator extends CollaborativeFilteringRecommender {
    
     private final PlusAnonymousUserDataModel plusAnonymousModel;
 
-    public CollaborativeFilteringWithAnonymousRecommender(PlusAnonymousUserDataModel plusAnonymousModel, UserRepository userRepository, ProductRepository productRepository) throws TasteException {
+    public AnonymousRecommenderDecorator(PlusAnonymousUserDataModel plusAnonymousModel, UserRepository userRepository, ProductRepository productRepository) throws TasteException {
         super(plusAnonymousModel, userRepository, productRepository);
         this.plusAnonymousModel= plusAnonymousModel;
     }

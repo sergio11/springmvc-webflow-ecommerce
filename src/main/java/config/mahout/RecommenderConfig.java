@@ -9,8 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import persistence.repositories.ProductRepository;
 import persistence.repositories.UserRepository;
 import web.recommendation.recommender.CollaborativeFilteringRecommender;
-import web.recommendation.recommender.CollaborativeFilteringWithAnonymousRecommender;
-
+import web.recommendation.recommender.AnonymousRecommenderDecorator;
 /**
  * @author sergio
  */
@@ -26,10 +25,10 @@ public class RecommenderConfig {
     }
     
     @Bean(name = "CollaborativeFilteringWithAnonymousRecommender")
-    private CollaborativeFilteringWithAnonymousRecommender provideCollaborativeFilteringWithAnonymousRecommender(
+    private AnonymousRecommenderDecorator provideCollaborativeFilteringWithAnonymousRecommender(
              @Qualifier("BooleanPrefDataModel") DataModel dataModel,
             UserRepository userRepository,
             ProductRepository productRepository) throws TasteException{
-        return new CollaborativeFilteringWithAnonymousRecommender(new PlusAnonymousUserDataModel(dataModel), userRepository, productRepository);
+        return new AnonymousRecommenderDecorator(new PlusAnonymousUserDataModel(dataModel), userRepository, productRepository);
     }
 }

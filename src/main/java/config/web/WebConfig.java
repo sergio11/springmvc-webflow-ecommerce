@@ -7,6 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -23,6 +24,7 @@ import web.admin.converters.StringAuthorityConverter;
 import web.admin.converters.StringProductCategoryConverter;
 import web.interceptors.LoadNewProductsHandlerInterceptor;
 import web.interceptors.LoadProductCategoriesHandlerInterceptor;
+import web.interceptors.TrackProductsViewedInterceptor;
 
 /**
  * @author sergio
@@ -31,20 +33,19 @@ import web.interceptors.LoadProductCategoriesHandlerInterceptor;
 @EnableWebMvc
 @Import(value = { ViewConfig.class, i18nConfig.class, WebFlowConfig.class, JasperConfig.class })
 @ComponentScan(value = "web")
-public class WebConfig extends WebMvcConfigurerAdapter{
+public class WebConfig extends WebMvcConfigurerAdapter {
     
     @Autowired
     private LocaleChangeInterceptor localeChangeInterceptor;
-    
     @Autowired
     private LoadProductCategoriesHandlerInterceptor loadProductCategoriesHandlerInterceptor;
-    
     @Autowired
     private LoadNewProductsHandlerInterceptor loadNewProductsHandlerInterceptor;
-    
+    @Autowired
+    private TrackProductsViewedInterceptor trackProductsViewedInterceptor;
+
     @Autowired
     private StringAuthorityConverter stringAuthorityConverter;
-    
     @Autowired
     private StringProductCategoryConverter stringProductCategoryConverter;
 
@@ -78,6 +79,7 @@ public class WebConfig extends WebMvcConfigurerAdapter{
         registry.addInterceptor(new CacheControlHandlerInterceptor());
         registry.addInterceptor(loadProductCategoriesHandlerInterceptor);
         registry.addInterceptor(loadNewProductsHandlerInterceptor);
+        registry.addInterceptor(trackProductsViewedInterceptor).addPathPatterns("/products/**");
     }
     
     @Bean(name="multipartResolver")

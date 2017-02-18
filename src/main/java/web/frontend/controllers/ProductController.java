@@ -31,10 +31,11 @@ import web.services.ProductService;
 @SessionAttributes({ProductController.SEARCH_PRODUCT})
 public class ProductController {
     
-    private static Logger logger = LoggerFactory.getLogger(web.admin.controllers.ProductController.class);
+    private static Logger logger = LoggerFactory.getLogger(ProductController.class);
     public static final String SEARCH_PRODUCT = "searchProduct";
     public static final String BINDING_SEARCH_PRODUCT = "org.springframework.validation.BindingResult." + SEARCH_PRODUCT;
     public static final String PRODUCT_PAGE_RESULTS = "pageResults";
+    public static final String PRODUCT_LINE_PATH_VARIABLE = "line";
     
     @Autowired
     private ProductService productService;

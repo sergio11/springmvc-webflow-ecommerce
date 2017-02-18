@@ -17,4 +17,5 @@ public interface UserService {
     Long getTotalPurchases(Long id);
     Double getTotalSpent(Long id);
     Double getTotalSpentThisMonth(Long id);
+    boolean isAuthenticated();
 }
