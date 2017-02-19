@@ -20,10 +20,10 @@
                             <th width="10%" th:text="#{admin.product.edit.reviews.th.actions}">Actions</th>
                         </tr>
                         <tr role="row" class="filter">
-                            <td>
+                            <td class="text-center" style="vertical-align: middle;">
                                 <input type="text" class="form-control form-filter input-sm" name="filter.id">
                             </td>
-                            <td>
+                            <td class="text-center" style="vertical-align: middle;">
                                 <div class="input-group date date-picker margin-bottom-5" data-date-format="dd/mm/yyyy">
                                     <input type="text" class="form-control form-filter input-sm"  name="filter.dateFrom" placeholder="From">
                                     <span class="input-group-btn">
@@ -37,13 +37,15 @@
                                     </span>
                                 </div>
                             </td>
-                            <td>
+                            <td class="text-center" style="vertical-align: middle;">
                                 <input type="text" class="form-control form-filter input-sm" name="filter.costumer">
                             </td>
-                            <td>
-                                <input type="number" step="0.5" min="0" max="6" class="form-control form-filter input-sm" name="filter.rating">
+                            <td class="text-center" style="vertical-align: middle;">
+                                <input type="range" value="2" name="filter.rating" id="filterRating" />
+                                <div class="rateit" data-rateit-backingfld="#filterRating" data-rateit-resetable="false"  data-rateit-ispreset="true" data-rateit-min="0" data-rateit-max="5">
+                                </div>
                             </td>
-                            <td>
+                            <td class="text-center" style="vertical-align: middle;">
                                 <select id="filterStatus" name="filter.status" class="form-control form-filter input-sm">
                                     <option th:each="state : ${T(persistence.models.ReviewStatusEnum).values()}"
                                             th:value="${state}" 
@@ -51,7 +53,7 @@
                                     </option>
                                 </select>
                             </td>
-                            <td>
+                            <td class="text-center" style="vertical-align: middle;">
                                 <div class="margin-bottom-5">
                                     <button class="btn btn-sm yellow filter-submit margin-bottom">
                                         <i class="fa fa-search"></i> 

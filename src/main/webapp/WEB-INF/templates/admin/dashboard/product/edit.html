@@ -5,6 +5,7 @@
     <head>
         <title th:text="#{admin.product.edit.title}">Edit Product</title>
         <link rel="stylesheet" type="text/css" th:href="@{/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css}"/>
+        <link rel="stylesheet" type="text/css" th:href="@{/assets/global/plugins/rateit/src/rateit.css}" />
     </head>
     <body>
         <!-- BEGIN PAGE HEADER -->
@@ -14,20 +15,7 @@
                 <small th:text="#{admin.product.edit.subtitle}">Product edition</small>
             </h3>
             <div class="page-bar">
-                <ul class="page-breadcrumb">
-                    <li>
-                        <i class="fa fa-home"></i>
-                        <a href="index.html">Home</a>
-                        <i class="fa fa-angle-right"></i>
-                    </li>
-                    <li>
-                        <a href="#">eCommerce</a>
-                        <i class="fa fa-angle-right"></i>
-                    </li>
-                    <li>
-                        <a href="#">Product Edit</a>
-                    </li>
-                </ul>
+                <th:block th:include="admin/fragments/header::breadcrumb(${ {{url:'admin/home',text:'breadcrumb.home'},{url:'admin/products',text:'breadcrumb.products.all'},{url:'admin/products',text:'breadcrumb.products.edit'}} })"/>
             </div>
         </div>
         <!-- BEGIN ADDITIONAL TABS -->
@@ -51,6 +39,7 @@
             <script type="text/javascript" th:src="@{/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js}"></script>
             <script type="text/javascript" th:src="@{/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js}"></script>
             <script type="text/javascript" th:src="@{/assets/global/plugins/jquery.spring-friendly.min.js}"></script>
+            <script type="text/javascript" th:src="@{/assets/global/plugins/rateit/src/jquery.rateit.js}" ></script>
         </th:block>
         <!-- BEGIN PAGE LEVEL SCRIPTS -->
         <th:block layout:fragment="additional-page-scripts">

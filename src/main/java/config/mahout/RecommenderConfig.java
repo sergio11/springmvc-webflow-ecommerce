@@ -37,8 +37,7 @@ public class RecommenderConfig {
         return recommender;
     }
     
-    @Bean
-    @CollaborativeFilteringRecommender
+    @Bean @CollaborativeFilteringRecommender
     public Recommender provideCollaborativeFilteringRecommender(
             @RatingDataModel DataModel dataModel) throws TasteException {
         UserSimilarity similarity = new EuclideanDistanceSimilarity(dataModel);
