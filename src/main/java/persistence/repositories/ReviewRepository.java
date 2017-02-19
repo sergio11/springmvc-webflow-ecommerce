@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import persistence.models.Review;
 import persistence.models.ReviewStatusEnum;
+import persistence.projection.ReviewDetail;
 
 /**
  * @author sergio
@@ -17,4 +18,5 @@ public interface ReviewRepository extends DataTablesRepository<Review, Long> {
     List<Review> findByProductIdAndStatus(Long id, ReviewStatusEnum status);
     @Query(value = "SELECT AVG(r.rating) FROM Review r LEFT JOIN r.product p WHERE p.id = :id GROUP BY p")
     Double getRatingAvgByProduct(@Param("id") Long id);
+    ReviewDetail findById(Long id);
 }

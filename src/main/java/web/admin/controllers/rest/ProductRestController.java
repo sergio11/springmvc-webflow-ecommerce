@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import persistence.models.Product;
 import persistence.models.Review;
+import persistence.projection.ReviewDetail;
 import persistence.repositories.ProductRepository;
 import persistence.repositories.ReviewRepository;
 import persistence.specifications.ProductFilterSpecification;
@@ -47,5 +48,10 @@ public class ProductRestController {
         FilterReview filter = input.getFilter();
         filter.setProduct(id);
         return reviewRepository.findAll(input, new ReviewFilterSpecification(filter));
+    }
+    
+    @GetMapping("/reviews/{id}")
+    public ReviewDetail review(@PathVariable Long id) {
+        return reviewRepository.findById(id);
     }
 }

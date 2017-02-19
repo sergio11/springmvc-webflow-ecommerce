@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,7 +34,7 @@ public class Authority implements Serializable, GrantedAuthority{
     @Column(name="type", nullable = false, unique = true)
     private AuthorityEnum type;
     private String description;
-    @ManyToMany(mappedBy = "authorities", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "authorities", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<User> users = new HashSet();
 
     public Authority(AuthorityEnum type, String description) {
