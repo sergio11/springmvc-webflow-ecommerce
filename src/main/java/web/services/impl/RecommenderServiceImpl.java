@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import persistence.models.ProductLine;
 import persistence.models.User;
 import persistence.models.TasteBoolPreference;
+import persistence.models.TastePreferences;
 import persistence.repositories.ProductRepository;
 import persistence.repositories.TasteBoolPreferencesRepository;
 import persistence.repositories.UserRepository;
@@ -26,6 +27,7 @@ import web.models.anonymous.AnonymousSession;
 import web.recommendation.rescorers.ConsumerTypeRescorer;
 import web.services.RecommenderService;
 import persistence.repositories.ProductLineRepository;
+import persistence.repositories.TastePreferencesRepository;
 
 /**
  * @author sergio
@@ -55,6 +57,9 @@ public class RecommenderServiceImpl implements RecommenderService {
     
     @Autowired
     private TasteBoolPreferencesRepository tasteBoolPreferencesRepository;
+    
+    @Autowired
+    private TastePreferencesRepository tastePreferencesRepository;
 
     @Override
     public void addProductViewedToAnonymousUserHistory(Long productId) {
@@ -118,5 +123,16 @@ public class RecommenderServiceImpl implements RecommenderService {
             throw new RecommendationException();
         }
         return productLinesRecommended;
+    }
+
+    @Override
+    public void addPreference(User user, ProductLine productLine, Float preference) {
+        TastePreferences tastePreferences = new TastePreferences(user, productLine, preference);
+        tastePreferencesRepository.save(tastePreferences);
+    }
+
+    @Override
+    public void removePreference(Long userId, Long productLineId) {
+       tastePreferencesRepository.delete(new TastePreferences.TastePreferencesId(userId, productLineId));
     }
 }

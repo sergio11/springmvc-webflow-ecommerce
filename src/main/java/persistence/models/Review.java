@@ -1,11 +1,11 @@
 package persistence.models;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
@@ -17,15 +17,18 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
+import persistence.listeners.ReviewEntityListener;
 
 /**
  *
  * @author sergio
  */
 @Entity
+@EntityListeners(ReviewEntityListener.class)
 @Table(name = "REVIEWS")
 public class Review implements Serializable {
     
@@ -59,7 +62,11 @@ public class Review implements Serializable {
     
     @ManyToOne(optional=false)
     private Product product;
-   
+    
+    @Transient
+    private transient ReviewStatusEnum prevStatus = ReviewStatusEnum.PENDING;
+            
+            
     public Long getId() {
         return id;
     }
@@ -115,5 +122,13 @@ public class Review implements Serializable {
     public void setProduct(Product product) {
         this.product = product;
         product.addReview(this);
+    }
+
+    public ReviewStatusEnum getPrevStatus() {
+        return prevStatus;
+    }
+
+    public void setPrevStatus(ReviewStatusEnum prevStatus) {
+        this.prevStatus = prevStatus;
     }
 }
