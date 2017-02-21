@@ -96,7 +96,7 @@ public class ProductServiceImpl implements ProductService {
         // Product Rating Avg
         Double ratingAvg = reviewRepository.getRatingAvgByProduct(productId);
         // Other Product Lines avaliables
-        List<ProductLineView> otherLines = productLineRepository.findByIdNotAndStockGreaterThan(id, 0);
+        List<ProductLineView> otherLines = productLineRepository.findByProductIdAndIdNotAndStockGreaterThan(productId, id, 0);
         return new ProductLineDetail(productLine, reviews, ratingAvg != null ? ratingAvg : 0.0, otherLines);
     }
 

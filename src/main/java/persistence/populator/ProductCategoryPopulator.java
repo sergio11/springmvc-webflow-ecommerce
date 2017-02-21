@@ -81,6 +81,24 @@ public class ProductCategoryPopulator implements Serializable {
         jackets.setSlug("jackets_and_waistcoats");
         jackets.setParent(clothes);
         productsCategory.add(jackets);
+
+        ProductCategory graphicHoodie = new ProductCategory();
+        graphicHoodie.setName("Sudadera con Gráfico");
+        graphicHoodie.setSlug("sudadera_con_grafico");
+        graphicHoodie.setParent(clothes);
+        productsCategory.add(graphicHoodie);
+        
+        ProductCategory tennisPole = new ProductCategory();
+        tennisPole.setName("Polo de tenis");
+        tennisPole.setSlug("polo_de_tenis");
+        tennisPole.setParent(clothes);
+        productsCategory.add(tennisPole);
+        
+        ProductCategory shirt = new ProductCategory();
+        shirt.setName("Camiseta");
+        shirt.setSlug("camiseta");
+        shirt.setParent(clothes);
+        productsCategory.add(shirt);
         
         ProductCategory trousers = new ProductCategory();
         trousers.setName("Pantalones");
