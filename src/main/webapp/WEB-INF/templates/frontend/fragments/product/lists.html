@@ -17,5 +17,14 @@
                 <div class="price"><span th:text="${product.price}">29.00</span><span>&euro;</span></div>
             </div>
         </th:block>
+        <th:block th:fragment="recommendations(products)">
+            <h3>Maybe you might be interested</h3>
+            <div class="owl-carousel owl-carousel5" th:if="${not #lists.isEmpty(products)}">
+                <div
+                    th:each="product: ${products}" 
+                    th:include="frontend/fragments/product/detail::product-line-card">
+                </div> 
+            </div>
+        </th:block>
     </body>
 </html>

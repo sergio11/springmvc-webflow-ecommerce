@@ -3,6 +3,7 @@ package web.services;
 import java.util.List;
 import org.springframework.data.domain.Page;
 import persistence.models.Product;
+import persistence.models.ProductLine;
 import persistence.models.Review;
 import web.models.product.ProductLineDetail;
 import web.models.search.SearchProduct;
@@ -22,6 +23,7 @@ public interface ProductService {
     Page<Product> search(SearchProduct searchProduct, Integer page);
     Page<Product> search(SearchProduct searchProduct, Integer page, String category);
     ProductLineDetail getProductLineDetail(Long id);
+    List<ProductLine> getProductLinesDetail(List<Long> ids);
     Page<Product> getByCategory(String slug, Integer page);
     Long getNewFeedbacks();
 }

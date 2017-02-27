@@ -286,7 +286,7 @@ public class ProductPopulator implements Serializable {
         
         ProductLine line17 = new ProductLine();
         line17.setDescription("Blanco");
-        line17.setImage("test16.jpg");
+        line17.setImage("test17.jpg");
         line17.setProduct(product9);
         line17.setStock(5);
         
@@ -305,8 +305,8 @@ public class ProductPopulator implements Serializable {
         product10.setCategory(productCategoryRepository.findBySlug("camiseta"));
         
         ProductLine line18 = new ProductLine();
-        line18.setDescription("Blanco");
-        line18.setImage("test17.jpg");
+        line18.setDescription("Blanco Blanco");
+        line18.setImage("test18.jpg");
         line18.setProduct(product10);
         line18.setStock(5);
         
@@ -325,20 +325,20 @@ public class ProductPopulator implements Serializable {
         product11.setCategory(productCategoryRepository.findBySlug("camiseta"));
         
         ProductLine line19 = new ProductLine();
-        line19.setDescription("Blanco");
-        line19.setImage("test18.jpg");
+        line19.setDescription("Super bLANCO");
+        line19.setImage("test19.jpg");
         line19.setProduct(product11);
         line19.setStock(5);
         
         ProductLine line20 = new ProductLine();
-        line20.setDescription("Blanco");
-        line20.setImage("test19.jpg");
+        line20.setDescription("Blanco Claro");
+        line20.setImage("test20.jpg");
         line20.setProduct(product11);
         line20.setStock(5);
         
         ProductLine line21 = new ProductLine();
-        line21.setDescription("Blanco");
-        line21.setImage("test20.jpg");
+        line21.setDescription("Blanco Sucio");
+        line21.setImage("test21.jpg");
         line21.setProduct(product11);
         line21.setStock(5);
         

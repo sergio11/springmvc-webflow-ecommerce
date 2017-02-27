@@ -1,6 +1,7 @@
 package web.frontend.controllers;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
 import org.slf4j.Logger;
@@ -19,9 +20,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import persistence.models.Product;
+import persistence.models.ProductLine;
+import persistence.models.User;
+import security.CurrentUser;
 import web.frontend.exceptions.SearchSpecificationNotFoundException;
 import web.models.search.SearchProduct;
 import web.services.ProductService;
+import web.services.RecommenderService;
 
 /**
  * @author sergio
@@ -40,6 +45,9 @@ public class ProductController {
     @Autowired
     private ProductService productService;
     
+    @Autowired
+    private RecommenderService recommenderService;
+    
     @ModelAttribute(SEARCH_PRODUCT)
     protected SearchProduct getSearchProduct() {
         return new SearchProduct();
@@ -51,6 +59,19 @@ public class ProductController {
         return "frontend/product/detail";
     }
     
+    @GetMapping("/recommendation/{number}")
+    public String recommendation(@PathVariable Integer number, @CurrentUser User user,  Model model) {
+        List<Long> lineIds;
+        if(user != null) {
+            lineIds = recommenderService.recommendForUser(user.getId(), number);
+        } else {
+            lineIds = recommenderService.recommendForAnonymousUser(number);
+        }
+        List<ProductLine> productLines = productService.getProductLinesDetail(lineIds);
+        model.addAttribute("products", productLines);
+        return "frontend/fragments/product/lists::recommendations";
+    }
+   
     @GetMapping("/search")
     public String search(
             @ModelAttribute(SEARCH_PRODUCT) SearchProduct searchProduct,

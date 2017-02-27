@@ -61,7 +61,9 @@
                                 <a href="#reviews-form" th:text="#{common.reviews.write}">Write a review</a>
                             </div>
                         </div>
-
+                        
+                        <div id="recommendations" th:data-source="@{/products/recommendation/{number}}"></div>
+                        
                         <div class="product-page-content">
                             <ul id="myTab" class="nav nav-tabs">
                                 <li><a href="#Description" data-toggle="tab" th:text="#{frontend.detail.tabs.description}">Description</a></li>
@@ -91,7 +93,6 @@
                 </div>
             </div>
             <!-- END CONTENT -->
-
         </div>
         
         <th:block layout:fragment="page-scripts">

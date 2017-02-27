@@ -1,5 +1,6 @@
 package web.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -121,5 +122,15 @@ public class ProductServiceImpl implements ProductService {
                 new SearchProductByCategorySpecification(searchProduct, category), 
                 new PageRequest(page, searchProduct.getLimit(),
                 ProductUtils.getProductOrder(searchProduct.getSort())));
+    }
+
+    @Override
+    public List<ProductLine> getProductLinesDetail(List<Long> ids) {
+        List<ProductLine> lines = new ArrayList<ProductLine>();
+        for(Long id: ids) {
+            ProductLine line = productLineRepository.findOne(id);
+            lines.add(line);
+        }
+        return lines;
     }
 }
