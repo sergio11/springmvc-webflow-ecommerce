@@ -49,10 +49,10 @@ public class SecurityPopulator implements Serializable {
         // Data for user 1
         User user1 = new User();
         user1.setUsername("sergio11");
-        user1.setPasswordClear("bisite00");
-        user1.setConfirmPassword("bisite00");
-        user1.setPassword("$2a$10$0eCQpFRdw8i6jJzjj/IuNuKpJYnLaO5Yp9xSJ3itcfPmQNXVhmNyu");
-        user1.setEmail("sss4esob@gmail.com");
+        user1.setPasswordClear("dreamsoftware00");
+        user1.setConfirmPassword("dreamsoftware00");
+        user1.setPassword("$2a$10$0eCQpFRdwfdsfsdfsdddddddddddddddddddddfdfdfu");
+        user1.setEmail("sergiob@email.com");
         user1.setFullName("Sergio Sánchez Sánchez");
         user1.setGender(Gender.MAN);
         
@@ -65,18 +65,18 @@ public class SecurityPopulator implements Serializable {
         
         Address address = new Address();
         address.setCity("Salamanca");
-        address.setStreet("Avd de los Maristas 12");
+        address.setStreet("Avd de los Maristas");
         address.setCountry(countryRepository.findByCode("AD"));
-        address.setZipCode("05005");
+        address.setZipCode("034067");
         
         user1.addAddress(address);
         
         // Data for user 2
         User user2 = new User();
         user2.setUsername("dani33");
-        user2.setPasswordClear("bisite00");
-        user2.setConfirmPassword("bisite00");
-        user2.setPassword("$2a$10$0eCQpFRdw8i6jJzjj/IuNuKpJYnLaO5Yp9xSJ3itcfPmQNXVhmNyu");
+        user2.setPasswordClear("dreamsoftware00");
+        user2.setConfirmPassword("dreamsoftware00");
+        user2.setPassword("$2a$10$0eC0eCQpFRdwfdsfsdfsdddddddddddddddddddddfdfdfu");
         user2.setEmail("danimarica@gmail.com");
         user2.setFullName("Daniel Pérez Martín");
         user2.setGender(Gender.MAN);
@@ -92,8 +92,8 @@ public class SecurityPopulator implements Serializable {
         //Data for User 3
         User user3 = new User();
         user3.setUsername("pedro_san");
-        user3.setPasswordClear("bisite00");
-        user3.setConfirmPassword("bisite00");
+        user3.setPasswordClear("dreamsoftware00");
+        user3.setConfirmPassword("dreamsoftware00");
         user3.setPassword("$2a$10$0eCQpFRdw8i6jJzjj/IuNuKpJYnLaO5Yp9xSJ3itcfPmQNXVhmNyu");
         user3.setEmail("pedrosanchez@gmail.com");
         user3.setFullName("Pedro Sánchez Martín");
