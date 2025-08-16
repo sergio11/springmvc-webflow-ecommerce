@@ -5,7 +5,3 @@ A ecommerce proyect with Spring MVC, Spring Web Flow, Spring Security and Spring
 
 <img src="./screenshots/image_1.PNG" />
 
-
- ## Visitors Count
-
-<img width="auto" src="https://profile-counter.glitch.me/springmvc-webflow-ecommerce/count.svg" />
